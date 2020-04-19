@@ -23,7 +23,7 @@ module.exports = (sequelize, DataTypes) => {
     // associations can be defined here. This method receives a models parameter.
     Course.belongsToMany(models.User, { through: 'Teaches' });
     Course.belongsTo(models.University);
-    Course.hasMany(models.Evaluations);
+    Course.hasMany(models.Evaluation);
   };
 
   return Course;

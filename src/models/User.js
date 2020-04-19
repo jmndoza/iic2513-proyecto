@@ -40,7 +40,7 @@ module.exports = (sequelize, DataTypes) => {
   User.associate = function associate(models) {
     // associations can be defined here. This method receives a models parameter.
     User.hasMany(models.Vote);
-    User.hasMany(models.Evaluations);
+    User.hasMany(models.Evaluation);
     User.belongsToMany(models.Course, { through: 'Teaches' });
     User.belongsToMany(models.University, { through: 'Attends' });
   };
