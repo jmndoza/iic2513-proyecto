@@ -1,6 +1,6 @@
 module.exports = {
   up: (queryInterface, Sequelize) => queryInterface.createTable('Teaches', {
-    userId: {
+    UserId: {
       primaryKey: true,
       type: Sequelize.INTEGER,
       references: {
@@ -11,7 +11,7 @@ module.exports = {
       onDelete: 'cascade',
       allowNull: false,
     },
-    courseId: {
+    CourseId: {
       primaryKey: true,
       type: Sequelize.INTEGER,
       references: {

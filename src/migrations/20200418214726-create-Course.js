@@ -7,7 +7,7 @@ module.exports = {
       type: Sequelize.INTEGER,
     },
 
-    universityId: {
+    UniversityId: {
       type: Sequelize.INTEGER,
       references: {
         model: 'Universities',

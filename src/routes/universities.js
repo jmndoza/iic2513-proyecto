@@ -5,7 +5,7 @@ const router = new KoaRouter();
 async function loadUniversity(ctx, next) {
   ctx.state.university = await ctx.orm.University.findByPk(ctx.params.id);
   return next();
-};
+}
 
 router.get('universities.list', '/', async (ctx) => {
   const universitiesList = await ctx.orm.University.findAll();

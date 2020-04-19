@@ -7,7 +7,7 @@ module.exports = {
       type: Sequelize.INTEGER,
     },
 
-    userId: {
+    UserId: {
       type: Sequelize.INTEGER,
       references: {
         model: 'Users',
@@ -18,7 +18,7 @@ module.exports = {
       allowNull: false,
       unique: 'uniqueVote',
     },
-    evaluationId: {
+    EvaluationId: {
       type: Sequelize.INTEGER,
       references: {
         model: 'Evaluations',
