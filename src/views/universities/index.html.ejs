@@ -1,0 +1,33 @@
+<h2>Universities</h2>
+<% if (!universitiesList.length) { %>
+  <p>No results</p>
+<% } else { %>
+  <table>
+    <thead>
+      <tr>
+        <th>Code</th>
+        <th>Name</th>
+        <th>Domain</th>
+        <th colspan="2">Actions</th>
+      </tr>
+    </thead>
+    <tbody>
+      <% universitiesList.forEach((university) => { %>
+        <tr>
+          <td><%= university.code %></td>
+          <td><%= university.name %></td>
+          <td><%= university.domain %></td>
+          <td><a href="<%= editUniversityPath(university) %>">Edit</a></td>
+          <td>
+            <form action="<%= deleteUniversityPath(university) %>" method="POST">
+              <input type="hidden" name="_method" value="delete">
+              <input type="submit" value="Delete">
+            </form>
+          </td>
+        </tr>
+      <% }) %>
+    </tbody>
+  </table>
+<% } %>
+
+<a href="<%= newUniversityPath %>">New University</a>
