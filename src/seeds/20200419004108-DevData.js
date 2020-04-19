@@ -51,7 +51,7 @@ module.exports = {
 
     await queryInterface.bulkInsert('Courses', [
       {
-        universityId: university.id,
+        UniversityId: university.id,
         code: 'iic2513',
         name: 'Tecnologías y Aplicaciones Web',
         verified: true,
@@ -65,9 +65,9 @@ module.exports = {
 
     await queryInterface.bulkInsert('Evaluations', [
       {
-        userId: student.id,
-        courseId: course.id,
-        professorNameId: professorName.id,
+        UserId: student.id,
+        CourseId: course.id,
+        ProfessorNameId: professorName.id,
         comment: 'comment hey hey',
         year: 2020,
         semester: 1,
@@ -83,8 +83,8 @@ module.exports = {
 
     await queryInterface.bulkInsert('Votes', [
       {
-        userId: student.id,
-        evaluationId: evaluation.id,
+        UserId: student.id,
+        EvaluationId: evaluation.id,
         value: 1,
         createdAt: new Date(),
         updatedAt: new Date(),
@@ -95,8 +95,8 @@ module.exports = {
 
     await queryInterface.bulkInsert('Teaches', [
       {
-        userId: professor.id,
-        courseId: course.id,
+        UserId: professor.id,
+        CourseId: course.id,
         createdAt: new Date(),
         updatedAt: new Date(),
       },
@@ -104,8 +104,8 @@ module.exports = {
 
     return queryInterface.bulkInsert('Attends', [
       {
-        userId: student.id,
-        universityId: university.id,
+        UserId: student.id,
+        UniversityId: university.id,
         createdAt: new Date(),
         updatedAt: new Date(),
       },
