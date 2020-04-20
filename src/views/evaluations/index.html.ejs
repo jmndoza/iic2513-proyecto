@@ -1,4 +1,6 @@
+<%- include('../menu', {active: 'evaluations'}) %>
 <h2>Evaluations</h2>
+<a href="<%= newEvaluationPath %>">New Evaluation</a>
 <% if (!evaluationsList.length) { %>
   <p>No results</p>
 <% } else { %>
@@ -25,9 +27,13 @@
           <td><%= evaluation.comment %></td>
           <td><%= evaluation.timeRating %></td>
           <td><%= evaluation.difficultyRating %></td>
-          <td><a href="<%= editEvaluationPath(evaluation) %>">Edit</a></td>
           <td>
-            <form action="<%= deleteEvaluationPath(evaluation) %>" method="POST">
+            <form action="<%= editEvaluationPath(evaluation) %>" method="get">
+              <input type="submit" value="Edit">
+            </form>
+          </td>
+          <td>
+            <form action="<%= deleteEvaluationPath(evaluation) %>" method="get">
               <input type="hidden" name="_method" value="delete">
               <input type="submit" value="Delete">
             </form>
@@ -37,5 +43,3 @@
     </tbody>
   </table>
 <% } %>
-
-<a href="<%= newEvaluationPath %>">New Evaluation</a>
