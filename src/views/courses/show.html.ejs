@@ -1,6 +1,6 @@
 <%- include('../menu', {active: 'courses'}) %>
 <h2> <%- `${course.code}: ${course.name}` %> </h2>
-
+<h2> Evaluations</h2>
 <% if (!course.Evaluations.length) { %>
     <p>Course does not have any evaluations</p>
   <% } else { %>
