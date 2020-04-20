@@ -5,7 +5,7 @@ const index = require('./routes/index');
 const universities = require('./routes/universities');
 const users = require('./routes/users');
 const evaluations = require('./routes/evaluations');
-const courses = require('./routes/course');
+const courses = require('./routes/courses');
 
 const router = new KoaRouter();
 

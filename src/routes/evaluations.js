@@ -3,7 +3,12 @@ const KoaRouter = require('koa-router');
 const router = new KoaRouter();
 
 async function loadEvaluation(ctx, next) {
-  ctx.state.evaluation = await ctx.orm.Evaluation.findByPk(ctx.params.id);
+  ctx.state.evaluation = await ctx.orm.Evaluation.findByPk(ctx.params.id, {
+    include: [
+      { model: ctx.orm.Course },
+      { model: ctx.orm.ProfessorName },
+    ],
+  });
   return next();
 }
 async function loadRequirements(ctx, next) {
@@ -26,6 +31,19 @@ router.get('evaluations.list', '/', async (ctx) => {
   await ctx.render('evaluations/index', {
     evaluationsList,
     newEvaluationPath: ctx.router.url('evaluations.new'),
+    showEvaluationPath: (evaluation) => ctx.router.url('evaluations.show', { id: evaluation.id }),
+    showCoursePath: (course) => ctx.router.url('courses.show', { id: course.id }),
+    editEvaluationPath: (evaluation) => ctx.router.url('evaluations.edit', { id: evaluation.id }),
+    deleteEvaluationPath: (evaluation) => ctx.router.url('evaluations.delete', { id: evaluation.id }),
+  });
+});
+
+router.get('evaluations.show', '/:id/show', loadEvaluation, async (ctx) => {
+  const { evaluation } = ctx.state;
+  await ctx.render('evaluations/show', {
+    evaluation,
+    showEvaluationPath: (evaluation) => ctx.router.url('evaluations.show', { id: evaluation.id }),
+    showCoursePath: (course) => ctx.router.url('courses.show', { id: course.id }),
     editEvaluationPath: (evaluation) => ctx.router.url('evaluations.edit', { id: evaluation.id }),
     deleteEvaluationPath: (evaluation) => ctx.router.url('evaluations.delete', { id: evaluation.id }),
   });
