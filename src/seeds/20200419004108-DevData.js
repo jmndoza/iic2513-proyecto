@@ -115,6 +115,7 @@ module.exports = {
   down: async (queryInterface, Sequelize) => {
     await queryInterface.bulkDelete('Users', null, {});
     await queryInterface.bulkDelete('ProfessorNames', null, {});
+    await queryInterface.bulkDelete('Courses', null, {});
     return queryInterface.bulkDelete('Universities', null, {});
   },
 };
