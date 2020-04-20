@@ -1,4 +1,16 @@
 html, body {
   margin: 0;
   padding: 0;
+  margin: 0 auto;
+  width: fit-content;
+}
+
+h2, form, table {
+  margin: 0 auto;
+  width: fit-content;
+}
+
+body a {
+  display: block;
+  text-align: center;
 }
