@@ -29,6 +29,7 @@ router.get('courses.new', '/new', async (ctx) => {
 
 router.post('courses.create', '/', async (ctx) => {
   const course = ctx.orm.Course.build(ctx.request.body);
+  course.verified = true;
   const universities = await ctx.orm.University.findAll();
   try {
     await course.save({ fields: ['UniversityId', 'code', 'name', 'verified', 'description'] });
