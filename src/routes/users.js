@@ -45,7 +45,7 @@ router.post('users.create', '/', async (ctx) => {
 
 router.get('users.edit', '/:id/edit', loadUser, async (ctx) => {
   const { user } = ctx.state;
-  await ctx.render('users/new', {
+  await ctx.render('users/edit', {
     user,
     submitUserPath: ctx.router.url('users.update', { id: user.id }),
   });
