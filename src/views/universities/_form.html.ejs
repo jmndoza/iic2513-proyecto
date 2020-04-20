@@ -16,15 +16,15 @@
       <% } %>
       <div  class="field">
         <label for="code">Code</label>
-        <input type="text" name="code" value="<%= university.code %>" />
+        <input type="text" name="code" value="<%= university.code %>" required/>
       </div>
       <div  class="field">
         <label for="name">Name</label>
-        <input type="text" name="name" value="<%= university.name %>" />
+        <input type="text" name="name" value="<%= university.name %>" required/>
       </div>
       <div  class="field">
         <label for="domain">Domain</label>
-        <input type="text" name="domain" value="<%= university.name %>" />
+        <input type="text" name="domain" value="<%= university.name %>" required/>
       </div>
       <div  class="field">
         <% if (university.isNewRecord) { %>
