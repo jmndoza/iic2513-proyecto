@@ -9,7 +9,7 @@ nav {
     padding: 0 1rem 0 1rem;
 }
 
-nav a {
+nav > a {
     display: block;
     padding: 0.5rem;
     color: black;
@@ -17,10 +17,10 @@ nav a {
     font: bold 1.2rem sans-serif
 }
 
-nav a:hover {
+nav > a:hover {
     background-color: lightgray;
 }
 
-nav a.active:not(:hover) {
+nav > a.active:not(:hover) {
     background-color: lightskyblue;
 }

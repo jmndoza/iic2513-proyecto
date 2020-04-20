@@ -1,6 +1,8 @@
 <%- include('../menu', {active: 'evaluations'}) %>
 <h2>Evaluations</h2>
-<a href="<%= newEvaluationPath %>">New Evaluation</a>
+<form action="<%= newEvaluationPath %>" method="get">
+  <input type="submit" value="New Evaluation">
+</form>
 <% if (!evaluationsList.length) { %>
   <p>No results</p>
 <% } else { %>

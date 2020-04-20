@@ -1,6 +1,7 @@
 html {
   margin: 0;
   padding: 0;
+  font-family: Arial,sans-serif;
 }
 
 body {
@@ -11,14 +12,25 @@ body {
   padding: 0 0.5rem;
 }
 
-h2, form, table {
+ h2, form, table {
   margin: 0 auto;
   width: fit-content;
 }
 
-body a {
+body > a {
   display: block;
   text-align: center;
+}
+
+tbody > tr:nth-child(odd) {
+  background-color: rgb(247, 247, 247);
+}
+tbody > tr:nth-child(even) {
+  background-color: rgb(224, 224, 224);
+}
+
+thead > tr {
+  background-color: lightblue;
 }
 
 .center {
