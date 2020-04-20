@@ -1,8 +1,14 @@
-html, body {
+html {
   margin: 0;
   padding: 0;
+}
+
+body {
   margin: 0 auto;
-  width: fit-content;
+  min-width: min-content;
+  width: 70%;
+  max-width: 70rem;
+  padding: 0 0.5rem;
 }
 
 h2, form, table {
@@ -13,4 +19,9 @@ h2, form, table {
 body a {
   display: block;
   text-align: center;
+}
+
+.center {
+  margin: 0 auto;
+  width: fit-content;
 }
