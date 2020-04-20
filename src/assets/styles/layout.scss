@@ -10,6 +10,7 @@ body {
   width: 70%;
   max-width: 70rem;
   padding: 0 0.5rem;
+  background-color: rgb(245, 245, 245);
 }
 
  h2, form, table {
@@ -23,10 +24,10 @@ body > a {
 }
 
 tbody > tr:nth-child(odd) {
-  background-color: rgb(247, 247, 247);
+  background-color: rgb(233, 233, 233);
 }
 tbody > tr:nth-child(even) {
-  background-color: rgb(224, 224, 224);
+  background-color: rgb(218, 218, 218);
 }
 
 thead > tr {
