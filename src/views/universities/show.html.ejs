@@ -1,0 +1,32 @@
+<%- include('../menu', {active: 'universities'}) %>
+<h2>University</h2>
+
+<h3><%= university.name %></h3>
+<ul>
+    <li>Code: <%= university.code %></li>
+    <li>Domain: <%= university.domain %></li>
+    <li>Courses:
+        <ul>
+            <% if (!university.Courses.length) { %>
+                <li>No courses</li>
+              <% } else { %>
+                <% university.Courses.forEach((course) => {%>
+                    <li><a href="<%= coursePath(course) %>"><%= course.code %> - <%= course.name %></a></li>
+                <% }) %>
+            <% } %>
+        </ul>
+        
+
+    </li>
+    <li>Users:
+        <ul>
+            <% university.Users.forEach((user) => {%>
+                <li><%= user.name %> - <%= user.role %></li>
+            <% }) %>
+        </ul>
+
+    </li>
+                
+
+</ul>
+

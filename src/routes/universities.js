@@ -3,7 +3,10 @@ const KoaRouter = require('koa-router');
 const router = new KoaRouter();
 
 async function loadUniversity(ctx, next) {
-  ctx.state.university = await ctx.orm.University.findByPk(ctx.params.id);
+  ctx.state.university = await ctx.orm.University.findOne({
+    include: [{ all: true }],
+    where: { id: ctx.params.id },
+  });
   return next();
 }
 
@@ -12,8 +15,17 @@ router.get('universities.list', '/', async (ctx) => {
   await ctx.render('universities/index', {
     universitiesList,
     newUniversityPath: ctx.router.url('universities.new'),
+    universityPath: (university) => ctx.router.url('universities.show', { id: university.id }),
     editUniversityPath: (university) => ctx.router.url('universities.edit', { id: university.id }),
     deleteUniversityPath: (university) => ctx.router.url('universities.delete', { id: university.id }),
+  });
+});
+
+router.get('universities.show', '/:id/show', loadUniversity, async (ctx) => {
+  const { university } = ctx.state;
+  await ctx.render('universities/show', {
+    university,
+    coursePath: (course) => ctx.router.url('courses.show', { id: course.id }),
   });
 });
 
