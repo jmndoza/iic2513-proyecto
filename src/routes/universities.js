@@ -41,7 +41,7 @@ router.post('universities.create', '/', async (ctx) => {
 
 router.get('universities.edit', '/:id/edit', loadUniversity, async (ctx) => {
   const { university } = ctx.state;
-  await ctx.render('universities/new', {
+  await ctx.render('universities/edit', {
     university,
     submitUniversityPath: ctx.router.url('universities.update', { id: university.id }),
   });
