@@ -1,6 +1,8 @@
 <%- include('../menu', {active: 'universities'}) %>
 <h2>Universities</h2>
-<a href="<%= newUniversityPath %>">New University</a>
+<form action="<%= newUniversityPath %>" method="get">
+  <input type="submit" value="New University">
+</form>
 <% if (!universitiesList.length) { %>
   <p>No results</p>
 <% } else { %>
