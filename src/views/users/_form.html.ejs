@@ -16,9 +16,9 @@
     <div class="field">
       <label for="role">Role</label>
       <select name="role">
-        <option value="student" selected>Student</option>
-        <option value="professor">Professor</option>
-        <option value="admin">Admin</option>
+        <option value="student" <%- user.role === 'student' ? 'selected' :'' %> >Student</option>
+        <option value="professor"<%- user.role === 'professor' ? 'selected' :'' %> >Professor</option>
+        <option value="admin" <%- user.role === 'admin' ? 'selected' :'' %> >Admin</option>
       </select>
     </div>
     <div  class="field">

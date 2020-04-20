@@ -66,4 +66,5 @@ typings/
 .idea
 .envrc
 
+/reset-db.fish
 /run-server.fish
