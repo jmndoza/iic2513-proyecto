@@ -1,4 +1,6 @@
+<%- include('../menu', {active: 'courses'}) %>
 <h2> Courses </h2>
+<a href="<%= newCoursePath %>">New Course</a>
 <% if (!coursesList.length) { %>
     <p>No results </p>
 <% } else { %>
@@ -19,7 +21,11 @@
                     <td><%= course.name %></td>
                     <td><%= course.verified %></td>
                     <td><%= course.description %></td>
-                    <td><a href="<%= editCoursePath(course) %>">edit</a></td>
+                    <td>
+                        <form action="<%= editCoursePath(course) %>" method="get">
+                          <input type="submit" value="Edit">
+                        </form>
+                    </td>
                     <td>
                       <form action="<%= deleteCoursePath(course) %>" method="POST">
                         <input type="hidden" name="_method" value="delete">
@@ -33,5 +39,3 @@
          </tbody>
     </table>
 <% } %>
-
-<a href="<%= newCoursePath %>">New Course</a>
