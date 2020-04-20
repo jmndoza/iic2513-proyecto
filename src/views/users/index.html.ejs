@@ -1,6 +1,8 @@
 <%- include('../menu', {active: 'users'}) %>
 <h2>Users</h2>
-<a href="<%= newUserPath %>">New User</a>
+<form action="<%= newUserPath %>" method="get">
+  <input type="submit" value="New User">
+</form>
 <% if (!userList.length) { %>
   <p>No results</p>
 <% } else { %>
