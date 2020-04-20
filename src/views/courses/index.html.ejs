@@ -1,0 +1,41 @@
+<%- include('../menu', {active: 'courses'}) %>
+<h2> Courses </h2>
+<a href="<%= newCoursePath %>">New Course</a>
+<% if (!coursesList.length) { %>
+    <p>No results </p>
+<% } else { %>
+    <table>
+        <thead>
+            <tr>
+                 <th>Code</th>
+                 <th>Name</th>
+                 <th>Verified</th>
+                 <th>Description</th>
+                 <th colspan="2">Actions</th>
+            </tr>
+        </thead>
+         <tbody>
+             <% coursesList.forEach((course) => { %>
+                <tr>
+                    <td><%= course.code %></td>
+                    <td><%= course.name %></td>
+                    <td><%= course.verified %></td>
+                    <td><%= course.description %></td>
+                    <td>
+                        <form action="<%= editCoursePath(course) %>" method="get">
+                          <input type="submit" value="Edit">
+                        </form>
+                    </td>
+                    <td>
+                      <form action="<%= deleteCoursePath(course) %>" method="POST">
+                        <input type="hidden" name="_method" value="delete">
+                        <input type="submit" value="Delete">
+                      </form>
+                    </td>
+                </tr>
+
+             <% }) %>
+
+         </tbody>
+    </table>
+<% } %>
