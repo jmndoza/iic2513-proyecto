@@ -9,6 +9,7 @@ module.exports = (sequelize, DataTypes) => {
       allowNull: false,
       validate: {
         min: 1900,
+        max: new Date().getFullYear(),
       },
     },
     semester: {

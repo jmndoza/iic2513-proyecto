@@ -14,6 +14,12 @@ module.exports = (sequelize, DataTypes) => {
       type: DataTypes.TEXT,
       unique: true,
       allowNull: false,
+      validate: {
+        is: {
+          args: /[a-z0-9]+[a-z0-9-]*[a-z0-9]+\.[a-z0-9]{2,}/,
+          msg: 'Invalid domain format',
+        },
+      },
     },
   }, {});
 
