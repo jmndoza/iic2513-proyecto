@@ -21,14 +21,6 @@ router.get('universities.list', '/', async (ctx) => {
   });
 });
 
-router.get('universities.show', '/:id/show', loadUniversity, async (ctx) => {
-  const { university } = ctx.state;
-  await ctx.render('universities/show', {
-    university,
-    coursePath: (course) => ctx.router.url('courses.show', { id: course.id }),
-  });
-});
-
 router.get('universities.new', '/new', async (ctx) => {
   const university = ctx.orm.University.build();
   await ctx.render('universities/new', {
@@ -56,6 +48,14 @@ router.get('universities.edit', '/:id/edit', loadUniversity, async (ctx) => {
   await ctx.render('universities/edit', {
     university,
     submitUniversityPath: ctx.router.url('universities.update', { id: university.id }),
+  });
+});
+
+router.get('universities.show', '/:id', loadUniversity, async (ctx) => {
+  const { university } = ctx.state;
+  await ctx.render('universities/show', {
+    university,
+    coursePath: (course) => ctx.router.url('courses.show', { id: course.id }),
   });
 });
 

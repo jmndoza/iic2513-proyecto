@@ -22,16 +22,6 @@ router.get('courses.list', '/', async (ctx) => {
   });
 });
 
-router.get('courses.show', '/:id/show', loadCourse, async (ctx) => {
-  const { course } = ctx.state;
-  await ctx.render('courses/show', {
-    course,
-    showEvaluationPath: (evaluation) => ctx.router.url('evaluations.show', { id: evaluation.id }),
-    editEvaluationPath: (evaluation) => ctx.router.url('evaluations.edit', { id: evaluation.id }),
-    deleteEvaluationPath: (evaluation) => ctx.router.url('evaluations.delete', { id: evaluation.id }),
-  });
-});
-
 router.get('courses.new', '/new', async (ctx) => {
   const course = ctx.orm.Course.build();
   const universities = await ctx.orm.University.findAll();
@@ -66,6 +56,16 @@ router.get('courses.edit', '/:id/edit', loadCourse, async (ctx) => {
     course,
     universities,
     submitCoursePath: ctx.router.url('courses.update', { id: course.id }),
+  });
+});
+
+router.get('courses.show', '/:id', loadCourse, async (ctx) => {
+  const { course } = ctx.state;
+  await ctx.render('courses/show', {
+    course,
+    showEvaluationPath: (evaluation) => ctx.router.url('evaluations.show', { id: evaluation.id }),
+    editEvaluationPath: (evaluation) => ctx.router.url('evaluations.edit', { id: evaluation.id }),
+    deleteEvaluationPath: (evaluation) => ctx.router.url('evaluations.delete', { id: evaluation.id }),
   });
 });
 
