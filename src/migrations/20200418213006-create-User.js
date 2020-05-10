@@ -32,9 +32,13 @@ module.exports = {
       type: Sequelize.TEXT,
       allowNull: false,
     },
-    passwordHash: {
+    password: {
       type: Sequelize.TEXT,
       allowNull: false,
+    },
+    sessionId: {
+      type: Sequelize.TEXT,
+      unique: true,
     },
 
     createdAt: {
