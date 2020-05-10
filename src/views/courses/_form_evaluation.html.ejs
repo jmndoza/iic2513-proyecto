@@ -9,20 +9,10 @@
         </ul>
       </div>
     <% } %>
-    <form action="<%= submitEvaluationPath %>" method="post">
+    <form action="<%= submitEvaluationPath(course) %>" method="post">
       <% if (!evaluation.isNewRecord) { %>
         <input type="hidden" name="_method" value="patch" />
       <% } %>
-
-      <div  class="field">
-        <label for="CourseId">Course</label>
-        <select name="CourseId" required>
-          <option hidden disabled <%= evaluation.isNewRecord ? "selected" : "" %> value> -- select a course -- </option>
-          <% courses.forEach((Course) => { %>
-            <option value="<%= Course.id %>" <%= evaluation.CourseId === Course.id ? "selected" : "" %> ><%= Course.code %></option>
-          <% }) %>
-        </select>
-      </div>
 
       <div  class="field">
         <label for="ProfessorNameId">Professor</label>
