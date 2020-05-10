@@ -1,5 +1,5 @@
 const KoaRouter = require('koa-router');
-const { v4: uuidv4 } = require('uuid');
+const crypto = require('crypto');
 
 const router = new KoaRouter();
 
@@ -13,13 +13,13 @@ router.put('sessions.create', '/', async (ctx) => {
   const user = await ctx.orm.User.findOne({ where: { email } });
   const isPasswordCorrect = user && await user.checkPassword(password);
   if (isPasswordCorrect) {
-    const sessionId = uuidv4();
+    const sessionId = crypto.randomBytes(30).toString('base64');
     user.sessionId = sessionId;
     await user.save();
     ctx.session.sessionId = sessionId;
-    return ctx.redirect(ctx.router.url('courses.list'));
+    ctx.redirect(ctx.router.url('courses.list'));
   }
-  return ctx.render('sessions/new', {
+  ctx.render('sessions/new', {
     email,
     createSessionPath: ctx.router.url('sessions.create'),
     error: 'Incorrect mail or password',
