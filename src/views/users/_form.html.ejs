@@ -30,6 +30,10 @@
       <input type="email" name="email" value="<%= user.email %>" required/>
     </div>
     <div  class="field">
+      <label for="password">Password</label>
+      <input type="password" name="password" required/>
+    </div>
+    <div  class="field">
       <% if (user.isNewRecord) { %>
         <input type="submit" name="create" value="Create" />
       <% } else { %>

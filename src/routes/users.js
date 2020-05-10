@@ -30,10 +30,9 @@ router.post('users.create', '/', async (ctx) => {
   user.emailVerified = true;
   user.blocked = false;
   user.verified = true;
-  user.passwordHash = '<password hash>';
   try {
-    await user.save({ fields: ['name', 'email', 'emailVerified', 'blocked', 'verified', 'role', 'passwordHash'] });
-    ctx.redirect(ctx.router.url('users.list'));
+    await user.save({ fields: ['name', 'email', 'emailVerified', 'blocked', 'verified', 'role', 'password'] });
+    ctx.redirect(ctx.router.url('sessions.new'));
   } catch (validationError) {
     await ctx.render('users/new', {
       user,

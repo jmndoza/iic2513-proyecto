@@ -1,3 +1,8 @@
+const bcrypt = require('bcrypt');
+const faker = require('faker');
+
+const PASSWORD_SALT = 10;
+
 module.exports = {
   up: async (queryInterface, Sequelize) => {
     await queryInterface.bulkInsert('ProfessorNames', [
@@ -41,7 +46,7 @@ module.exports = {
         blocked: false,
         verified: true,
         role: 'professor',
-        passwordHash: 'asdf',
+        password: bcrypt.hashSync('pass', PASSWORD_SALT),
         createdAt: new Date(),
         updatedAt: new Date(),
       },
@@ -52,7 +57,7 @@ module.exports = {
         blocked: false,
         verified: true,
         role: 'professor',
-        passwordHash: 'asdf',
+        password: bcrypt.hashSync('pass', PASSWORD_SALT),
         createdAt: new Date(),
         updatedAt: new Date(),
       },
@@ -63,7 +68,7 @@ module.exports = {
         blocked: false,
         verified: true,
         role: 'student',
-        passwordHash: 'asdf',
+        password: bcrypt.hashSync('pass', PASSWORD_SALT),
         createdAt: new Date(),
         updatedAt: new Date(),
       },
@@ -74,7 +79,7 @@ module.exports = {
         blocked: false,
         verified: true,
         role: 'student',
-        passwordHash: 'asdf',
+        password: bcrypt.hashSync('pass', PASSWORD_SALT),
         createdAt: new Date(),
         updatedAt: new Date(),
       },
@@ -85,7 +90,7 @@ module.exports = {
         blocked: false,
         verified: true,
         role: 'student',
-        passwordHash: 'asdf',
+        password: bcrypt.hashSync('pass', PASSWORD_SALT),
         createdAt: new Date(),
         updatedAt: new Date(),
       },
@@ -96,7 +101,7 @@ module.exports = {
         blocked: false,
         verified: true,
         role: 'admin',
-        passwordHash: 'asdf',
+        password: bcrypt.hashSync('pass', PASSWORD_SALT),
         createdAt: new Date(),
         updatedAt: new Date(),
       },
