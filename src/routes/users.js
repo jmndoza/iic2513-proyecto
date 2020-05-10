@@ -9,17 +9,27 @@ async function loadUser(ctx, next) {
 
 router.get('users.home', '/home', async (ctx) => {
   const { currentUser } = ctx.state;
-  const evaluationList = await ctx.orm.Evaluation.findAll({
-    where: { UserId: currentUser.id },
-    include: [
-      { model: ctx.orm.Course },
-      { model: ctx.orm.ProfessorName },
-    ],
-  });
-  await ctx.render('users/home', {
-    currentUser,
-    evaluationList,
-  });
+  if (currentUser.role === 'student') {
+    const evaluationList = await ctx.orm.Evaluation.findAll({
+      where: { UserId: currentUser.id },
+      include: [
+        { model: ctx.orm.Course },
+        { model: ctx.orm.ProfessorName },
+      ],
+    });
+    await ctx.render('users/home-student', {
+      currentUser,
+      evaluationList,
+    });
+  } else if (currentUser.role === 'professor') {
+    await ctx.render('users/home-professor', {
+      currentUser,
+    });
+  } else if (currentUser.role === 'admin') {
+    await ctx.render('users/home-admin', {
+      currentUser,
+    });
+  }
 });
 
 router.get('users.list', '/', async (ctx) => {
