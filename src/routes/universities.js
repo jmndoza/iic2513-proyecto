@@ -11,13 +11,14 @@ async function loadUniversity(ctx, next) {
 }
 
 router.get('universities.list', '/', async (ctx) => {
-  const universitiesList = await ctx.orm.University.findAll();
+  const universitiesList = await ctx.orm.University.findAll({ include: [{ all: true }] });
   await ctx.render('universities/index', {
     universitiesList,
     newUniversityPath: ctx.router.url('universities.new'),
     universityPath: (university) => ctx.router.url('universities.show', { id: university.id }),
     editUniversityPath: (university) => ctx.router.url('universities.edit', { id: university.id }),
     deleteUniversityPath: (university) => ctx.router.url('universities.delete', { id: university.id }),
+    coursePath: (course) => ctx.router.url('courses.show', { id: course.id }),
   });
 });
 
