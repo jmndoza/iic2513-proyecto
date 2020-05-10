@@ -12,6 +12,9 @@ async function loadEvaluation(ctx, next) {
   return next();
 }
 async function loadRequirements(ctx, next) {
+  ctx.state.currentUser = ctx.session.sessionId && await ctx.orm.User.findOne(
+    { where: { sessionId: ctx.session.sessionId } },
+  );
   ctx.state.courses = await ctx.orm.Course.findAll();
   ctx.state.professors = await ctx.orm.ProfessorName.findAll();
   ctx.state.students = await ctx.orm.User.findAll({
@@ -51,8 +54,11 @@ router.get('evaluations.new', '/new', loadRequirements, async (ctx) => {
 });
 
 router.post('evaluations.create', '/', loadRequirements, async (ctx) => {
+  const {
+    courses, professors, students, currentUser,
+  } = ctx.state;
+  ctx.request.body.UserId = currentUser.id;
   const evaluation = ctx.orm.Evaluation.build(ctx.request.body);
-  const { courses, professors, students } = ctx.state;
   try {
     await evaluation.save({ fields: ['UserId', 'ProfessorNameId', 'CourseId', 'comment', 'year', 'semester', 'timeRating', 'difficultyRating'] });
     ctx.redirect(ctx.router.url('evaluations.list'));
@@ -92,8 +98,9 @@ router.get('evaluations.show', '/:id', loadEvaluation, async (ctx) => {
 });
 
 router.patch('evaluations.update', '/:id', loadEvaluation, loadRequirements, async (ctx) => {
-  const { evaluation } = ctx.state;
+  const { evaluation, currentUser } = ctx.state;
   const { courses, professors, students } = ctx.state;
+  ctx.request.body.UserId = currentUser.id;
   try {
     const {
       UserId, ProfessorNameId, CourseId, comment, year, semester, timeRating, difficultyRating,
@@ -117,7 +124,8 @@ router.patch('evaluations.update', '/:id', loadEvaluation, loadRequirements, asy
 router.del('evaluations.delete', '/:id', loadEvaluation, async (ctx) => {
   const { evaluation } = ctx.state;
   await evaluation.destroy();
-  ctx.redirect(ctx.router.url('evaluations.list'));
+  //ctx.redirect(ctx.router.url('evaluations.list'));
+  ctx.redirect('back');
 });
 
 module.exports = router;

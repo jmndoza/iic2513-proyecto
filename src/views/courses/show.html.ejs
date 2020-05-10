@@ -36,7 +36,7 @@
               </form>
             </td>
             <td>
-              <form action="<%= deleteEvaluationPath(evaluation) %>" method="get">
+              <form action="<%= deleteEvaluationPath(evaluation) %>" method="POST">
                 <input type="hidden" name="_method" value="delete">
                 <input type="submit" value="Delete">
               </form>
@@ -46,3 +46,6 @@
       </tbody>
     </table>
   <% } %>
+
+
+  <%- include('_form_evaluation') %>
