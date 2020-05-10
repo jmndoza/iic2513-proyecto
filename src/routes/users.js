@@ -7,6 +7,21 @@ async function loadUser(ctx, next) {
   return next();
 }
 
+router.get('users.home', '/home', async (ctx) => {
+  const { currentUser } = ctx.state;
+  const evaluationList = await ctx.orm.Evaluation.findAll({
+    where: { UserId: currentUser.id },
+    include: [
+      { model: ctx.orm.Course },
+      { model: ctx.orm.ProfessorName },
+    ],
+  });
+  await ctx.render('users/home', {
+    currentUser,
+    evaluationList,
+  });
+});
+
 router.get('users.list', '/', async (ctx) => {
   const userList = await ctx.orm.User.findAll();
   await ctx.render('users/index', {

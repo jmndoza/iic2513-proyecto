@@ -4,7 +4,7 @@
     <a href="/courses"      class="menu-item menu-link<%= active === 'courses'      ? ' active' : '' %>">Courses</a>
     <a href="/evaluations"  class="menu-item menu-link<%= active === 'evaluations'  ? ' active' : '' %>">Evaluations</a>
     <% if (currentUser) { %>
-        <a href = "/profile" class="menu-item menu-user-name"><%= currentUser.name %></a>
+        <a href = "/users/home" class="menu-item menu-link menu-user-name"><%= currentUser.name %></a>
         <form action="<%= destroySessionPath %>" method="post">
             <input type="hidden" name="_method" value="delete"/>
             <input type="submit" value="Log Out" class="menu-item menu-link menu-login"/>
