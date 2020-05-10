@@ -1,0 +1,105 @@
+.card-container {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 0.5rem;
+    margin-top: 0.5rem;
+}
+
+@media (max-width: 800px) {
+    .card-container {
+        grid-template-columns: 1fr;
+    }
+}
+
+.card form {
+    display: inline;
+}
+
+.card ul {
+    width: fit-content;
+    margin: 0;
+}
+
+.card input {
+    border: none;
+    background-color: transparent;
+    cursor: pointer;
+}
+
+.card input:active {
+    outline: none;
+}
+
+.card {
+    position: relative;
+    padding: 1rem;
+    border: solid thin lightgray;
+    border-radius: 0.3rem;
+    background-color: bisque;
+    transition: border-style 0.2s linear,
+                background-color 0.2s linear;
+}
+
+.card.new {
+    padding: 0;
+}
+
+.card.new input{
+    min-height: 10rem;
+    width: 100%;
+}
+
+.card-title {
+    margin: 0 auto 1rem auto;
+    width: fit-content;
+    text-align: center;
+    display: block;
+}
+
+
+.card-contents {
+    width: fit-content;
+}
+
+.card-button-container {
+    position: absolute;
+    right: 0.3rem;
+    bottom: 0.3rem;
+    visibility: hidden;
+}
+
+.card-button {
+    // display: inline-block;
+    visibility: hidden;
+    border-radius: 0.2rem;
+    border-style: none;
+    padding: 2px 5px;
+    font-family: sans-serif;
+    outline: none;
+    cursor: pointer;
+}
+
+.card-button.delete {
+    background-color:transparent;
+}
+
+.card-button.delete:hover {
+    background-color: lightcoral;
+}
+
+.card-button.edit {
+      background-color: transparent;
+}
+
+.card-button.edit:hover {
+    background-color: lightcoral;
+}
+
+.card:hover {
+    background-color: antiquewhite;
+    border-style: dashed;
+}
+
+.card:hover .card-button{
+    visibility:visible;
+}

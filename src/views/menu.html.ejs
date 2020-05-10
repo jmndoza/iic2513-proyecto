@@ -6,10 +6,10 @@
     <% if (currentUser) { %>
         <a href = "/profile" class="menu-item menu-user-name"><%= currentUser.name %></a>
         <form action="<%= destroySessionPath %>" method="post">
-            <input type="hidden" name="_method" value="delete" />
-            <input type="submit" value="Log Out" class="menu-item menu-link" />
+            <input type="hidden" name="_method" value="delete"/>
+            <input type="submit" value="Log Out" class="menu-item menu-link menu-login"/>
         </form>
       <% } else { %>
-        <a href=<%= newSessionPath %> class="menu-item menu-link">Login</a>
+        <a href=<%= newSessionPath %> class="menu-item menu-link menu-login">Login</a>
       <% } %>
 </nav>

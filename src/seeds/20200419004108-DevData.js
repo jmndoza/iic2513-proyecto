@@ -173,6 +173,42 @@ module.exports = {
         createdAt: new Date(),
         updatedAt: new Date(),
       },
+      {
+        UniversityId: university[1].id,
+        code: 'MAT1610',
+        name: 'Cálculo I',
+        verified: true,
+        description: 'Conceptos iniciales de Cálculo',
+        createdAt: new Date(),
+        updatedAt: new Date(),
+      },
+      {
+        UniversityId: university[1].id,
+        code: 'MAT1620',
+        name: 'Cálculo II',
+        verified: true,
+        description: 'Conceptos avanzados de Cálculo',
+        createdAt: new Date(),
+        updatedAt: new Date(),
+      },
+      {
+        UniversityId: university[2].id,
+        code: 'MAT1232',
+        name: 'Algebra Lineal',
+        verified: true,
+        description: 'Operaciones sobre matrizes',
+        createdAt: new Date(),
+        updatedAt: new Date(),
+      },
+      {
+        UniversityId: university[2].id,
+        code: 'LET1212',
+        name: 'Comunicación',
+        verified: true,
+        description: 'Este curso mejora la comunicación',
+        createdAt: new Date(),
+        updatedAt: new Date(),
+      },
     ], {});
 
     const course = (await queryInterface.sequelize.query('SELECT * from "Courses";'))[0];
