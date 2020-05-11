@@ -20,10 +20,17 @@ router.get('users.home', '/home', async (ctx) => {
     await ctx.render('users/home-student', {
       currentUser,
       evaluationList,
+      editUserPath: (user) => ctx.router.url('users.edit', { id: user.id }),
     });
   } else if (currentUser.role === 'professor') {
+    const coursesList = await ctx.orm.Course.findAll({
+      attribute: ['code', 'name'],
+      where: { id: currentUser.id },
+    });
     await ctx.render('users/home-professor', {
       currentUser,
+      coursesList,
+      editUserPath: (user) => ctx.router.url('users.edit', { id: user.id }),
     });
   } else if (currentUser.role === 'admin') {
     await ctx.render('users/home-admin', {

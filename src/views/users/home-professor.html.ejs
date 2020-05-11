@@ -1,1 +1,37 @@
 <%- include('../menu', {active: 'evaluations'}) %>
+<div>
+  <% if (locals.errors) { %>
+    <div class="errors">
+      You need to fix the following errors:
+      <ul>
+        <% errors.forEach(error => { %>
+          <li><%= error.message %></li>
+        <% }); %>
+      </ul>
+    </div>
+  <% } %>
+<h2>Your courses</h2>
+<% if (!coursesList.length) { %>
+  <h3> No results</h3>
+<% } else { %>
+  <table>
+    <thead>
+    <tr>
+      <th>code</th>
+      <th>Course</th>
+    </tr>   
+    </thead>
+    <tbody>
+      <% coursesList.forEach((course) => { %>
+        <tr>
+          <td><a><%= course.code %></a></td>
+          <td><%= course.name%></td>
+        </tr>
+        <% }) %>
+      </tbody>
+    </table>
+  <% } %>
+</div>
+<form action="<%=  editUserPath(currentUser) %>" method="get">
+    <input type="submit" value="Edit profile">
+</form>

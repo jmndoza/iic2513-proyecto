@@ -10,7 +10,6 @@
       </ul>
     </div>
   <% } %>
-<% if (currentUser.role === 'student'){ %>
 <h2>Your evaluations</h2>
 <% if (!evaluationList.length) { %>
   <h3> No results</h3>
@@ -43,5 +42,7 @@
       </tbody>
     </table>
   <% } %>
-  <% } %>
 </div>
+<form action="<%=  editUserPath(currentUser) %>" method="get">
+  <input type="submit" value="Edit profile">
+</form>
