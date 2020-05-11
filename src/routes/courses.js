@@ -20,7 +20,7 @@ async function loadRequirements(ctx, next) {
 }
 
 
-router.post('evaluations_course.create', '/:id', loadRequirements, async (ctx) => {
+router.post('courses.evaluate', '/:id/evaluate', loadRequirements, async (ctx) => {
   ctx.request.body.UserId = ctx.state.currentUser.id;
   ctx.request.body.CourseId = ctx.params.id;
   const evaluation = ctx.orm.Evaluation.build(ctx.request.body);
@@ -46,10 +46,9 @@ router.get('courses.list', '/', async (ctx) => {
 
 router.get('courses.new', '/new', async (ctx) => {
   const course = ctx.orm.Course.build();
-  const universities = await ctx.orm.University.findAll();
+  course.UniversityId = ctx.query.UniversityId;
   await ctx.render('courses/new', {
     course,
-    universities,
     submitCoursePath: ctx.router.url('courses.create'),
   });
 });
@@ -57,14 +56,12 @@ router.get('courses.new', '/new', async (ctx) => {
 router.post('courses.create', '/', async (ctx) => {
   const course = ctx.orm.Course.build(ctx.request.body);
   course.verified = true;
-  const universities = await ctx.orm.University.findAll();
   try {
     await course.save({ fields: ['UniversityId', 'code', 'name', 'verified', 'description'] });
-    ctx.redirect(ctx.router.url('courses.list'));
+    ctx.redirect(ctx.router.url('universities.show', { id: course.UniversityId }));
   } catch (validationError) {
     await ctx.render('courses/new', {
       course,
-      universities,
       errors: validationError.errors,
       submitCoursePath: ctx.router.url('courses.create'),
     });
@@ -81,17 +78,6 @@ router.get('courses.edit', '/:id/edit', loadCourse, async (ctx) => {
   });
 });
 
-
-router.get('evaluations.new', '/new', loadRequirements, async (ctx) => {
-  const evaluation = ctx.orm.Evaluation.build();
-  const { professors } = ctx.state;
-  await ctx.render('evaluations/new', {
-    evaluation,
-    professors,
-    submitEvaluationPath: ctx.router.url('evaluations.create'),
-  });
-});
-
 router.get('courses.show', '/:id', loadCourse, loadRequirements, async (ctx) => {
   const { course } = ctx.state;
   const evaluation = ctx.orm.Evaluation.build();
@@ -103,7 +89,7 @@ router.get('courses.show', '/:id', loadCourse, loadRequirements, async (ctx) => 
     showEvaluationPath: (evaluation_) => ctx.router.url('evaluations.show', { id: evaluation_.id }),
     editEvaluationPath: (evaluation_) => ctx.router.url('evaluations.edit', { id: evaluation_.id }),
     deleteEvaluationPath: (evaluation_) => ctx.router.url('evaluations.delete', { id: evaluation_.id }),
-    submitEvaluationPath: (course_) => ctx.router.url('evaluations_course.create', { id: course_.id }),
+    submitEvaluationPath: (course_) => ctx.router.url('courses.evaluate', { id: course_.id }),
   });
 });
 
