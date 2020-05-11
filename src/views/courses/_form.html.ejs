@@ -13,14 +13,7 @@
       <% if (!course.isNewRecord) { %>
         <input type="hidden" name="_method" value="patch" />
       <% } %>
-      <div  class="field">
-        <label for="UniversityId">University</label>
-        <select name="UniversityId">
-            <% universities.forEach((university) => { %>
-            <option value="<%= university.id %>"><%= university.name %></option>
-            <% }) %>
-        </select>
-      </div>
+      <input type="hidden" name="UniversityId" value="<%=course.UniversityId%>"/>
       <div  class="field">
         <label for="code">Code</label>
         <input type="text" name="code" value="<%= course.code %>" required/>

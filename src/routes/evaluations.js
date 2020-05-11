@@ -12,9 +12,6 @@ async function loadEvaluation(ctx, next) {
   return next();
 }
 async function loadRequirements(ctx, next) {
-  ctx.state.currentUser = ctx.session.sessionId && await ctx.orm.User.findOne(
-    { where: { sessionId: ctx.session.sessionId } },
-  );
   ctx.state.courses = await ctx.orm.Course.findAll();
   ctx.state.professors = await ctx.orm.ProfessorName.findAll();
   ctx.state.students = await ctx.orm.User.findAll({

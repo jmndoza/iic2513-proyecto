@@ -68,3 +68,4 @@ typings/
 
 /reset-db.fish
 /run-server.fish
+/set-env.fish

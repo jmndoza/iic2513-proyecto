@@ -56,7 +56,10 @@ router.get('universities.show', '/:id', loadUniversity, async (ctx) => {
   const { university } = ctx.state;
   await ctx.render('universities/show', {
     university,
-    coursePath: (course) => ctx.router.url('courses.show', { id: course.id }),
+    showCoursePath: (course) => ctx.router.url('courses.show', { id: course.id }),
+    editCoursePath: (course) => ctx.router.url('courses.edit', { id: course.id }),
+    deleteCoursePath: (course) => ctx.router.url('courses.delete', { id: course.id }),
+    newCoursePath: ctx.router.url('courses.new', { query: { UniversityId: university.id } }),
   });
 });
 
