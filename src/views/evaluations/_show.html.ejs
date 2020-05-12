@@ -1,0 +1,21 @@
+<div class="card">
+  <div class="card-button-container">
+      <form action="<%= editEvaluationPath(evaluation) %>" method="get">
+          <input type="submit" value="Edit" class="card-button edit">
+      </form>
+      <form action="<%= deleteEvaluationPath(evaluation) %>" method="post">
+          <input type="hidden" name="_method" value="delete">
+          <input type="submit" value="Delete" class="card-button delete">
+      </form>
+  </div>
+  <a href=<%= showEvaluationPath(evaluation) %> class="card-title"><%= evaluation.ProfessorName.namek %></a>
+  <div class="card-contents">
+      <ul>
+          <li>Year: <%= evaluation.year %></li>
+          <li>Semester: <%= evaluation.semester %></li>
+          <li>Comment: <%= evaluation.comment %></li>
+          <li>Time Rating: <%= evaluation.timeRating %></li>
+          <li>Difficulty Rating: <%= evaluation.difficultyRating %></li>
+      </ul>
+  </div>
+</div>

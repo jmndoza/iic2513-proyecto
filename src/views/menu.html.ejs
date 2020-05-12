@@ -1,8 +1,8 @@
 <nav>
-    <a href="/users"        class="menu-item menu-link<%= active === 'users'        ? ' active' : '' %>">Users</a>
+    <!-- <a href="/users"        class="menu-item menu-link<%= active === 'users'        ? ' active' : '' %>">Users</a> -->
     <a href="/universities" class="menu-item menu-link<%= active === 'universities' ? ' active' : '' %>">Universities</a>
-    <a href="/courses"      class="menu-item menu-link<%= active === 'courses'      ? ' active' : '' %>">Courses</a>
-    <a href="/evaluations"  class="menu-item menu-link<%= active === 'evaluations'  ? ' active' : '' %>">Evaluations</a>
+    <!-- <a href="/courses"      class="menu-item menu-link<%= active === 'courses'      ? ' active' : '' %>">Courses</a> -->
+    <!-- <a href="/evaluations"  class="menu-item menu-link<%= active === 'evaluations'  ? ' active' : '' %>">Evaluations</a> -->
     <% if (currentUser) { %>
         <a href = "/users/home" class="menu-item menu-link menu-user-name"><%= currentUser.name %></a>
         <form action="<%= destroySessionPath %>" method="post">
@@ -13,3 +13,4 @@
         <a href=<%= newSessionPath %> class="menu-item menu-link menu-login">Login</a>
       <% } %>
 </nav>
+<%- include('errors') %>

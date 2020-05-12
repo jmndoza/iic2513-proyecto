@@ -40,32 +40,27 @@ router.get('evaluations.list', '/', async (ctx) => {
 
 router.get('evaluations.new', '/new', loadRequirements, async (ctx) => {
   const evaluation = ctx.orm.Evaluation.build();
-  const { courses, professors, students } = ctx.state;
+  evaluation.CourseId = ctx.query.CourseId;
+  const { professors } = ctx.state;
   await ctx.render('evaluations/new', {
     evaluation,
-    courses,
     professors,
-    students,
     submitEvaluationPath: ctx.router.url('evaluations.create'),
   });
 });
 
 router.post('evaluations.create', '/', loadRequirements, async (ctx) => {
-  const {
-    courses, professors, students, currentUser,
-  } = ctx.state;
-  ctx.request.body.UserId = currentUser.id;
+  const { professors, currentUser } = ctx.state;
   const evaluation = ctx.orm.Evaluation.build(ctx.request.body);
+  evaluation.UserId = currentUser.id;
   try {
     await evaluation.save({ fields: ['UserId', 'ProfessorNameId', 'CourseId', 'comment', 'year', 'semester', 'timeRating', 'difficultyRating'] });
-    ctx.redirect(ctx.router.url('evaluations.list'));
+    ctx.redirect(ctx.router.url('courses.show', { id: evaluation.CourseId }));
   } catch (validationError) {
     await ctx.render('evaluations/new', {
       evaluation,
-      courses,
       professors,
-      students,
-      errors: validationError.errors,
+      errors: ctx.errorToStringArray(validationError),
       submitEvaluationPath: ctx.router.url('evaluations.create'),
     });
   }
@@ -105,14 +100,14 @@ router.patch('evaluations.update', '/:id', loadEvaluation, loadRequirements, asy
     await evaluation.update({
       UserId, ProfessorNameId, CourseId, comment, year, semester, timeRating, difficultyRating,
     });
-    ctx.redirect(ctx.router.url('evaluations.list'));
+    ctx.redirect(ctx.router.url('courses.show', { id: evaluation.CourseId }));
   } catch (validationError) {
     await ctx.render('evaluations/edit', {
       evaluation,
       courses,
       professors,
       students,
-      errors: validationError.errors,
+      errors: ctx.errorToStringArray(validationError),
       submitEvaluationPath: ctx.router.url('evaluations.update', { id: evaluation.id }),
     });
   }
@@ -121,8 +116,7 @@ router.patch('evaluations.update', '/:id', loadEvaluation, loadRequirements, asy
 router.del('evaluations.delete', '/:id', loadEvaluation, async (ctx) => {
   const { evaluation } = ctx.state;
   await evaluation.destroy();
-  //ctx.redirect(ctx.router.url('evaluations.list'));
-  ctx.redirect('back');
+  ctx.redirect(ctx.router.url('courses.show', { id: evaluation.CourseId }));
 });
 
 module.exports = router;

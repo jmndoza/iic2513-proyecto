@@ -1,28 +1,10 @@
 <div>
-    <% if (locals.errors) { %>
-      <div class="errors">
-        You need to fix the following errors:
-        <ul>
-          <% errors.forEach(error => { %>
-            <li><%= error.message %></li>
-          <% }); %>
-        </ul>
-      </div>
-    <% } %>
     <form action="<%= submitEvaluationPath %>" method="post">
       <% if (!evaluation.isNewRecord) { %>
-        <input type="hidden" name="_method" value="patch" />
+        <input type="hidden" name="_method" value="patch"/>
       <% } %>
 
-      <div  class="field">
-        <label for="CourseId">Course</label>
-        <select name="CourseId" required>
-          <option hidden disabled <%= evaluation.isNewRecord ? "selected" : "" %> value> -- select a course -- </option>
-          <% courses.forEach((Course) => { %>
-            <option value="<%= Course.id %>" <%= evaluation.CourseId === Course.id ? "selected" : "" %> ><%= Course.code %></option>
-          <% }) %>
-        </select>
-      </div>
+      <input type="hidden" name="CourseId" value="<%=evaluation.CourseId%>"/>
 
       <div  class="field">
         <label for="ProfessorNameId">Professor</label>

@@ -38,7 +38,7 @@ router.post('universities.create', '/', async (ctx) => {
   } catch (validationError) {
     await ctx.render('universities/new', {
       university,
-      errors: validationError.errors,
+      errors: ctx.errorToStringArray(validationError),
       submitUniversityPath: ctx.router.url('universities.create'),
     });
   }
@@ -72,7 +72,7 @@ router.patch('universities.update', '/:id', loadUniversity, async (ctx) => {
   } catch (validationError) {
     await ctx.render('universities/edit', {
       university,
-      errors: validationError.errors,
+      errors: ctx.errorToStringArray(validationError),
       submitUniversityPath: ctx.router.url('universities.update', { id: university.id }),
     });
   }

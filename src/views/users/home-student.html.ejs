@@ -1,19 +1,9 @@
 <%- include('../menu', {active: 'evaluations'}) %>
 <div>
-  <% if (locals.errors) { %>
-    <div class="errors">
-      You need to fix the following errors:
-      <ul>
-        <% errors.forEach(error => { %>
-          <li><%= error.message %></li>
-        <% }); %>
-      </ul>
-    </div>
-  <% } %>
-<h2>Your evaluations</h2>
-<% if (!evaluationList.length) { %>
-  <h3> No results</h3>
-<% } else { %>
+  <h2>Your evaluations</h2>
+  <% if (!evaluationList.length) { %>
+    <h3> No results</h3>
+  <% } else { %>
   <table>
     <thead>
     <tr>
@@ -24,7 +14,7 @@
         <th>Comment</th>
         <th>Time Rating</th>
         <th>Difficulty Rating</th>
-       </tr>   
+       </tr>
       </thead>
       <tbody>
         <% evaluationList.forEach((evaluation) => { %>
