@@ -25,7 +25,7 @@
     margin: 0;
 }
 
-.card input {
+.card input.submit {
     border: none;
     background-color: transparent;
     cursor: pointer;
@@ -46,7 +46,6 @@
 .card.new {
     padding: 0;
     min-height: 6rem;
-    display: flex;
 }
 
 .card.new a{

@@ -1,4 +1,6 @@
-<div>
+<div class="card">
+  <div class="card-title">New Course</div>
+  <div class="card-contents">
     <form action="<%= submitCoursePath %>" method="post">
       <% if (!course.isNewRecord) { %>
         <input type="hidden" name="_method" value="patch" />
@@ -25,3 +27,4 @@
       </div>
     </form>
   </div>
+</div>

@@ -1,4 +1,6 @@
+/* eslint-disable object-curly-newline */
 const KoaRouter = require('koa-router');
+const utils = require('../utils');
 
 const router = new KoaRouter();
 
@@ -10,31 +12,29 @@ async function loadUser(ctx, next) {
 router.get('users.home', '/home', async (ctx) => {
   const { currentUser } = ctx.state;
   if (currentUser.role === 'student') {
-    const evaluationList = await ctx.orm.Evaluation.findAll({
-      where: { UserId: currentUser.id },
+    const evaluationList = await currentUser.getEvaluations({
       include: [
         { model: ctx.orm.Course },
         { model: ctx.orm.ProfessorName },
       ],
     });
+    utils.loadEvaluationPaths(ctx);
     await ctx.render('users/home-student', {
-      currentUser,
-      evaluationList,
       editUserPath: (user) => ctx.router.url('users.edit', { id: user.id }),
+      evaluationList,
     });
   } else if (currentUser.role === 'professor') {
-    const coursesList = await ctx.orm.Course.findAll({
-      attribute: ['code', 'name'],
-      where: { id: currentUser.id },
-    });
+    const coursesList = await currentUser.getCourses();
+    utils.loadCoursePaths(ctx);
     await ctx.render('users/home-professor', {
-      currentUser,
-      coursesList,
       editUserPath: (user) => ctx.router.url('users.edit', { id: user.id }),
+      coursesList,
     });
   } else if (currentUser.role === 'admin') {
+    const userList = await ctx.orm.User.findAll();
+    utils.loadUserPaths(ctx);
     await ctx.render('users/home-admin', {
-      currentUser,
+      userList,
     });
   }
 });
@@ -85,8 +85,8 @@ router.get('users.edit', '/:id/edit', loadUser, async (ctx) => {
 router.patch('users.update', '/:id', loadUser, async (ctx) => {
   const { user } = ctx.state;
   try {
-    const { role, name, email } = ctx.request.body;
-    await user.update({ role, name, email });
+    const { role, name, email, password } = ctx.request.body;
+    await user.update({ role, name, email, password });
     ctx.redirect(ctx.router.url('users.home'));
   } catch (validationError) {
     await ctx.render('users/edit', {
@@ -100,7 +100,8 @@ router.patch('users.update', '/:id', loadUser, async (ctx) => {
 router.del('users.delete', '/:id', loadUser, async (ctx) => {
   const { user } = ctx.state;
   await user.destroy();
-  ctx.redirect(ctx.router.url('users.list'));
+  // ctx.redirect(ctx.router.url('users.list'));
+  ctx.redirect('back');
 });
 
 module.exports = router;

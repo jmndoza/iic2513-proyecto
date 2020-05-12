@@ -1,4 +1,5 @@
 const KoaRouter = require('koa-router');
+const utils = require('../utils');
 
 const router = new KoaRouter();
 
@@ -28,13 +29,10 @@ router.get('evaluations.list', '/', async (ctx) => {
       { model: ctx.orm.ProfessorName },
     ],
   });
+  utils.loadEvaluationPaths(ctx);
   await ctx.render('evaluations/index', {
     evaluationsList,
-    newEvaluationPath: ctx.router.url('evaluations.new'),
-    showEvaluationPath: (evaluation) => ctx.router.url('evaluations.show', { id: evaluation.id }),
     showCoursePath: (course) => ctx.router.url('courses.show', { id: course.id }),
-    editEvaluationPath: (evaluation) => ctx.router.url('evaluations.edit', { id: evaluation.id }),
-    deleteEvaluationPath: (evaluation) => ctx.router.url('evaluations.delete', { id: evaluation.id }),
   });
 });
 
@@ -55,7 +53,8 @@ router.post('evaluations.create', '/', loadRequirements, async (ctx) => {
   evaluation.UserId = currentUser.id;
   try {
     await evaluation.save({ fields: ['UserId', 'ProfessorNameId', 'CourseId', 'comment', 'year', 'semester', 'timeRating', 'difficultyRating'] });
-    ctx.redirect(ctx.router.url('courses.show', { id: evaluation.CourseId }));
+    // ctx.redirect(ctx.router.url('courses.show', { id: evaluation.CourseId }));
+    ctx.redirect('back');
   } catch (validationError) {
     await ctx.render('evaluations/new', {
       evaluation,
@@ -80,12 +79,10 @@ router.get('evaluations.edit', '/:id/edit', loadEvaluation, loadRequirements, as
 
 router.get('evaluations.show', '/:id', loadEvaluation, async (ctx) => {
   const { evaluation } = ctx.state;
+  utils.loadEvaluationPaths(ctx);
   await ctx.render('evaluations/show', {
     evaluation,
-    showEvaluationPath: (evaluation_) => ctx.router.url('evaluations.show', { id: evaluation_.id }),
     showCoursePath: (course) => ctx.router.url('courses.show', { id: course.id }),
-    editEvaluationPath: (evaluation_) => ctx.router.url('evaluations.edit', { id: evaluation_.id }),
-    deleteEvaluationPath: (evaluation_) => ctx.router.url('evaluations.delete', { id: evaluation_.id }),
   });
 });
 
@@ -116,7 +113,8 @@ router.patch('evaluations.update', '/:id', loadEvaluation, loadRequirements, asy
 router.del('evaluations.delete', '/:id', loadEvaluation, async (ctx) => {
   const { evaluation } = ctx.state;
   await evaluation.destroy();
-  ctx.redirect(ctx.router.url('courses.show', { id: evaluation.CourseId }));
+  // ctx.redirect(ctx.router.url('courses.show', { id: evaluation.CourseId }));
+  ctx.redirect('back');
 });
 
 module.exports = router;
