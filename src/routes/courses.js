@@ -1,4 +1,5 @@
 const KoaRouter = require('koa-router');
+const utils = require('../utils');
 
 const router = new KoaRouter();
 
@@ -21,12 +22,9 @@ async function loadRequirements(ctx, next) {
 
 router.get('courses.list', '/', async (ctx) => {
   const coursesList = await ctx.orm.Course.findAll();
+  utils.loadCoursePaths(ctx);
   await ctx.render('courses/index', {
     coursesList,
-    newCoursePath: ctx.router.url('courses.new'),
-    showCoursePath: (course) => ctx.router.url('courses.show', { id: course.id }),
-    editCoursePath: (course) => ctx.router.url('courses.edit', { id: course.id }),
-    deleteCoursePath: (course) => ctx.router.url('courses.delete', { id: course.id }),
   });
 });
 
@@ -47,7 +45,8 @@ router.post('courses.create', '/', async (ctx) => {
   course.verified = true;
   try {
     await course.save({ fields: ['UniversityId', 'code', 'name', 'verified', 'description'] });
-    ctx.redirect(ctx.router.url('universities.show', { id: course.UniversityId }));
+    // ctx.redirect(ctx.router.url('universities.show', { id: course.UniversityId }));
+    ctx.redirect('back');
   } catch (validationError) {
     await ctx.render('courses/new', {
       course,
@@ -70,13 +69,13 @@ router.get('courses.edit', '/:id/edit', loadCourse, async (ctx) => {
 router.get('courses.show', '/:id', loadCourse, loadRequirements, async (ctx) => {
   const { course } = ctx.state;
   const { professors } = ctx.state;
+  const evaluation = ctx.orm.Evaluation.build();
+  evaluation.CourseId = course.id;
+  utils.loadEvaluationPaths(ctx);
   await ctx.render('courses/show', {
     professors,
     course,
-    showEvaluationPath: (evaluation_) => ctx.router.url('evaluations.show', { id: evaluation_.id }),
-    editEvaluationPath: (evaluation_) => ctx.router.url('evaluations.edit', { id: evaluation_.id }),
-    deleteEvaluationPath: (evaluation_) => ctx.router.url('evaluations.delete', { id: evaluation_.id }),
-    newEvaluationPath: ctx.router.url('evaluations.new', { query: { CourseId: course.id } }),
+    evaluation,
   });
 });
 
@@ -104,7 +103,8 @@ router.patch('courses.update', '/:id', loadCourse, async (ctx) => {
 router.del('courses.delete', '/:id', loadCourse, async (ctx) => {
   const { course } = ctx.state;
   await course.destroy();
-  ctx.redirect(ctx.router.url('universities.show', { id: course.UniversityId }));
+  // ctx.redirect(ctx.router.url('universities.show', { id: course.UniversityId }));
+  ctx.redirect('back');
 });
 
 
