@@ -80,7 +80,7 @@ router.get('courses.show', '/:id', loadCourse, loadRequirements, async (ctx) => 
   });
 });
 
-router.patch('course.update', '/:id', loadCourse, async (ctx) => {
+router.patch('courses.update', '/:id', loadCourse, async (ctx) => {
   const { course } = ctx.state;
   const universities = await ctx.orm.University.findAll();
   try {
@@ -90,7 +90,7 @@ router.patch('course.update', '/:id', loadCourse, async (ctx) => {
     await course.update({
       UniversityId, code, name, verified, description,
     });
-    ctx.redirect(ctx.router.url('courses.list'));
+    ctx.redirect(ctx.router.url('universities.show', { id: course.UniversityId }));
   } catch (validationError) {
     await ctx.render('courses/edit', {
       course,
@@ -104,7 +104,7 @@ router.patch('course.update', '/:id', loadCourse, async (ctx) => {
 router.del('courses.delete', '/:id', loadCourse, async (ctx) => {
   const { course } = ctx.state;
   await course.destroy();
-  ctx.redirect(ctx.router.url('courses.list'));
+  ctx.redirect(ctx.router.url('universities.show', { id: course.UniversityId }));
 });
 
 

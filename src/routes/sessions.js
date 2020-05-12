@@ -17,7 +17,7 @@ router.put('sessions.create', '/', async (ctx) => {
     user.sessionId = sessionId;
     await user.save();
     ctx.session.sessionId = sessionId;
-    ctx.redirect(ctx.router.url('courses.list'));
+    ctx.redirect(ctx.router.url('users.home'));
     return;
   }
   await ctx.render('sessions/new', {

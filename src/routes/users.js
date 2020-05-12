@@ -87,7 +87,7 @@ router.patch('users.update', '/:id', loadUser, async (ctx) => {
   try {
     const { role, name, email } = ctx.request.body;
     await user.update({ role, name, email });
-    ctx.redirect(ctx.router.url('users.list'));
+    ctx.redirect(ctx.router.url('users.home'));
   } catch (validationError) {
     await ctx.render('users/edit', {
       user,
@@ -97,7 +97,7 @@ router.patch('users.update', '/:id', loadUser, async (ctx) => {
   }
 });
 
-router.delete('users.delete', '/:id', loadUser, async (ctx) => {
+router.del('users.delete', '/:id', loadUser, async (ctx) => {
   const { user } = ctx.state;
   await user.destroy();
   ctx.redirect(ctx.router.url('users.list'));

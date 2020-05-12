@@ -100,7 +100,7 @@ router.patch('evaluations.update', '/:id', loadEvaluation, loadRequirements, asy
     await evaluation.update({
       UserId, ProfessorNameId, CourseId, comment, year, semester, timeRating, difficultyRating,
     });
-    ctx.redirect(ctx.router.url('evaluations.list'));
+    ctx.redirect(ctx.router.url('courses.show', { id: evaluation.CourseId }));
   } catch (validationError) {
     await ctx.render('evaluations/edit', {
       evaluation,
@@ -116,8 +116,7 @@ router.patch('evaluations.update', '/:id', loadEvaluation, loadRequirements, asy
 router.del('evaluations.delete', '/:id', loadEvaluation, async (ctx) => {
   const { evaluation } = ctx.state;
   await evaluation.destroy();
-  //ctx.redirect(ctx.router.url('evaluations.list'));
-  ctx.redirect('back');
+  ctx.redirect(ctx.router.url('courses.show', { id: evaluation.CourseId }));
 });
 
 module.exports = router;
