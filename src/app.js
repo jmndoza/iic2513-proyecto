@@ -11,6 +11,8 @@ const assets = require('./assets');
 const mailer = require('./mailers');
 const routes = require('./routes');
 const orm = require('./models');
+const { errorToStringArray } = require('./utils/error_parsing');
+
 
 // App constructor
 const app = new Koa();
@@ -26,6 +28,7 @@ app.keys = [
 
 // expose ORM through context's prototype
 app.context.orm = orm;
+app.context.errorToStringArray = errorToStringArray;
 
 /**
  * Middlewares

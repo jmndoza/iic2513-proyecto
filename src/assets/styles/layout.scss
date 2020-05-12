@@ -9,20 +9,29 @@ a {
   color: dodgerblue;
 }
 
-input {
+input, select {
   color: dodgerblue;
   font-size: 1rem;
 
 }
 
+.field {
+  margin-bottom: 2px;
+}
+
 body {
+  position: relative;
   margin: 0 auto;
   max-width: 70rem;
   background-color: rgb(245, 245, 245);
 }
 
- h2, form, table {
-  margin: 0 auto;
+form, table {
+  width: fit-content;
+}
+
+h2 {
+  margin: 0 auto 1rem auto;
   width: fit-content;
 }
 

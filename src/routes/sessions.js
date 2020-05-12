@@ -18,11 +18,12 @@ router.put('sessions.create', '/', async (ctx) => {
     await user.save();
     ctx.session.sessionId = sessionId;
     ctx.redirect(ctx.router.url('courses.list'));
+    return;
   }
-  ctx.render('sessions/new', {
-    email,
+  await ctx.render('sessions/new', {
     createSessionPath: ctx.router.url('sessions.create'),
-    error: 'Incorrect mail or password',
+    notice: ctx.flashMessage.notice,
+    errors: ctx.errorToStringArray('Incorrect email or password'),
   });
 });
 

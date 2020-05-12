@@ -1,0 +1,10 @@
+<% if (locals.notice) { %>
+  <div className="notice"><%= notice %></div>
+<% } %>
+<% if (locals.errors) { %>
+  <div class="error-container">
+    <% errors.forEach(error => { %>
+      <div class="error-card"><%= error %></div>
+    <% }); %>
+  </div>
+<% } %>

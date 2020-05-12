@@ -1,25 +1,22 @@
-<% if (locals.notice) { %>
-    <div className="notice"><%= notice %></div>
-<% } %>
-<h1>Login</h1>
-<% if (locals.error) { %>
-    <div class="error"><%= error %></div>
-<% } %>
+<div class="center-container">
+    <h2>Login</h2>
+    <%- include('../errors') %>
 
-<form action="<%= createSessionPath %>" method="post">
-    <input type="hidden" name="_method" value="put" />
-    <div class="field">
-        <label for="email">Email</label>
-        <input type="email" name="email" value="<%= locals.email %>" />
-    </div>
-    <div class="field">
-        <label for="password">Password</label>
-        <input type="password" name="password" value="<%= locals.password %>" />
-    </div>
+    <form action="<%= createSessionPath %>" method="post">
+        <input type="hidden" name="_method" value="put" />
+        <div class="field login-email-field">
+            <label for="email">Email</label>
+            <input type="email" name="email" value="<%= locals.email %>" />
+        </div>
         <div class="field">
-        <input type="submit" name="log-in" value="Log In" />
-    </div>
-</form>
-<form action="<%= newUserPath %>" method="get">
-    <input type="submit" value="Register">
-</form>
+            <label for="password">Password</label>
+            <input type="password" name="password" value="<%= locals.password %>" />
+        </div>
+            <div class="field">
+            <input type="submit" name="log-in" value="Log In" />
+        </div>
+    </form>
+    <form action="<%= newUserPath %>" method="get">
+        <input type="submit" value="Register" class="login-register-button">
+    </form>
+</div>

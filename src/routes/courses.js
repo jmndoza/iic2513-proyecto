@@ -19,20 +19,6 @@ async function loadRequirements(ctx, next) {
   return next();
 }
 
-
-router.post('courses.evaluate', '/:id/evaluate', loadRequirements, async (ctx) => {
-  ctx.request.body.UserId = ctx.state.currentUser.id;
-  ctx.request.body.CourseId = ctx.params.id;
-  const evaluation = ctx.orm.Evaluation.build(ctx.request.body);
-  try {
-    await evaluation.save({ fields: ['UserId', 'ProfessorNameId', 'CourseId', 'comment', 'year', 'semester', 'timeRating', 'difficultyRating'] });
-    // ctx.redirect(ctx.router.url('evaluations.list'));
-    ctx.redirect('back');
-  } catch (validationError) {
-    ctx.redirect('back');
-  }
-});
-
 router.get('courses.list', '/', async (ctx) => {
   const coursesList = await ctx.orm.Course.findAll();
   await ctx.render('courses/index', {
@@ -55,6 +41,9 @@ router.get('courses.new', '/new', async (ctx) => {
 
 router.post('courses.create', '/', async (ctx) => {
   const course = ctx.orm.Course.build(ctx.request.body);
+  if (!ctx.request.body.UniversityId) {
+    course.UniversityId = null;
+  }
   course.verified = true;
   try {
     await course.save({ fields: ['UniversityId', 'code', 'name', 'verified', 'description'] });
@@ -62,7 +51,7 @@ router.post('courses.create', '/', async (ctx) => {
   } catch (validationError) {
     await ctx.render('courses/new', {
       course,
-      errors: validationError.errors,
+      errors: ctx.errorToStringArray(validationError),
       submitCoursePath: ctx.router.url('courses.create'),
     });
   }
@@ -80,16 +69,14 @@ router.get('courses.edit', '/:id/edit', loadCourse, async (ctx) => {
 
 router.get('courses.show', '/:id', loadCourse, loadRequirements, async (ctx) => {
   const { course } = ctx.state;
-  const evaluation = ctx.orm.Evaluation.build();
   const { professors } = ctx.state;
   await ctx.render('courses/show', {
     professors,
-    evaluation,
     course,
     showEvaluationPath: (evaluation_) => ctx.router.url('evaluations.show', { id: evaluation_.id }),
     editEvaluationPath: (evaluation_) => ctx.router.url('evaluations.edit', { id: evaluation_.id }),
     deleteEvaluationPath: (evaluation_) => ctx.router.url('evaluations.delete', { id: evaluation_.id }),
-    submitEvaluationPath: (course_) => ctx.router.url('courses.evaluate', { id: course_.id }),
+    newEvaluationPath: ctx.router.url('evaluations.new', { query: { CourseId: course.id } }),
   });
 });
 
@@ -108,7 +95,7 @@ router.patch('course.update', '/:id', loadCourse, async (ctx) => {
     await ctx.render('courses/edit', {
       course,
       universities,
-      errors: validationError.errors,
+      errors: ctx.errorToStringArray(validationError),
       submitCoursePath: ctx.router.url('courses.update', { id: course.id }),
     });
   }

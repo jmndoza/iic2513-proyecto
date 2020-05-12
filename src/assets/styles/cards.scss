@@ -1,11 +1,16 @@
 .card-container {
     display: grid;
-    grid-template-columns: 1fr 1fr;
+    grid-template-columns: 1fr 1fr 1fr;
     gap: 0.5rem;
-    margin-top: 0.5rem;
 }
 
-@media (max-width: 800px) {
+@media (max-width: 1000px) {
+    .card-container {
+        grid-template-columns: 1fr 1fr;
+    }
+}
+
+@media (max-width: 600px) {
     .card-container {
         grid-template-columns: 1fr;
     }
@@ -34,7 +39,7 @@
     position: relative;
     padding: 1rem;
     border: solid thin lightgray;
-    border-radius: 0.3rem;
+    // border-radius: 0.3rem;
     background-color: bisque;
 }
 
@@ -70,7 +75,7 @@
 .card-button {
     // display: inline-block;
     visibility: hidden;
-    border-radius: 0.2rem;
+    // border-radius: 0.2rem;
     border-style: none;
     padding: 2px 5px;
     font-family: sans-serif;

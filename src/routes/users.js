@@ -68,7 +68,7 @@ router.post('users.create', '/', async (ctx) => {
   } catch (validationError) {
     await ctx.render('users/new', {
       user,
-      errors: validationError.errors,
+      errors: ctx.errorToStringArray(validationError),
       submitUserPath: ctx.router.url('users.create'),
     });
   }
@@ -91,7 +91,7 @@ router.patch('users.update', '/:id', loadUser, async (ctx) => {
   } catch (validationError) {
     await ctx.render('users/edit', {
       user,
-      errors: validationError.errors,
+      errors: ctx.errorToStringArray(validationError),
       submitUserPath: ctx.router.url('users.update', { id: user.id }),
     });
   }
