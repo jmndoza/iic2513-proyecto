@@ -40,8 +40,8 @@ module.exports = {
 
     await queryInterface.bulkInsert('Users', [
       {
-        name: 'Roberto Gonzalez',
-        email: 'rgonzales@uc.cl',
+        name: 'Professor',
+        email: 'professor@uc.cl',
         emailVerified: true,
         blocked: false,
         verified: true,
@@ -62,8 +62,8 @@ module.exports = {
         updatedAt: new Date(),
       },
       {
-        name: 'Juan Perez',
-        email: 'jperez@uc.cl',
+        name: 'Student',
+        email: 'student@uc.cl',
         emailVerified: true,
         blocked: false,
         verified: true,
@@ -73,8 +73,8 @@ module.exports = {
         updatedAt: new Date(),
       },
       {
-        name: 'Javiera Guzman',
-        email: 'jguzman@uc.cl',
+        name: 'Juan Perez',
+        email: 'jperez@uc.cl',
         emailVerified: true,
         blocked: false,
         verified: true,
@@ -95,8 +95,8 @@ module.exports = {
         updatedAt: new Date(),
       },
       {
-        name: 'Daniela Gonzalez',
-        email: 'dgonzales@uc.cl',
+        name: 'Admin',
+        email: 'admin@uc.cl',
         emailVerified: true,
         blocked: false,
         verified: true,
@@ -228,7 +228,7 @@ module.exports = {
         updatedAt: new Date(),
       },
       {
-        UserId: student[1].id,
+        UserId: student[0].id,
         CourseId: course[1].id,
         ProfessorNameId: professorName[1].id,
         comment: 'interesante el ramo',
@@ -277,8 +277,14 @@ module.exports = {
         updatedAt: new Date(),
       },
       {
-        UserId: professor[1].id,
+        UserId: professor[0].id,
         CourseId: course[1].id,
+        createdAt: new Date(),
+        updatedAt: new Date(),
+      },
+      {
+        UserId: professor[0].id,
+        CourseId: course[2].id,
         createdAt: new Date(),
         updatedAt: new Date(),
       },

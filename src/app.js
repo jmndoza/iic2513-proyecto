@@ -11,7 +11,7 @@ const assets = require('./assets');
 const mailer = require('./mailers');
 const routes = require('./routes');
 const orm = require('./models');
-const { errorToStringArray } = require('./utils/error_parsing');
+const { errorToStringArray } = require('./utils');
 
 
 // App constructor

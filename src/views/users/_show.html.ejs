@@ -1,18 +1,18 @@
 <div class="card">
     <div class="card-button-container">
-        <form action="<%= editUniversityPath(university) %>" method="get">
+        <form action="<%= editUserPath(user) %>" method="get">
             <input type="submit" value="Edit" class="card-button edit">
         </form>
-        <form action="<%= deleteUniversityPath(university) %>" method="post">
+        <form action="<%= deleteUserPath(user) %>" method="post">
             <input type="hidden" name="_method" value="delete">
             <input type="submit" value="Delete" class="card-button delete">
         </form>
     </div>
-    <a href=<%= showUniversityPath(university) %> class="card-title"><%= university.name %></a>
+    <a href=<%= showUserPath(user) %> class="card-title"><%= user.name %></a>
     <div class="card-contents">
         <ul>
-            <li>Code: <%= university.code %></li>
-            <li>Domain: <%= university.domain %></li>
+            <li>Email: <%= user.email %></li>
+            <li>Role: <%= user.role %></li>
         </ul>
     </div>
 </div>
