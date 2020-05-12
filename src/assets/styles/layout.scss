@@ -4,17 +4,34 @@ html {
   font-family: Arial,sans-serif;
 }
 
+a {
+  text-decoration: none;
+  color: dodgerblue;
+}
+
+input, select {
+  color: dodgerblue;
+  font-size: 1rem;
+
+}
+
+.field {
+  margin-bottom: 2px;
+}
+
 body {
+  position: relative;
   margin: 0 auto;
-  min-width: min-content;
-  width: 70%;
   max-width: 70rem;
-  padding: 0 0.5rem;
   background-color: rgb(245, 245, 245);
 }
 
- h2, form, table {
-  margin: 0 auto;
+form, table {
+  width: fit-content;
+}
+
+h2 {
+  margin: 0 auto 1rem auto;
   width: fit-content;
 }
 

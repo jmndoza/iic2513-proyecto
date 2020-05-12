@@ -1,6 +1,16 @@
 <nav>
-    <a href="/users"        <%- active === 'users'        ? 'class="active"' : '' %>>Users</a>
-    <a href="/universities" <%- active === 'universities' ? 'class="active"' : '' %>>Universities</a>
-    <a href="/courses"      <%- active === 'courses'      ? 'class="active"' : '' %>>Courses</a>
-    <a href="/evaluations"  <%- active === 'evaluations'  ? 'class="active"' : '' %>>Evaluations</a>
+    <!-- <a href="/users"        class="menu-item menu-link<%= active === 'users'        ? ' active' : '' %>">Users</a> -->
+    <a href="/universities" class="menu-item menu-link<%= active === 'universities' ? ' active' : '' %>">Universities</a>
+    <!-- <a href="/courses"      class="menu-item menu-link<%= active === 'courses'      ? ' active' : '' %>">Courses</a> -->
+    <!-- <a href="/evaluations"  class="menu-item menu-link<%= active === 'evaluations'  ? ' active' : '' %>">Evaluations</a> -->
+    <% if (currentUser) { %>
+        <a href = "/users/home" class="menu-item menu-link menu-user-name"><%= currentUser.name %></a>
+        <form action="<%= destroySessionPath %>" method="post">
+            <input type="hidden" name="_method" value="delete"/>
+            <input type="submit" value="Log Out" class="menu-item menu-link menu-login"/>
+        </form>
+      <% } else { %>
+        <a href=<%= newSessionPath %> class="menu-item menu-link menu-login">Login</a>
+      <% } %>
 </nav>
+<%- include('errors') %>

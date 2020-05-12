@@ -1,0 +1,38 @@
+<%- include('../menu', {active: 'evaluations'}) %>
+<div>
+  <h2>Your evaluations</h2>
+  <% if (!evaluationList.length) { %>
+    <h3> No results</h3>
+  <% } else { %>
+  <table>
+    <thead>
+    <tr>
+        <th>Course</th>
+        <th>Professor</th>
+        <th>Year</th>
+        <th>Semester</th>
+        <th>Comment</th>
+        <th>Time Rating</th>
+        <th>Difficulty Rating</th>
+       </tr>
+      </thead>
+      <tbody>
+        <% evaluationList.forEach((evaluation) => { %>
+          <tr>
+            <td><a><%= evaluation.Course.code %></a></td>
+            <td><%= evaluation.ProfessorName.name %></td>
+            <td><%= evaluation.year %></td>
+            <td><%= evaluation.semester %></td>
+            <td><%= evaluation.comment %></td>
+            <td><%= evaluation.timeRating %></td>
+            <td><%= evaluation.difficultyRating %></td>
+            <td>
+          </tr>
+        <% }) %>
+      </tbody>
+    </table>
+  <% } %>
+</div>
+<form action="<%=  editUserPath(currentUser) %>" method="get">
+  <input type="submit" value="Edit profile">
+</form>

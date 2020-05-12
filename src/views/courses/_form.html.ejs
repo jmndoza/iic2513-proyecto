@@ -1,26 +1,9 @@
 <div>
-    <% if (locals.errors) { %>
-      <div class="errors">
-        You need to fix the following errors:
-        <ul>
-          <% errors.forEach(error => { %>
-            <li><%= error.message %></li>
-          <% }); %>
-        </ul>
-      </div>
-    <% } %>
     <form action="<%= submitCoursePath %>" method="post">
       <% if (!course.isNewRecord) { %>
         <input type="hidden" name="_method" value="patch" />
       <% } %>
-      <div  class="field">
-        <label for="UniversityId">University</label>
-        <select name="UniversityId">
-            <% universities.forEach((university) => { %>
-            <option value="<%= university.id %>"><%= university.name %></option>
-            <% }) %>
-        </select>
-      </div>
+      <input type="hidden" name="UniversityId" value="<%=course.UniversityId%>"/>
       <div  class="field">
         <label for="code">Code</label>
         <input type="text" name="code" value="<%= course.code %>" required/>
@@ -31,7 +14,7 @@
       </div>
       <div  class="field">
         <label for="description">Description</label>
-        <input type="text" name="description" value="<%= course.description %>"required/>
+        <input type="text" name="description" value="<%= course.description %>" required/>
       </div>
       <div  class="field">
         <% if (course.isNewRecord) { %>

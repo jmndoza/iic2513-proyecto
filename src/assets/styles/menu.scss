@@ -1,26 +1,47 @@
 nav {
-    background-color: lightblue;
     display: flex;
     flex-wrap: wrap;
     justify-content: center;
-    border-bottom-left-radius: 0.5rem;
-    border-bottom-right-radius: 0.5rem;
-    margin-bottom: 0.3rem;
-    padding: 0 1rem 0 1rem;
+    background-color: lightblue;
+    margin-bottom: 1rem;
 }
 
-nav > a {
-    display: block;
+nav > form {
+    flex: auto;
+    margin: 0;
+}
+
+.menu-item {
+    flex: auto;
+    text-align: center;
     padding: 0.5rem;
     color: black;
     text-decoration: none;
-    font: bold 1.2rem sans-serif
+    background: none;
+    border: medium dashed transparent;
+    font-size: 1.2rem;
 }
 
-nav > a:hover {
-    background-color: lightgray;
+nav input {
+    width: 100%;
 }
 
-nav > a.active:not(:hover) {
+.menu-user-name {
+    background: darkorange;
+}
+
+.menu-login {
+    background: indianred;
+}
+
+.menu-link {
+    cursor: pointer;
+}
+
+.menu-link:hover {
+    border-color: black;
+}
+
+.menu-link.active {
     background-color: lightskyblue;
 }

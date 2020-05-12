@@ -1,48 +1,11 @@
 <%- include('../menu', {active: 'courses'}) %>
-<h2> Courses </h2>
-<form action="<%= newCoursePath %>" method="get">
-    <input type="submit" value="New Course">
-</form>
-<% if (!coursesList.length) { %>
-    <p>No results </p>
-<% } else { %>
-    <table>
-        <thead>
-            <tr>
-                 <th>Code</th>
-                 <th>Name</th>
-                 <th>Verified</th>
-                 <th>Description</th>
-                 <th colspan="3">Actions</th>
-            </tr>
-        </thead>
-         <tbody>
-             <% coursesList.forEach((course) => { %>
-                <tr>
-                    <td><%= course.code %></td>
-                    <td><%= course.name %></td>
-                    <td><%= course.verified %></td>
-                    <td><%= course.description %></td>
-                    <td>
-                        <form action="<%= showCoursePath(course) %>" method="get">
-                          <input type="submit" value="View">
-                        </form>
-                    </td>
-                    <td>
-                        <form action="<%= editCoursePath(course) %>" method="get">
-                          <input type="submit" value="Edit">
-                        </form>
-                    </td>
-                    <td>
-                      <form action="<%= deleteCoursePath(course) %>" method="POST">
-                        <input type="hidden" name="_method" value="delete">
-                        <input type="submit" value="Delete">
-                      </form>
-                    </td>
-                </tr>
-
-             <% }) %>
-
-         </tbody>
-    </table>
-<% } %>
+<div class="card-container">
+  <% if (coursesList.length) { %>
+    <% coursesList.forEach((course) => { %>
+      <%- include('_show', {course}) %>
+    <% }) %>
+  <% } %>
+  <div class="card new">
+      <a href=<%=newCoursePath%>>New Courese</a>
+  </div>
+</div>

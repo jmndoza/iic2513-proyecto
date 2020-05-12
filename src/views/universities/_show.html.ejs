@@ -1,0 +1,18 @@
+<div class="card">
+    <div class="card-button-container">
+        <form action="<%= editUniversityPath(university) %>" method="get">
+            <input type="submit" value="Edit" class="card-button edit">
+        </form>
+        <form action="<%= deleteUniversityPath(university) %>" method="post">
+            <input type="hidden" name="_method" value="delete">
+            <input type="submit" value="Delete" class="card-button delete">
+        </form>
+    </div>
+    <a href=<%= universityPath(university) %> class="card-title"><%= university.name %></a>
+    <div class="card-contents">
+        <ul>
+            <li>Code: <%= university.code %></li>
+            <li>Domain: <%= university.domain %></li>
+        </ul>
+    </div>
+</div>

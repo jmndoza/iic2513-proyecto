@@ -1,0 +1,13 @@
+.error-container {
+    display: flex;
+    align-items: stretch;
+    flex-direction: column;
+}
+
+.error-card {
+    margin-bottom: 0.5rem;
+    padding: 0.3rem;
+    text-align: center;
+    border: solid thin darkgray;
+    background-color: lightcoral;
+}

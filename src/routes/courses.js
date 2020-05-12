@@ -11,6 +11,14 @@ async function loadCourse(ctx, next) {
   return next();
 }
 
+async function loadRequirements(ctx, next) {
+  ctx.state.professors = await ctx.orm.ProfessorName.findAll();
+  ctx.state.currentUser = ctx.session.sessionId && await ctx.orm.User.findOne(
+    { where: { sessionId: ctx.session.sessionId } },
+  );
+  return next();
+}
+
 router.get('courses.list', '/', async (ctx) => {
   const coursesList = await ctx.orm.Course.findAll();
   await ctx.render('courses/index', {
@@ -22,38 +30,28 @@ router.get('courses.list', '/', async (ctx) => {
   });
 });
 
-router.get('courses.show', '/:id/show', loadCourse, async (ctx) => {
-  const { course } = ctx.state;
-  await ctx.render('courses/show', {
-    course,
-    showEvaluationPath: (evaluation) => ctx.router.url('evaluations.show', { id: evaluation.id }),
-    editEvaluationPath: (evaluation) => ctx.router.url('evaluations.edit', { id: evaluation.id }),
-    deleteEvaluationPath: (evaluation) => ctx.router.url('evaluations.delete', { id: evaluation.id }),
-  });
-});
-
 router.get('courses.new', '/new', async (ctx) => {
   const course = ctx.orm.Course.build();
-  const universities = await ctx.orm.University.findAll();
+  course.UniversityId = ctx.query.UniversityId;
   await ctx.render('courses/new', {
     course,
-    universities,
     submitCoursePath: ctx.router.url('courses.create'),
   });
 });
 
 router.post('courses.create', '/', async (ctx) => {
   const course = ctx.orm.Course.build(ctx.request.body);
+  if (!ctx.request.body.UniversityId) {
+    course.UniversityId = null;
+  }
   course.verified = true;
-  const universities = await ctx.orm.University.findAll();
   try {
     await course.save({ fields: ['UniversityId', 'code', 'name', 'verified', 'description'] });
-    ctx.redirect(ctx.router.url('courses.list'));
+    ctx.redirect(ctx.router.url('universities.show', { id: course.UniversityId }));
   } catch (validationError) {
     await ctx.render('courses/new', {
       course,
-      universities,
-      errors: validationError.errors,
+      errors: ctx.errorToStringArray(validationError),
       submitCoursePath: ctx.router.url('courses.create'),
     });
   }
@@ -69,7 +67,20 @@ router.get('courses.edit', '/:id/edit', loadCourse, async (ctx) => {
   });
 });
 
-router.patch('course.update', '/:id', loadCourse, async (ctx) => {
+router.get('courses.show', '/:id', loadCourse, loadRequirements, async (ctx) => {
+  const { course } = ctx.state;
+  const { professors } = ctx.state;
+  await ctx.render('courses/show', {
+    professors,
+    course,
+    showEvaluationPath: (evaluation_) => ctx.router.url('evaluations.show', { id: evaluation_.id }),
+    editEvaluationPath: (evaluation_) => ctx.router.url('evaluations.edit', { id: evaluation_.id }),
+    deleteEvaluationPath: (evaluation_) => ctx.router.url('evaluations.delete', { id: evaluation_.id }),
+    newEvaluationPath: ctx.router.url('evaluations.new', { query: { CourseId: course.id } }),
+  });
+});
+
+router.patch('courses.update', '/:id', loadCourse, async (ctx) => {
   const { course } = ctx.state;
   const universities = await ctx.orm.University.findAll();
   try {
@@ -79,12 +90,12 @@ router.patch('course.update', '/:id', loadCourse, async (ctx) => {
     await course.update({
       UniversityId, code, name, verified, description,
     });
-    ctx.redirect(ctx.router.url('courses.list'));
+    ctx.redirect(ctx.router.url('universities.show', { id: course.UniversityId }));
   } catch (validationError) {
     await ctx.render('courses/edit', {
       course,
       universities,
-      errors: validationError.errors,
+      errors: ctx.errorToStringArray(validationError),
       submitCoursePath: ctx.router.url('courses.update', { id: course.id }),
     });
   }
@@ -93,7 +104,7 @@ router.patch('course.update', '/:id', loadCourse, async (ctx) => {
 router.del('courses.delete', '/:id', loadCourse, async (ctx) => {
   const { course } = ctx.state;
   await course.destroy();
-  ctx.redirect(ctx.router.url('courses.list'));
+  ctx.redirect(ctx.router.url('universities.show', { id: course.UniversityId }));
 });
 
 

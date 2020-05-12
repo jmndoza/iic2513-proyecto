@@ -1,0 +1,18 @@
+<div class="card">
+    <div class="card-button-container">
+        <form action="<%= editCoursePath(course) %>" method="get">
+            <input type="submit" value="Edit" class="card-button edit">
+        </form>
+        <form action="<%= deleteCoursePath(course) %>" method="post">
+            <input type="hidden" name="_method" value="delete">
+            <input type="submit" value="Delete" class="card-button delete">
+        </form>
+    </div>
+    <a href=<%= showCoursePath(course) %> class="card-title"><%= course.name %></a>
+    <div class="card-contents">
+        <ul>
+            <li>Code: <%= course.code %></li>
+            <li>Description: <%= course.description %></li>
+        </ul>
+    </div>
+</div>

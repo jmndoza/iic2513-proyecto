@@ -1,38 +1,10 @@
 <div>
-    <% if (locals.errors) { %>
-      <div class="errors">
-        You need to fix the following errors:
-        <ul>
-          <% errors.forEach(error => { %>
-            <li><%= error.message %></li>
-          <% }); %>
-        </ul>
-      </div>
-    <% } %>
     <form action="<%= submitEvaluationPath %>" method="post">
       <% if (!evaluation.isNewRecord) { %>
-        <input type="hidden" name="_method" value="patch" />
+        <input type="hidden" name="_method" value="patch"/>
       <% } %>
-      
-      <div  class="field">
-        <label for="UserId">User</label>
-        <select name="UserId" required>
-          <option hidden disabled <%= evaluation.isNewRecord ? "selected" : "" %> value> -- select a student -- </option>
-          <% students.forEach((Student) => { %>
-            <option value="<%= Student.id %>" <%= evaluation.UserId === Student.id ? "selected" : "" %>  ><%= Student.name %></option>
-          <% }) %>
-        </select>
-      </div>
 
-      <div  class="field">
-        <label for="CourseId">Course</label>
-        <select name="CourseId" required>
-          <option hidden disabled <%= evaluation.isNewRecord ? "selected" : "" %> value> -- select a course -- </option>
-          <% courses.forEach((Course) => { %>
-            <option value="<%= Course.id %>" <%= evaluation.CourseId === Course.id ? "selected" : "" %> ><%= Course.code %></option>
-          <% }) %>
-        </select>
-      </div>
+      <input type="hidden" name="CourseId" value="<%=evaluation.CourseId%>"/>
 
       <div  class="field">
         <label for="ProfessorNameId">Professor</label>
@@ -51,24 +23,23 @@
 
       <div  class="field">
         <label for="year">Year</label>
-        <input type="number" name="year" value="<%= evaluation.year %>" min="1900" max="2020" required />
+        <input type="number" name="year" value="<%= evaluation.year || new Date().getFullYear() %>" min="1900" max=<%= new Date().getFullYear() %> required />
       </div>
 
       <div  class="field">
         <label for="semester">Semester</label>
         <select name="semester" required >
-          <option hidden disabled <%= evaluation.isNewRecord ? "selected" : "" %> value> -- select a semester -- </option>
-          <option value="1" <%= evaluation.semester == 1 ? "selected" : "" %> > First semester</option>
-          <option value="2" <%= evaluation.semester == 2 ? "selected" : "" %> > Second semester</option>
+          <option value="1" <%= evaluation.semester == 1 ? "selected" : "" %> > First</option>
+          <option value="2" <%= evaluation.semester == 2 ? "selected" : "" %> > Second</option>
         </select>
       </div>
       <div  class="field">
         <label for="timeRating">Time Rating</label>
-        <input type="number" name="timeRating" value="<%= evaluation.timeRating %>" min="1" max="5" required/>
+        <input type="number" name="timeRating" value="<%= evaluation.timeRating || 3 %>" min="1" max="5" required/>
       </div>
       <div  class="field">
         <label for="difficultyRating">Difficulty Rating</label>
-        <input type="number" name="difficultyRating" value="<%= evaluation.difficultyRating %>" min="1" max="5" required/>
+        <input type="number" name="difficultyRating" value="<%= evaluation.difficultyRating || 3 %>" min="1" max="5" required/>
       </div>
       <div  class="field">
         <% if (evaluation.isNewRecord) { %>

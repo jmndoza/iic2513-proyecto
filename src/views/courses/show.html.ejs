@@ -1,48 +1,13 @@
 <%- include('../menu', {active: 'courses'}) %>
 <h2> <%- `${course.code}: ${course.name}` %> </h2>
 <h2> Evaluations</h2>
-<% if (!course.Evaluations.length) { %>
-    <p>Course does not have any evaluations</p>
-  <% } else { %>
-    <table>
-      <thead>
-        <tr>
-          <th>Professor</th>
-          <th>Year</th>
-          <th>Semester</th>
-          <th>Comment</th>
-          <th>Time Rating</th>
-          <th>Difficulty Rating</th>
-          <th colspan="3">Actions</th>
-        </tr>
-      </thead>
-      <tbody>
-        <% course.Evaluations.forEach((evaluation) => { %>
-          <tr>
-            <td><%= evaluation.ProfessorName.name %></td>
-            <td><%= evaluation.year %></td>
-            <td><%= evaluation.semester %></td>
-            <td><%= evaluation.comment %></td>
-            <td><%= evaluation.timeRating %></td>
-            <td><%= evaluation.difficultyRating %></td>
-            <td>
-              <form action="<%= showEvaluationPath(evaluation) %>" method="get">
-                <input type="submit" value="View">
-              </form>
-          </td>
-            <td>
-              <form action="<%= editEvaluationPath(evaluation) %>" method="get">
-                <input type="submit" value="Edit">
-              </form>
-            </td>
-            <td>
-              <form action="<%= deleteEvaluationPath(evaluation) %>" method="get">
-                <input type="hidden" name="_method" value="delete">
-                <input type="submit" value="Delete">
-              </form>
-            </td>
-          </tr>
-        <% }) %>
-      </tbody>
-    </table>
+<div class="card-container">
+  <% if (course.Evaluations.length) { %>
+    <% course.Evaluations.forEach((evaluation) => { %>
+      <%- include('../evaluations/_show', {evaluation}) %>
+    <% }) %>
   <% } %>
+  <div class="card new">
+      <a href=<%=newEvaluationPath%>>New Evaluation</a>
+  </div>
+</div>

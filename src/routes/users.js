@@ -7,6 +7,38 @@ async function loadUser(ctx, next) {
   return next();
 }
 
+router.get('users.home', '/home', async (ctx) => {
+  const { currentUser } = ctx.state;
+  if (currentUser.role === 'student') {
+    const evaluationList = await ctx.orm.Evaluation.findAll({
+      where: { UserId: currentUser.id },
+      include: [
+        { model: ctx.orm.Course },
+        { model: ctx.orm.ProfessorName },
+      ],
+    });
+    await ctx.render('users/home-student', {
+      currentUser,
+      evaluationList,
+      editUserPath: (user) => ctx.router.url('users.edit', { id: user.id }),
+    });
+  } else if (currentUser.role === 'professor') {
+    const coursesList = await ctx.orm.Course.findAll({
+      attribute: ['code', 'name'],
+      where: { id: currentUser.id },
+    });
+    await ctx.render('users/home-professor', {
+      currentUser,
+      coursesList,
+      editUserPath: (user) => ctx.router.url('users.edit', { id: user.id }),
+    });
+  } else if (currentUser.role === 'admin') {
+    await ctx.render('users/home-admin', {
+      currentUser,
+    });
+  }
+});
+
 router.get('users.list', '/', async (ctx) => {
   const userList = await ctx.orm.User.findAll();
   await ctx.render('users/index', {
@@ -30,14 +62,13 @@ router.post('users.create', '/', async (ctx) => {
   user.emailVerified = true;
   user.blocked = false;
   user.verified = true;
-  user.passwordHash = '<password hash>';
   try {
-    await user.save({ fields: ['name', 'email', 'emailVerified', 'blocked', 'verified', 'role', 'passwordHash'] });
-    ctx.redirect(ctx.router.url('users.list'));
+    await user.save({ fields: ['name', 'email', 'emailVerified', 'blocked', 'verified', 'role', 'password'] });
+    ctx.redirect(ctx.router.url('sessions.new'));
   } catch (validationError) {
     await ctx.render('users/new', {
       user,
-      errors: validationError.errors,
+      errors: ctx.errorToStringArray(validationError),
       submitUserPath: ctx.router.url('users.create'),
     });
   }
@@ -56,17 +87,17 @@ router.patch('users.update', '/:id', loadUser, async (ctx) => {
   try {
     const { role, name, email } = ctx.request.body;
     await user.update({ role, name, email });
-    ctx.redirect(ctx.router.url('users.list'));
+    ctx.redirect(ctx.router.url('users.home'));
   } catch (validationError) {
     await ctx.render('users/edit', {
       user,
-      errors: validationError.errors,
+      errors: ctx.errorToStringArray(validationError),
       submitUserPath: ctx.router.url('users.update', { id: user.id }),
     });
   }
 });
 
-router.delete('users.delete', '/:id', loadUser, async (ctx) => {
+router.del('users.delete', '/:id', loadUser, async (ctx) => {
   const { user } = ctx.state;
   await user.destroy();
   ctx.redirect(ctx.router.url('users.list'));

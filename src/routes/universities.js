@@ -11,20 +11,13 @@ async function loadUniversity(ctx, next) {
 }
 
 router.get('universities.list', '/', async (ctx) => {
-  const universitiesList = await ctx.orm.University.findAll();
+  const universitiesList = await ctx.orm.University.findAll({ include: [{ all: true }] });
   await ctx.render('universities/index', {
     universitiesList,
     newUniversityPath: ctx.router.url('universities.new'),
     universityPath: (university) => ctx.router.url('universities.show', { id: university.id }),
     editUniversityPath: (university) => ctx.router.url('universities.edit', { id: university.id }),
     deleteUniversityPath: (university) => ctx.router.url('universities.delete', { id: university.id }),
-  });
-});
-
-router.get('universities.show', '/:id/show', loadUniversity, async (ctx) => {
-  const { university } = ctx.state;
-  await ctx.render('universities/show', {
-    university,
     coursePath: (course) => ctx.router.url('courses.show', { id: course.id }),
   });
 });
@@ -45,7 +38,7 @@ router.post('universities.create', '/', async (ctx) => {
   } catch (validationError) {
     await ctx.render('universities/new', {
       university,
-      errors: validationError.errors,
+      errors: ctx.errorToStringArray(validationError),
       submitUniversityPath: ctx.router.url('universities.create'),
     });
   }
@@ -59,6 +52,17 @@ router.get('universities.edit', '/:id/edit', loadUniversity, async (ctx) => {
   });
 });
 
+router.get('universities.show', '/:id', loadUniversity, async (ctx) => {
+  const { university } = ctx.state;
+  await ctx.render('universities/show', {
+    university,
+    showCoursePath: (course) => ctx.router.url('courses.show', { id: course.id }),
+    editCoursePath: (course) => ctx.router.url('courses.edit', { id: course.id }),
+    deleteCoursePath: (course) => ctx.router.url('courses.delete', { id: course.id }),
+    newCoursePath: ctx.router.url('courses.new', { query: { UniversityId: university.id } }),
+  });
+});
+
 router.patch('universities.update', '/:id', loadUniversity, async (ctx) => {
   const { university } = ctx.state;
   try {
@@ -68,7 +72,7 @@ router.patch('universities.update', '/:id', loadUniversity, async (ctx) => {
   } catch (validationError) {
     await ctx.render('universities/edit', {
       university,
-      errors: validationError.errors,
+      errors: ctx.errorToStringArray(validationError),
       submitUniversityPath: ctx.router.url('universities.update', { id: university.id }),
     });
   }

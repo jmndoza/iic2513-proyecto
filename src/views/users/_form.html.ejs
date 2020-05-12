@@ -1,14 +1,4 @@
 <div>
-  <% if (locals.errors) { %>
-    <div class="errors">
-      You need to fix the following errors:
-      <ul>
-        <% errors.forEach(error => { %>
-          <li><%= error.message %></li>
-        <% }); %>
-      </ul>
-    </div>
-  <% } %>
   <form action="<%= submitUserPath %>" method="post">
     <% if (!user.isNewRecord) { %>
       <input type="hidden" name="_method" value="patch" />
@@ -28,6 +18,10 @@
     <div  class="field">
       <label for="email">Email</label>
       <input type="email" name="email" value="<%= user.email %>" required/>
+    </div>
+    <div  class="field">
+      <label for="password">Password</label>
+      <input type="password" name="password" required/>
     </div>
     <div  class="field">
       <% if (user.isNewRecord) { %>
