@@ -17,7 +17,7 @@ router.use(async (ctx, next) => {
   );
   // eslint-disable-next-line no-underscore-dangle
   if (!currentUser && !routesWithoutUser.includes(ctx._matchedRouteName)) {
-    ctx.redirect(ctx.router.url('sessions.new'));
+    return ctx.redirect(ctx.router.url('sessions.new'));
   }
   Object.assign(ctx.state, {
     currentUser,
