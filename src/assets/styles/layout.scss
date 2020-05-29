@@ -6,9 +6,19 @@ html {
   background-color: $background-color;
 }
 
+body {
+  position: relative;
+  margin: 0 auto;
+  max-width: 70rem;
+}
+
 a {
   text-decoration: none;
   color: $primary-color;
+}
+
+a:hover {
+  text-decoration: underline;
 }
 
 input, select {
@@ -17,15 +27,9 @@ input, select {
 }
 
 .field {
-  margin-bottom: 2px;
+  margin-bottom: 0.2rem;
   // width: fit-content;
   // margin-left: auto;
-}
-
-body {
-  position: relative;
-  margin: 0 auto;
-  max-width: 70rem;
 }
 
 form, table {
@@ -37,6 +41,7 @@ form, table {
 h2 {
   margin: 0 auto 1rem auto;
   width: fit-content;
+  font-size: 1.2rem;
 }
 
 // body > a {
