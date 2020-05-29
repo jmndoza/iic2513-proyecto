@@ -1,5 +1,11 @@
 <div class="card">
-  <div class="card-title">New Evaluation</div>
+  <div class="card-title">
+    <% if (evaluation.isNewRecord) { %>
+      New Evaluation
+    <% } else { %>
+      Edit Evaluation
+    <% } %>
+  </div>
   <div class="card-contents">
     <form action="<%= submitEvaluationPath %>" method="post">
       <% if (!evaluation.isNewRecord) { %>

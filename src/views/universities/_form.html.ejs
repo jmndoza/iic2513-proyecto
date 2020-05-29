@@ -1,5 +1,11 @@
 <div class="card">
-  <div class="card-title">New University</div>
+  <div class="card-title">
+    <% if (university.isNewRecord) { %>
+      New University
+    <% } else { %>
+      Edit University
+    <% } %>
+  </div>
   <div class="card-contents">
   <form action="<%= submitUniversityPath %>" method="post">
     <% if (!university.isNewRecord) { %>

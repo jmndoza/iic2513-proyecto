@@ -27,7 +27,7 @@ router.put('sessions.create', '/', async (ctx) => {
   });
 });
 
-router.delete('sessions.destroy', '/', async (ctx) => {
+router.get('sessions.destroy', '/logout', async (ctx) => {
   ctx.session = null;
   const { currentUser } = ctx.state;
   currentUser.sessionId = null;
