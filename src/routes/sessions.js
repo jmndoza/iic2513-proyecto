@@ -17,8 +17,7 @@ router.put('sessions.create', '/', async (ctx) => {
     user.sessionId = sessionId;
     await user.save();
     ctx.session.sessionId = sessionId;
-    ctx.redirect(ctx.router.url('users.home'));
-    return;
+    return ctx.redirect('/');
   }
   await ctx.render('sessions/new', {
     createSessionPath: ctx.router.url('sessions.create'),
@@ -28,11 +27,11 @@ router.put('sessions.create', '/', async (ctx) => {
 });
 
 router.get('sessions.destroy', '/logout', async (ctx) => {
-  ctx.session = null;
   const { currentUser } = ctx.state;
+  ctx.session.sessionId = null;
   currentUser.sessionId = null;
   await currentUser.save();
-  ctx.redirect(ctx.router.url('sessions.new'));
+  ctx.redirect('/');
 });
 
 module.exports = router;

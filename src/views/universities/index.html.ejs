@@ -1,9 +1,11 @@
-<%- include('../menu', {active: 'universities'}) %>
 <div class="card-container">
   <% if (universitiesList.length) { %>
     <% universitiesList.forEach((university) => { %>
       <%- include('_show', {university: university}) %>
     <% }) %>
   <% } %>
-  <%- include('_form') %>
+  <!-- <%- include('_form') %> -->
+  <div class="card new">
+    <a href=<%= newUniversityPath %>>Create New University</a>
+  </div>
 </div>

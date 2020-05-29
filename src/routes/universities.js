@@ -36,10 +36,13 @@ router.post('universities.create', '/', async (ctx) => {
   try {
     await university.save({ fields: ['code', 'name', 'domain'] });
     // ctx.redirect(ctx.router.url('universities.list'));
-    ctx.redirect('back');
-  } catch (validationError) {
-    ctx.flashMessage.warning = utils.errorToStringArray(validationError);
     ctx.redirect(ctx.router.url('universities.list'));
+  } catch (validationError) {
+    await ctx.render(ctx.router.url('universities.new'), {
+      university,
+      errors: ctx.errorToStringArray(validationError),
+      submitUniversityPath: ctx.router.url('universities.create'),
+    });
   }
 });
 
