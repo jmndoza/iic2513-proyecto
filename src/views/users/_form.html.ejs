@@ -1,4 +1,12 @@
-<div>
+<div class="card">
+  <div class="card-title">
+    <%_ if (user.isNewRecord) { _%>
+      Register
+    <%_ } else { _%>
+      Edit User
+    <%_ } _%>
+  </div>
+  <div class="card-contents">
   <form action="<%= submitUserPath %>" method="post">
     <% if (!user.isNewRecord) { %>
       <input type="hidden" name="_method" value="patch" />
