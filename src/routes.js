@@ -16,9 +16,9 @@ router.use(async (ctx, next) => {
     { where: { sessionId: ctx.session.sessionId } },
   );
   // eslint-disable-next-line no-underscore-dangle
-  if (!currentUser && !routesWithoutUser.includes(ctx._matchedRouteName)) {
-    return ctx.redirect(ctx.router.url('sessions.new'));
-  }
+  // if (!currentUser && !routesWithoutUser.includes(ctx._matchedRouteName)) {
+  //   return ctx.redirect(ctx.router.url('sessions.new'));
+  // }
   Object.assign(ctx.state, {
     currentUser,
     newSessionPath: ctx.router.url('sessions.new'),
