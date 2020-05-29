@@ -37,14 +37,16 @@
 // }
 
 .card {
+    width: fit-content;
     position: relative;
+    margin: 0 auto;
     padding: 1rem;
     background-color: $content-background-color;
     box-shadow: 0 0 0.1rem 0 $shadow-color;
-    margin: 0 0.5rem;
 }
 
 .card-container .card {
+    width: unset;
     margin: 0;
 }
 
