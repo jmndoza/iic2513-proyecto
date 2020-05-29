@@ -20,14 +20,13 @@ router.get('users.home', '/home', async (ctx) => {
     });
     utils.loadEvaluationPaths(ctx);
     await ctx.render('users/home-student', {
-      editUserPath: (user) => ctx.router.url('users.edit', { id: user.id }),
       evaluationList,
     });
   } else if (currentUser.role === 'professor') {
     const coursesList = await currentUser.getCourses();
     utils.loadCoursePaths(ctx);
+    console.log('------------------------------');
     await ctx.render('users/home-professor', {
-      editUserPath: (user) => ctx.router.url('users.edit', { id: user.id }),
       coursesList,
     });
   } else if (currentUser.role === 'admin') {

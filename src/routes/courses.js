@@ -40,13 +40,12 @@ router.get('courses.new', '/new', async (ctx) => {
 router.post('courses.create', '/', async (ctx) => {
   const course = ctx.orm.Course.build(ctx.request.body);
   if (!ctx.request.body.UniversityId) {
-    course.UniversityId = null;
+    throw new Error('Can not create course without UniversityId');
   }
   course.verified = true;
   try {
     await course.save({ fields: ['UniversityId', 'code', 'name', 'verified', 'description'] });
-    // ctx.redirect(ctx.router.url('universities.show', { id: course.UniversityId }));
-    ctx.redirect('back');
+    ctx.redirect(ctx.router.url('universities.show', { id: course.UniversityId }));
   } catch (validationError) {
     await ctx.render('courses/new', {
       course,

@@ -1,13 +1,10 @@
 <nav>
-    <!-- <a href="/users"       class="menu-item menu-link<%= active === 'users'        ? ' active' : '' %>">Users</a> -->
-    <a href="/universities"     class="menu-item menu-link<%= active === 'universities' ? ' active' : '' %>">Universities</a>
-    <!-- <a href="/courses"     class="menu-item menu-link<%= active === 'courses'      ? ' active' : '' %>">Courses</a> -->
-    <!-- <a href="/evaluations" class="menu-item menu-link<%= active === 'evaluations'  ? ' active' : '' %>">Evaluations</a> -->
-    <% if (currentUser) { %>
-        <a href = "/users/home" class="menu-item menu-link"><i class="fas fa-home"></i> Home</a>
-        <a href="<%= destroySessionPath %>" class="menu-item menu-link"><i class="fas fa-sign-out-alt"></i> Logout</a>
-      <% } else { %>
-        <a href=<%= newSessionPath %> class="menu-item menu-link">Login</a>
-      <% } %>
+  <a href="/universities"     class="menu-item menu-link">Universities</a>
+  <% if (currentUser) { %>
+    <a href = "/users/home" class="menu-item menu-link"><i class="fas fa-home"></i> Home</a>
+    <a href="<%= editUserPath(currentUser) %>" class="menu-item menu-link"><i class="fas fa-cog"></i> Account</a>
+    <a href="<%= destroySessionPath %>" class="menu-item menu-link"><i class="fas fa-sign-out-alt"></i> Logout</a>
+  <% } else { %>
+    <a href=<%= newSessionPath %> class="menu-item menu-link"><i class="fas fa-sign-in-alt"></i> Login</a>
+  <% } %>
 </nav>
-<%- include('errors') %>

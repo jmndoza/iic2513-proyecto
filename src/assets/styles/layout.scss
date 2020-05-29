@@ -23,19 +23,20 @@ a:hover {
 
 input, select {
   color: $text-color;
+  display: block;
+  width: 100%;
+  box-sizing: border-box;
   // font-size: 1rem;
 }
 
 .field {
-  margin-bottom: 0.2rem;
+  margin-bottom: 1rem;
   // width: fit-content;
   // margin-left: auto;
 }
 
 form, table {
-  width: fit-content;
-  margin-left: auto;
-  margin-right: auto;
+  margin: 0 auto;
 }
 
 h2 {
