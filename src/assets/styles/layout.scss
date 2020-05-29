@@ -29,7 +29,7 @@ input, select {
   // font-size: 1rem;
 }
 
-.field {
+.field:not(:last-child) {
   margin-bottom: 1rem;
   // width: fit-content;
   // margin-left: auto;
