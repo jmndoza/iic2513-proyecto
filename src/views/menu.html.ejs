@@ -1,9 +1,10 @@
 <nav>
-    <a href="/universities"     class="menu-item menu-link">Universities</a>
-    <% if (currentUser) { %>
-        <a href = "/users/home" class="menu-item menu-link"><i class="fas fa-home"></i> Home</a>
-        <a href="<%= destroySessionPath %>" class="menu-item menu-link"><i class="fas fa-sign-out-alt"></i> Logout</a>
-      <% } else { %>
-        <a href=<%= newSessionPath %> class="menu-item menu-link"><i class="fas fa-sign-in-alt"></i> Login</a>
-      <% } %>
+  <a href="/universities"     class="menu-item menu-link">Universities</a>
+  <% if (currentUser) { %>
+    <a href = "/users/home" class="menu-item menu-link"><i class="fas fa-home"></i> Home</a>
+    <a href="<%= editUserPath(currentUser) %>" class="menu-item menu-link"><i class="fas fa-cog"></i> Account</a>
+    <a href="<%= destroySessionPath %>" class="menu-item menu-link"><i class="fas fa-sign-out-alt"></i> Logout</a>
+  <% } else { %>
+    <a href=<%= newSessionPath %> class="menu-item menu-link"><i class="fas fa-sign-in-alt"></i> Login</a>
+  <% } %>
 </nav>

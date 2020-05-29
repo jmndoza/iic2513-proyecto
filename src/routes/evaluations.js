@@ -53,8 +53,7 @@ router.post('evaluations.create', '/', loadRequirements, async (ctx) => {
   evaluation.UserId = currentUser.id;
   try {
     await evaluation.save({ fields: ['UserId', 'ProfessorNameId', 'CourseId', 'comment', 'year', 'semester', 'timeRating', 'difficultyRating'] });
-    // ctx.redirect(ctx.router.url('courses.show', { id: evaluation.CourseId }));
-    ctx.redirect('back');
+    ctx.redirect(ctx.router.url('courses.show', { id: evaluation.CourseId }));
   } catch (validationError) {
     await ctx.render('evaluations/new', {
       evaluation,

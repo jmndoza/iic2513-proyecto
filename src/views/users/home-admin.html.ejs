@@ -1,9 +1,6 @@
-<div class="card title">Users</div>
+<div class="card title">Manage Users</div>
 <div class="card-container">
   <% userList.forEach((user) => {%>
     <%- include('../users/_show', {user}) %>
   <% }) %>
 </div>
-<form action="<%=  editUserPath(currentUser) %>" method="get">
-  <input type="submit" value="Edit profile">
-</form>

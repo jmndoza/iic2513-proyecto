@@ -3,5 +3,7 @@
   <% university.Courses.forEach((course) => {%>
       <%- include('../courses/_show', {course}) %>
   <% }) %>
-    <%- include('../courses/_form') %>
+  <div class="card new">
+    <a href=<%= newCoursePath %>>Create New Course</a>
+  </div>
 </div>

@@ -5,5 +5,7 @@
       <%- include('../evaluations/_show', {evaluation, showCourse: false}) %>
     <% }) %>
   <% } %>
-    <%- include('../evaluations/_form') %>
+  <div class="card new">
+    <a href=<%= newEvaluationPath %>>Evaluate This Course</a>
+  </div>
 </div>

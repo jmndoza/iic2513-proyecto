@@ -24,6 +24,7 @@ router.use(async (ctx, next) => {
     newSessionPath: ctx.router.url('sessions.new'),
     destroySessionPath: ctx.router.url('sessions.destroy'),
     newUserPath: ctx.router.url('users.new'),
+    editUserPath: (user) => ctx.router.url('users.edit', { id: user.id }),
   });
   return next();
 });

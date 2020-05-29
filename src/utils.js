@@ -9,15 +9,12 @@ module.exports.errorToStringArray = function (error) {
   } else if (error.message) {
     return [error.message];
   } else {
-    console.error(error);
     throw error;
   }
 };
 
 module.exports.loadUserPaths = function (ctx) {
-  ctx.state.newUserPath = ctx.router.url('users.new');
   ctx.state.showUserPath = (user) => ctx.router.url('users.show', { id: user.id });
-  ctx.state.editUserPath = (user) => ctx.router.url('users.edit', { id: user.id });
   ctx.state.deleteUserPath = (user) => ctx.router.url('users.delete', { id: user.id });
 };
 
@@ -30,7 +27,7 @@ module.exports.loadEvaluationPaths = function (ctx) {
 };
 
 module.exports.loadCoursePaths = function (ctx) {
-  if (ctx.state.university) ctx.state.newCoursePath = ctx.router.url('courses.new', { query: { UniversityId: ctx.state.university.id }});
+  if (ctx.state.university) ctx.state.newCoursePath = ctx.router.url('courses.new', { query: { UniversityId: ctx.state.university.id } });
   ctx.state.submitCoursePath = ctx.router.url('courses.create');
   ctx.state.showCoursePath = (course) => ctx.router.url('courses.show', { id: course.id });
   ctx.state.editCoursePath = (course) => ctx.router.url('courses.edit', { id: course.id });
