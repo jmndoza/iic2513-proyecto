@@ -3,7 +3,7 @@
     <%_ if (user.isNewRecord) { _%>
       Register
     <%_ } else { _%>
-      Edit User
+      Edit Account
     <%_ } _%>
   </div>
   <div class="card-contents">
@@ -33,7 +33,7 @@
     </div>
     <div  class="field">
       <% if (user.isNewRecord) { %>
-        <input type="submit" name="create" value="Create" />
+        <input type="submit" name="create" value="Register" />
       <% } else { %>
         <input type="submit" name="update" value="Update" />
       <% } %>
