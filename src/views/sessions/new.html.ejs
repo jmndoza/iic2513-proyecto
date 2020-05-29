@@ -1,7 +1,7 @@
 <div class="card">
-    <h2>Login</h2>
     <%- include('../errors') %>
 
+    <div class="card-title">Login</div>
     <form action="<%= createSessionPath %>" method="post">
         <input type="hidden" name="_method" value="put" />
         <div class="field" id="session-email-field">
