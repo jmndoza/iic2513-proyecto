@@ -11,7 +11,7 @@ const sessions = require('./routes/sessions');
 const router = new KoaRouter();
 
 router.use(async (ctx, next) => {
-  const routesWithoutUser = ['sessions.new', 'sessions.create', 'users.new', 'users.create'];
+  // const routesWithoutUser = ['sessions.new', 'sessions.create', 'users.new', 'users.create'];
   const currentUser = ctx.session.sessionId && await ctx.orm.User.findOne(
     { where: { sessionId: ctx.session.sessionId } },
   );

@@ -28,11 +28,11 @@ router.put('sessions.create', '/', async (ctx) => {
 });
 
 router.get('sessions.destroy', '/logout', async (ctx) => {
-  ctx.session = null;
   const { currentUser } = ctx.state;
+  ctx.session.sessionId = null;
   currentUser.sessionId = null;
   await currentUser.save();
-  ctx.redirect(ctx.router.url('sessions.new'));
+  ctx.redirect('/');
 });
 
 module.exports = router;
