@@ -17,30 +17,29 @@
 }
 
 .card form {
-    display: inline;
+    // display: inline;
 }
 
 .card ul {
-    width: fit-content;
+    // width: fit-content;
     margin: 0;
 }
 
-.card input.submit {
-    border: none;
-    background-color: transparent;
-    cursor: pointer;
-}
+// .card input.submit {
+//     border: none;
+//     background-color: transparent;
+//     cursor: pointer;
+// }
 
-.card input:active {
-    outline: none;
-}
+// .card input:active {
+//     outline: none;
+// }
 
 .card {
     position: relative;
     padding: 1rem;
-    border: solid thin lightgray;
-    // border-radius: 0.3rem;
-    background-color: bisque;
+    background-color: $content-background-color;
+    box-shadow: 0px 0px 5px 0px $shadow-color;
 }
 
 .card.new {
@@ -52,19 +51,27 @@
     margin: auto;
 }
 
+.card.title {
+    box-sizing: border-box;
+    width: 100%;
+    margin: 0 auto 0.5rem auto;
+    text-align: center;
+}
+
 .card-title {
     margin: 0 auto 1rem auto;
     width: fit-content;
     text-align: center;
     display: block;
+    font-size: 1.2rem;
 }
 
-
 .card-contents {
-    width: fit-content;
+    // width: fit-content;
 }
 
 .card-button-container {
+    display: flex;
     position: absolute;
     right: 0.3rem;
     bottom: 0.3rem;
@@ -72,35 +79,27 @@
 }
 
 .card-button {
-    // display: inline-block;
     visibility: hidden;
-    // border-radius: 0.2rem;
+    border-radius: 0.2rem;
     border-style: none;
-    padding: 2px 5px;
-    font-family: sans-serif;
+    padding: 4px 4px 2px 4px;
     outline: none;
     cursor: pointer;
-}
-
-.card-button.delete {
     background-color:transparent;
+    font-size: 1rem;
+    // font-family: sans-serif;
+    // display: inline-block;
 }
 
-.card-button.delete:hover {
-    background-color: lightcoral;
+.card-button:hover {
+    background-color: $alert-color;
 }
 
-.card-button.edit {
-      background-color: transparent;
-}
-
-.card-button.edit:hover {
-    background-color: lightcoral;
-}
-
-.card:hover {
-    background-color: antiquewhite;
-    border-style: dashed;
+.card:not(.title):hover {
+    box-shadow: 0px 0px 4px 1px $shadow-color-dark;
+    // background-color: $primary-color;
+    // color: $bold-;
+    // border: solid thin $text-color;
 }
 
 .card:hover .card-button{

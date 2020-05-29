@@ -1,10 +1,9 @@
 <%- include('../menu', {active: 'courses'}) %>
-<h2> <%- `${course.code}: ${course.name}` %> </h2>
-<h2> Evaluations</h2>
+<h2 class="card title"> <%- `${course.code}: ${course.name}` %> </h2>
 <div class="card-container">
   <% if (course.Evaluations.length) { %>
     <% course.Evaluations.forEach((evaluation) => { %>
-      <%- include('../evaluations/_show', {evaluation}) %>
+      <%- include('../evaluations/_show', {evaluation, showCourse: false}) %>
     <% }) %>
   <% } %>
     <%- include('../evaluations/_form') %>

@@ -1,10 +1,10 @@
 <%- include('../menu', {active: 'users'}) %>
-<form action="<%=  editUserPath(currentUser) %>" method="get">
-    <input type="submit" value="Edit profile">
-</form>
-<h2>Courses</h2>
+<h2 class="card title">Your Courses</h2>
 <div class="card-container">
   <% coursesList.forEach((course) => {%>
-      <%- include('../courses/_show', {course}) %>
+    <%- include('../courses/_show', {course}) %>
   <% }) %>
 </div>
+<form action="<%=  editUserPath(currentUser) %>" method="get">
+  <input type="submit" value="Edit profile">
+</form>

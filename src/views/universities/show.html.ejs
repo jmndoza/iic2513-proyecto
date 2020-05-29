@@ -1,6 +1,5 @@
 <%- include('../menu', {active: 'universities'}) %>
-<h2><%= university.code %>: <%= university.name %> (<%= university.domain %>)</h2>
-<h2>Courses</h2>
+<h2 class="card title"><%= university.code %>: <%= university.name %> (<%= university.domain %>)</h2>
 <div class="card-container">
   <% university.Courses.forEach((course) => {%>
       <%- include('../courses/_show', {course}) %>
