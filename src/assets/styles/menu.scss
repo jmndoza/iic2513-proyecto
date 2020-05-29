@@ -6,19 +6,26 @@ nav {
     margin-bottom: 0.5rem;
 }
 
+@media (min-width: 70rem) {
+    nav {
+        margin-left: 0.5rem;
+        margin-right: 0.5rem;
+    }
+}
+
 .menu-item {
-    text-align: center;
-    padding: 0.5rem;
+    padding: 0.7rem 0.5rem 0.5rem 0.5rem;
     color: $text-color;
-    background: none;
-    border: medium dashed transparent;
     font-size: 1.2rem;
-    cursor: pointer;
-
+    // text-align: center;
+    // background: none;
+    // border: medium dashed transparent;
+    // cursor: pointer;
 }
 
-.menu-item:hover {
-    // border-color: black;
-    // text-shadow: 0px 0px 0.1rem $primary-color;
-    background-color: $primary-color;
-}
+// .menu-item:hover {
+//     border-color: black;
+//     text-shadow: 0 0 0.15rem $primary-color;
+//     background-color: $primary-color;
+//     text-decoration: underline;
+// }
