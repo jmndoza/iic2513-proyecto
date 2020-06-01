@@ -1,5 +1,4 @@
 const KoaRouter = require('koa-router');
-
 const hello = require('./routes/hello');
 const index = require('./routes/index');
 const universities = require('./routes/universities');
@@ -36,5 +35,4 @@ router.use('/users', users.routes());
 router.use('/courses', courses.routes());
 router.use('/evaluations', evaluations.routes());
 router.use('/sessions', sessions.routes());
-
 module.exports = router;

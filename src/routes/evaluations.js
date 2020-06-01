@@ -1,5 +1,6 @@
 const KoaRouter = require('koa-router');
 const utils = require('../utils');
+const policies = require('../policies');
 
 const router = new KoaRouter();
 
@@ -22,6 +23,22 @@ async function loadRequirements(ctx, next) {
   });
   return next();
 }
+async function pass(ctx, next) {
+  let role = 'anonimo';
+  if (ctx.state.currentUser) {
+    role = ctx.state.currentUser.role;
+  }
+  const isAllow = policies.isAllow(role, 'Evaluation', ctx.request.method);
+  if (isAllow) {
+    ctx.state.allowedEvaluation = policies.getPermissions(role, 'Evaluation');
+    return next();
+  }
+  
+  ctx.body = 'Uff 401';
+  ctx.status = 401;
+}
+
+
 router.get('evaluations.list', '/', async (ctx) => {
   const evaluationsList = await ctx.orm.Evaluation.findAll({
     include: [
@@ -76,7 +93,7 @@ router.get('evaluations.edit', '/:id/edit', loadEvaluation, loadRequirements, as
   });
 });
 
-router.get('evaluations.show', '/:id', loadEvaluation, async (ctx) => {
+router.get('evaluations.show', '/:id', pass, loadEvaluation, async (ctx) => {
   const { evaluation } = ctx.state;
   utils.loadEvaluationPaths(ctx);
   await ctx.render('evaluations/show', {

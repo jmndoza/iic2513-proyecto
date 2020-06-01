@@ -1,7 +1,7 @@
 /* eslint-disable object-curly-newline */
 const KoaRouter = require('koa-router');
 const utils = require('../utils');
-
+const policies = require('../policies');
 const router = new KoaRouter();
 
 async function loadUser(ctx, next) {
@@ -9,8 +9,31 @@ async function loadUser(ctx, next) {
   return next();
 }
 
-router.get('users.home', '/home', async (ctx) => {
+function isMine(eva, ctx) {
+  if (eva.UserId === ctx.state.currentUser.id) {
+    return true;
+  }
+  return false;
+}
+
+async function pass(ctx, next) {
+  let role = 'anonimo';
+  if (ctx.state.currentUser) {
+    role = ctx.state.currentUser.role;
+  }
+  const isAllow = policies.isAllow(role, 'Course', ctx.request.method);
+  if (isAllow) {
+    ctx.state.allowedCourse = policies.getPermissions(role, 'Course');
+    ctx.state.allowedEvaluation = policies.getPermissions(role, 'Evaluation');
+    return next();
+  }
+  ctx.body = 'Uff 401';
+  ctx.status = 401;
+}
+
+router.get('users.home', '/home', pass, async (ctx) => {
   const { currentUser } = ctx.state;
+  const { allowedEvaluation } = ctx.state;
   if (currentUser.role === 'student') {
     const evaluationList = await currentUser.getEvaluations({
       include: [
@@ -21,6 +44,8 @@ router.get('users.home', '/home', async (ctx) => {
     utils.loadEvaluationPaths(ctx);
     await ctx.render('users/home-student', {
       evaluationList,
+      allowedEvaluation,
+      isMine: (eva) => isMine(eva, ctx),
     });
   } else if (currentUser.role === 'professor') {
     const coursesList = await currentUser.getCourses();

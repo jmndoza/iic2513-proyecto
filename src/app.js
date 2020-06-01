@@ -12,6 +12,8 @@ const mailer = require('./mailers');
 const routes = require('./routes');
 const orm = require('./models');
 const { errorToStringArray } = require('./utils');
+const { getPermissions } = require('./policies');
+const { isAllow } = require('./policies');
 
 
 // App constructor
@@ -29,6 +31,8 @@ app.keys = [
 // expose ORM through context's prototype
 app.context.orm = orm;
 app.context.errorToStringArray = errorToStringArray;
+app.context.getPermissions = getPermissions;
+app.context.isAllow = isAllow;
 
 /**
  * Middlewares

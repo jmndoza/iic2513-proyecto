@@ -1,5 +1,6 @@
 const KoaRouter = require('koa-router');
 const utils = require('../utils');
+const policies = require('../policies');
 
 const router = new KoaRouter();
 
@@ -10,15 +11,35 @@ async function loadUniversity(ctx, next) {
   });
   return next();
 }
+async function pass(ctx, next) {
+  let role = 'anonimo';
+  if (ctx.state.currentUser) {
+    role = ctx.state.currentUser.role;
+  }
+  const isAllow = policies.isAllow(role, 'University', ctx.request.method);
+  if (isAllow) {
+    ctx.state.allowedCourse = policies.getPermissions(role, 'Course');
+    ctx.state.allowedUniversity = policies.getPermissions(role, 'University');
 
-router.get('universities.list', '/', async (ctx) => {
+    return next();
+  }
+
+  ctx.body = 'Uff 401';
+  ctx.status = 401;
+}
+
+router.get('universities.list', '/', pass, async (ctx) => {
   const universitiesList = await ctx.orm.University.findAll({ include: [{ all: true }] });
   const university = ctx.orm.University.build();
+  const { allowedUniversity, allowedCourse } = ctx.state;
   utils.loadUniversityPaths(ctx);
+
   await ctx.render('universities/index', {
     errors: ctx.state.flashMessage.warning,
     universitiesList,
     university,
+    allowedUniversity,
+    allowedCourse,
     coursePath: (course) => ctx.router.url('courses.show', { id: course.id }),
   });
 });
@@ -54,14 +75,18 @@ router.get('universities.edit', '/:id/edit', loadUniversity, async (ctx) => {
   });
 });
 
-router.get('universities.show', '/:id', loadUniversity, async (ctx) => {
+router.get('universities.show', '/:id', pass, loadUniversity, async (ctx) => {
   const { university } = ctx.state;
+  const { allowedUniversity } = ctx.state;
+  console.log(allowedUniversity);
   const course = ctx.orm.Course.build();
   course.UniversityId = university.id;
   utils.loadCoursePaths(ctx);
+
   await ctx.render('universities/show', {
     course,
     university,
+    allowedUniversity,
   });
 });
 
