@@ -16,6 +16,10 @@ module.exports = {
       unique: true,
       allowNull: false,
     },
+    img: {
+      type: Sequelize.TEXT,
+      allowNull: true,
+    },
     emailVerified: {
       type: Sequelize.BOOLEAN,
       allowNull: false,

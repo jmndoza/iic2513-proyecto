@@ -1,7 +1,10 @@
 /* eslint-disable object-curly-newline */
 const KoaRouter = require('koa-router');
+const fs = require('fs');
 const utils = require('../utils');
 const policies = require('../policies');
+
+
 const router = new KoaRouter();
 
 async function loadUser(ctx, next) {
@@ -63,10 +66,11 @@ router.get('users.home', '/home', pass, async (ctx) => {
   }
 });
 
-router.get('users.show', '/:id', loadUser, async (ctx) => {
+router.get('users.profile', '/:id/profile', loadUser, async (ctx) => {
   const { user } = ctx.state;
-  await ctx.render('users/show', {
+  await ctx.render('users/profile', {
     user,
+    editUserPath: (u) => ctx.router.url('users.edit', { id: u.id }),
   });
 });
 
@@ -80,7 +84,7 @@ router.get('users.list', '/', async (ctx) => {
   });
 });
 
-router.get('users.new', '/new', async (ctx) => {
+router.get('users.new', '/new/', async (ctx) => {
   const user = ctx.orm.User.build();
   await ctx.render('users/new', {
     user,
@@ -117,6 +121,10 @@ router.patch('users.update', '/:id', loadUser, async (ctx) => {
   const { user } = ctx.state;
   try {
     const { role, name, email, password } = ctx.request.body;
+    const { photo } = ctx.request.files;
+    console.log(photo.path);
+    const fileContent = fs.readFileSync(photo.path);
+    console.log(fileContent);
     await user.update({ role, name, email, password });
     ctx.redirect(ctx.router.url('users.home'));
   } catch (validationError) {

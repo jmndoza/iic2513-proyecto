@@ -135,3 +135,15 @@
     grid-area: info;
 }
 
+.card-button-container {
+    display: flex;
+    position: absolute;
+    right: 0.3rem;
+    bottom: 0.3rem;
+    visibility: hidden;
+}
+
+
+.full-card:hover .card-button{
+    visibility:visible;
+}
