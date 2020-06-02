@@ -1,0 +1,12 @@
+{
+  "type": "service_account",
+  "project_id": "netz-files",
+  "private_key_id": "bf6e2d02016de7e336ed501b72b8ed78c1519ad3",
+  "private_key": "-----BEGIN PRIVATE KEY-----\nMIIEvgIBADANBgkqhkiG9w0BAQEFAASCBKgwggSkAgEAAoIBAQC0jDFuXgZa/4+H\nxKV0dP//lZdjQ2mWsj92hWzPXtbl1bkX1wgzPAryIKhtcVJxz8LilT21gpl6eJqL\n7Ced6Qukc9hQU6LGmKg5kLTkWD/ALCUqQFFH1QpDLZXx1NeSfw/Iv8H/Q9tITL/z\nn902SRGgE89tnWmr0jjUMocRf9UPivQbPD/aiJS1sl74+hi1e2KUQRGA0Syea02K\nN4kZ+N1C3cQ9HHPk32FlcAfYd/cVGCMOo3IPw43YVj0qyzFsBvaBvivtVw6f+gsl\n0GNdtU2fniDvGO/eqbTwf/1WxkrXBHLOZlYj0Gh2vZfUzPikcRALTFSjC/km6d7s\nyttuggY5AgMBAAECggEAEsx5FiCIoV90KqMFRjmrcQl6nI2HmDcBiB3u3S2nCwHE\nlrCfTDRfgGP5nYGb37lN9akr5nMNd3TIxLJnUpgSDAK63mxC6dI5y9qfFxqAMsp1\n6S8Ot3+9ZI7Bys8KThjYRCMBOEqwsZe6McvurMkRYn1FjwiBmPAX1jJXoXERtl8o\ngMXmjP2ZlR6wV+I8p0/qROu0JKhiSTVKvGTmSdmBGdYUqTkH4WmiKcbr7y3AjAHk\nyM1zB1NiIpYhxvit89Cph8kbEZ0M8unLUntTUgvJ/gqgE1RQnsIKPCL9NGgojCt/\ntIw0TmqjUZ2ZKZ/4mun8Xq6NUOkP9o/bpbdzK5D0oQKBgQD3siq6vej4PZu8Ck6w\nOe/pNzDUkpa/HpBC3Md7Q/SkTLDrAz9GU5NSK0FhHNlHSsP5T0UcL3erejB5b+H1\n0PkzJVPg757Pgb7oSzabYXKItBYGpyCJzFmKZ9fGFByd9zuMfRQwBT219rG64ZIa\ncf0KuvpYUirSrG6kwP4svn7/CQKBgQC6mbr3vJrc2QUIj30HDTeMM+ZlVy2lcRcU\nLkpyXp7AvPTYuhiP3v4F9tQR/zBJjKeWeJOMhG6ujMUZqoSnvIhTDKHcERU342Mq\nkmVEI9+mgqHmYSEAmOompO+O/HTpJAZRbv12Qi2Gxm31Ah5prTYsn89uDnsOIDl4\n+FofPpFpsQKBgQDm0CG9Lma/nDlY+onk8bg8LG/WRlsu8T4g8Db7CJIZ4FUkSjxW\nPl8TvLcJ1aYrJuKDmXifESSEqDIvlzCKrhbpsCj/fIsSdqb9M8lI9X+TH60+udI6\nVjBCJw4MyIT6Nn5JJez/6oJc4+suaDCLcBkKPL44OykodAIOiMDR1RnmcQKBgGjo\nNtpC2dnh1NecPBFz18/l+djtq0cBDpWU9NvZ4GzBjvItpdN07eGShGXdz1r6Tdnl\nziZI6iUOFV25pTzcXNQ8HN+pZwF1wHHVvkMR3BI0DSuFXdWFItc5EUmVG3FbhIXR\n3YPX7tp/wp/lYg3NiNCLxEW+tGYbrdQZ5Cj+tyfxAoGBAM7JG034tNrajEnMUCtK\nI1YnSidV/CkVY9oK2pBONY8pUOKmyl48O2KHj9sZWNVljzzQIetJP8snlS3Uxx7k\nyahbxMZfUfR1jvsHTYfBPpmxdsXApHTm2u37FqylC1sHvD2Xg+ipzPy0B6BvHR5N\nnsIXsP9NpKu2RWdL1GJok4Ck\n-----END PRIVATE KEY-----\n",
+  "client_email": "netz-storage@netz-files.iam.gserviceaccount.com",
+  "client_id": "117663044712425230286",
+  "auth_uri": "https://accounts.google.com/o/oauth2/auth",
+  "token_uri": "https://oauth2.googleapis.com/token",
+  "auth_provider_x509_cert_url": "https://www.googleapis.com/oauth2/v1/certs",
+  "client_x509_cert_url": "https://www.googleapis.com/robot/v1/metadata/x509/netz-storage%40netz-files.iam.gserviceaccount.com"
+}

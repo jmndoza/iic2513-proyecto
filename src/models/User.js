@@ -23,6 +23,10 @@ module.exports = (sequelize, DataTypes) => {
         isEmail: true,
       },
     },
+    img: {
+      type: DataTypes.TEXT,
+      allowNull: true,
+    },
     emailVerified: {
       type: DataTypes.BOOLEAN,
       allowNull: false,

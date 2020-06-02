@@ -7,7 +7,7 @@
     <%_ } _%>
   </div>
   <div class="card-contents">
-  <form action="<%= submitUserPath %>" method="post">
+  <form action="<%= submitUserPath %>" enctype="multipart/form-data" method="post">
     <% if (!user.isNewRecord) { %>
       <input type="hidden" name="_method" value="patch" />
     <% } %>
@@ -26,6 +26,10 @@
     <div  class="field">
       <label for="email">Email</label>
       <input type="email" name="email" value="<%= user.email %>" required/>
+    </div>
+    <div class="field">
+      <label for="photo" >Photo</label>
+      <input type="file" name="photo" accept="image/jpeg"/>
     </div>
     <div  class="field">
       <label for="password">Password</label>
