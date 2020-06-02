@@ -115,3 +115,23 @@
 .card:hover .card-button{
     visibility:visible;
 }
+
+.full-card {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr 1fr;
+    gap: 0.5rem;
+    margin: 0 0.5rem;
+    grid-template-areas: 
+    "img info info info";
+}
+.full-card ul {
+    list-style-type: none;
+}
+.full-card-img {
+    grid-area: img;
+}
+
+.full-card-contents {
+    grid-area: info;
+}
+

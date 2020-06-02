@@ -63,6 +63,13 @@ router.get('users.home', '/home', pass, async (ctx) => {
   }
 });
 
+router.get('users.show', '/:id', loadUser, async (ctx) => {
+  const { user } = ctx.state;
+  await ctx.render('users/show', {
+    user,
+  });
+});
+
 router.get('users.list', '/', async (ctx) => {
   const userList = await ctx.orm.User.findAll();
   await ctx.render('users/index', {
