@@ -1,0 +1,19 @@
+<div class="full-card">
+
+    <div class="full-card-img">
+        <img src="<%= user.img %>" alt="Profile Photo">
+    </div>
+    
+    <div class="full-card-contents">
+        <ul> <li><h3><%= user.name %></h3></li>
+            <li>Email: <%= user.email %></li>
+            <li>Role: <%= user.role %></li>
+        </ul>
+    </div>
+    <div class="card-button-container">
+        <form action="<%= editUserPath(user) %>" method="get">
+            <input type="submit" value="Edit" class="card-button edit">
+        </form>
+    </div>
+   
+</div>

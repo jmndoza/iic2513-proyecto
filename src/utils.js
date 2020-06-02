@@ -41,3 +41,4 @@ module.exports.loadUniversityPaths = function (ctx) {
   ctx.state.editUniversityPath = (university) => ctx.router.url('universities.edit', { id: university.id });
   ctx.state.deleteUniversityPath = (university) => ctx.router.url('universities.delete', { id: university.id });
 };
+

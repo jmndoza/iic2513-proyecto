@@ -1,5 +1,4 @@
 const KoaRouter = require('koa-router');
-
 const hello = require('./routes/hello');
 const index = require('./routes/index');
 const universities = require('./routes/universities');
@@ -25,6 +24,8 @@ router.use(async (ctx, next) => {
     destroySessionPath: ctx.router.url('sessions.destroy'),
     newUserPath: ctx.router.url('users.new'),
     editUserPath: (user) => ctx.router.url('users.edit', { id: user.id }),
+    profileUserPath: (user) => ctx.router.url('users.profile', { id: user.id }),
+
   });
   return next();
 });
@@ -36,5 +37,4 @@ router.use('/users', users.routes());
 router.use('/courses', courses.routes());
 router.use('/evaluations', evaluations.routes());
 router.use('/sessions', sessions.routes());
-
 module.exports = router;
