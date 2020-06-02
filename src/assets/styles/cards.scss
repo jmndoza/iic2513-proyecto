@@ -126,9 +126,21 @@
 }
 .full-card ul {
     list-style-type: none;
+    margin:0;
+    padding:0;
 }
 .full-card-img {
     grid-area: img;
+    width: 100%;
+    height: 100%;
+    
+}
+
+.full-card-img >img {
+    object-fit: cover;
+    border-radius: 50%;
+    width: 15vmax;
+    height: 15vmax;
 }
 
 .full-card-contents {

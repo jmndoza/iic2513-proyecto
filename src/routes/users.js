@@ -3,7 +3,7 @@ const KoaRouter = require('koa-router');
 const fs = require('fs');
 const utils = require('../utils');
 const policies = require('../policies');
-
+const fileStorage = require('../services/file-storage');
 
 const router = new KoaRouter();
 
@@ -93,12 +93,18 @@ router.get('users.new', '/new/', async (ctx) => {
 });
 
 router.post('users.create', '/', async (ctx) => {
+  const { photo } = ctx.request.files;
+  await fileStorage.uploadStorage('netz-bucket', photo.path, ctx.request.body.email)
+    .then((file) => {
+      ctx.state.urlFile = file.mediaLink;
+    });
+  ctx.request.body.img = ctx.state.urlFile;
   const user = ctx.orm.User.build(ctx.request.body);
   user.emailVerified = true;
   user.blocked = false;
   user.verified = true;
   try {
-    await user.save({ fields: ['name', 'email', 'emailVerified', 'blocked', 'verified', 'role', 'password'] });
+    await user.save({ fields: ['name', 'email', 'img', 'emailVerified', 'blocked', 'verified', 'role', 'password'] });
     ctx.redirect(ctx.router.url('sessions.new'));
   } catch (validationError) {
     await ctx.render('users/new', {
@@ -122,10 +128,11 @@ router.patch('users.update', '/:id', loadUser, async (ctx) => {
   try {
     const { role, name, email, password } = ctx.request.body;
     const { photo } = ctx.request.files;
-    console.log(photo.path);
-    const fileContent = fs.readFileSync(photo.path);
-    console.log(fileContent);
-    await user.update({ role, name, email, password });
+    await fileStorage.uploadStorage('netz-bucket', photo.path, user.email)
+      .then((file) => {
+        ctx.state.urlFile = file.mediaLink;
+      });
+    await user.update({ role, name, email, password, img: ctx.state.urlFile });
     ctx.redirect(ctx.router.url('users.home'));
   } catch (validationError) {
     await ctx.render('users/edit', {
