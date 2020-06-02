@@ -1,14 +1,14 @@
 <div class="card">
     <div class="card-button-container">
         <% if (allowedCourse.PATCH) { %>
-        <form action="<%= editCoursePath(course) %>" method="get">
-            <input type="submit" value="Edit" class="card-button edit">
-        </form>
+            <form action="<%= editCoursePath(course) %>" method="get">
+                <input type="submit" value="Edit" class="card-button">
+            </form>
         <% } %>
         <% if (allowedCourse.DEL) { %>
             <form action="<%= deleteCoursePath(course) %>" method="post">
                 <input type="hidden" name="_method" value="delete">
-                <input type="submit" value="Delete" class="card-button delete">
+                <input type="submit" value="Delete" class="card-button">
             </form>
         <% } %>
 
