@@ -84,8 +84,12 @@
     display: flex;
     position: absolute;
     right: 0.3rem;
-    bottom: 0.3rem;
+    bottom: 0.4rem;
     visibility: hidden;
+}
+
+.card-button-container form {
+    margin: 0 0.2rem;
 }
 
 .card-button {
@@ -95,14 +99,14 @@
     padding: 0.25rem 0.25rem 0.125rem 0.25rem;
     outline: none;
     cursor: pointer;
-    background-color:transparent;
+    background-color: $secondary-color;
     font-size: 1rem;
     // font-family: sans-serif;
     // display: inline-block;
 }
 
 .card-button:hover {
-    background-color: $secondary-color;
+    background-color: $alert-color;
 }
 
 .card:not(.title):hover {
