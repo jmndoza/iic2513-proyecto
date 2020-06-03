@@ -144,6 +144,7 @@ router.get('users.edit', '/:id/edit', loadUser, async (ctx) => {
 });
 
 router.patch('users.update', '/:id', loadUser, async (ctx) => {
+  const redirectUrl = ctx.cookies.get('redirectUrl') || '/';
   const { user } = ctx.state;
   try {
     const { role, name, email, password } = ctx.request.body;
@@ -158,7 +159,7 @@ router.patch('users.update', '/:id', loadUser, async (ctx) => {
       ctx.state.urlFile = null;
     }
     await user.update({ role, name, email, password, img: ctx.state.urlFile });
-    ctx.redirect(ctx.router.url('users.home'));
+    ctx.redirect(redirectUrl);
   } catch (validationError) {
     await ctx.render('users/edit', {
       user,

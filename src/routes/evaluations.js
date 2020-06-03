@@ -103,9 +103,9 @@ router.get('evaluations.show', '/:id', pass, loadEvaluation, async (ctx) => {
 });
 
 router.patch('evaluations.update', '/:id', loadEvaluation, loadRequirements, async (ctx) => {
+  const redirectUrl = ctx.cookies.get('redirectUrl') || '/';
   const { evaluation, currentUser } = ctx.state;
   const { courses, professors, students } = ctx.state;
-  const redirectUrl = ctx.cookies.get('redirectUrl') || '/';
   ctx.request.body.UserId = currentUser.id;
   try {
     const {
