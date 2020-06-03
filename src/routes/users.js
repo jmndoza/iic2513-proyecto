@@ -151,10 +151,7 @@ router.patch('users.update', '/:id', loadUser, async (ctx) => {
     const { photo } = ctx.request.files;
 
     if (photo.size !== 0) {
-      await fileStorage.uploadStorage('netz-bucket', photo.path, ctx.request.body.email)
-        .then((file) => {
-          ctx.state.urlFile = file.mediaLink;
-        });
+      ctx.state.urlFile = (await fileStorage.uploadStorage('netz-bucket', photo.path, ctx.request.body.email)).mediaLink;
     } else {
       ctx.state.urlFile = null;
     }
