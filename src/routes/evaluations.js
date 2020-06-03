@@ -33,7 +33,7 @@ async function pass(ctx, next) {
     ctx.state.allowedEvaluation = policies.getPermissions(role, 'Evaluation');
     return next();
   }
-  
+
   ctx.body = 'Uff 401';
   ctx.status = 401;
 }
@@ -103,6 +103,7 @@ router.get('evaluations.show', '/:id', pass, loadEvaluation, async (ctx) => {
 });
 
 router.patch('evaluations.update', '/:id', loadEvaluation, loadRequirements, async (ctx) => {
+  const redirectUrl = ctx.cookies.get('redirectUrl') || '/';
   const { evaluation, currentUser } = ctx.state;
   const { courses, professors, students } = ctx.state;
   ctx.request.body.UserId = currentUser.id;
@@ -113,7 +114,7 @@ router.patch('evaluations.update', '/:id', loadEvaluation, loadRequirements, asy
     await evaluation.update({
       UserId, ProfessorNameId, CourseId, comment, year, semester, timeRating, difficultyRating,
     });
-    ctx.redirect(ctx.router.url('courses.show', { id: evaluation.CourseId }));
+    ctx.redirect(redirectUrl);
   } catch (validationError) {
     await ctx.render('evaluations/edit', {
       evaluation,

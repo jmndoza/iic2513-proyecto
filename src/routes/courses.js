@@ -1,3 +1,4 @@
+/* eslint-disable no-underscore-dangle */
 const KoaRouter = require('koa-router');
 const utils = require('../utils');
 const policies = require('../policies');
@@ -100,6 +101,7 @@ router.get('courses.show', '/:id', pass, loadCourse, loadUser, loadRequirements,
   const { professors } = ctx.state;
   const { allowedCourse } = ctx.state;
   const { allowedEvaluation } = ctx.state;
+  ctx.cookies.set('redirectUrl', ctx.request.url);
 
   const evaluation = ctx.orm.Evaluation.build();
   evaluation.CourseId = course.id;
