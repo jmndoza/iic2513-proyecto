@@ -70,6 +70,7 @@ router.get('users.profile', '/:id/profile', pass, loadUser, async (ctx) => {
   const { allowedEvaluation } = ctx.state;
   const { user } = ctx.state;
   let evaluationList = [];
+  ctx.cookies.set('redirectUrl', ctx.request.url);
   if (user.role === 'student') {
     evaluationList = await user.getEvaluations({
       include: [
@@ -78,9 +79,6 @@ router.get('users.profile', '/:id/profile', pass, loadUser, async (ctx) => {
       ],
 
     });
-  }
-  if (!user.img) {
-    user.img = 'https://www.aalforum.eu/wp-content/uploads/2016/04/profile-placeholder.png';
   }
   utils.loadEvaluationPaths(ctx);
   await ctx.render('users/profile', {
@@ -146,21 +144,19 @@ router.get('users.edit', '/:id/edit', loadUser, async (ctx) => {
 });
 
 router.patch('users.update', '/:id', loadUser, async (ctx) => {
+  const redirectUrl = ctx.cookies.get('redirectUrl') || '/';
   const { user } = ctx.state;
   try {
     const { role, name, email, password } = ctx.request.body;
     const { photo } = ctx.request.files;
 
     if (photo.size !== 0) {
-      await fileStorage.uploadStorage('netz-bucket', photo.path, ctx.request.body.email)
-        .then((file) => {
-          ctx.state.urlFile = file.mediaLink;
-        });
+      ctx.state.urlFile = (await fileStorage.uploadStorage('netz-bucket', photo.path, ctx.request.body.email)).mediaLink;
     } else {
       ctx.state.urlFile = null;
     }
     await user.update({ role, name, email, password, img: ctx.state.urlFile });
-    ctx.redirect(ctx.router.url('users.home'));
+    ctx.redirect(redirectUrl);
   } catch (validationError) {
     await ctx.render('users/edit', {
       user,
