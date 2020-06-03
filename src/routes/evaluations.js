@@ -33,7 +33,7 @@ async function pass(ctx, next) {
     ctx.state.allowedEvaluation = policies.getPermissions(role, 'Evaluation');
     return next();
   }
-  
+
   ctx.body = 'Uff 401';
   ctx.status = 401;
 }

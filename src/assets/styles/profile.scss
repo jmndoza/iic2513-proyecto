@@ -1,12 +1,12 @@
 #profile {
     display: grid;
-    
+
     grid-template-columns: 1fr 2fr ;
     gap: 1em;
     margin-left: 0.5rem;
     margin-right: 0.5rem;
     grid-auto-rows: minmax(100px,auto);
-    
+
 }
 @media (max-width: 1000px) {
     #profile {
@@ -19,9 +19,9 @@
     }
 }
 
-#profile > * {
-    
-}
+// #profile > * {
+
+// }
 
 
 
@@ -33,9 +33,10 @@
     box-shadow: 0 0 0.1rem 0 $shadow-color;
 }
 
-.profile-info > .profile-img{
-   
-}
+// .profile-info > .profile-img{
+
+// }
+
 .profile-img img {
     max-width:300px;
     height:300px;
@@ -44,7 +45,7 @@
     display:block;
     margin:auto;
     background-color: $background-color;
-    
+
 }
 
 .profile-userinfo {
@@ -69,7 +70,7 @@
     i {
         margin-right:10px
     }
-    
+
 }
 
 
@@ -102,6 +103,7 @@
             text-decoration: none;
             display: inline-block;
             font-size: 16px;
+            cursor: pointer;
         }
     }
 }
@@ -112,6 +114,7 @@
     gap: 1em;
     background-color: $content-background-color;
     box-shadow: 0 0 0.1rem 0 $shadow-color;
+    padding: 1rem;
 }
 
 
@@ -187,6 +190,7 @@
             text-decoration: none;
             display: inline;
             font-size: 10px;
+            cursor: pointer;
         }
     }
 
