@@ -1,43 +1,109 @@
-.full-card {
+#profile {
     display: grid;
-    grid-template-columns: 1fr 1fr 1fr 1fr;
-    gap: 0.5rem;
-    margin: 0 0.5rem;
-    grid-template-areas: 
-    "img info info info";
+    
+    grid-template-columns: 1fr 2fr ;
+    gap: 1em;
+    margin-left: 0.5rem;
+    margin-right: 0.5rem;
+    grid-auto-rows: minmax(100px,auto);
 }
-.full-card ul {
-    list-style-type: none;
-    margin:0;
-    padding:0;
+@media (max-width: 1000px) {
+    #profile {
+        grid-template-columns: 1fr 1fr;
+    }
 }
-.full-card-img {
-    grid-area: img;
-    width: 100%;
-    height: 100%;
+@media (max-width: 600px) {
+    #profile {
+        grid-template-columns: 1fr;
+    }
+}
+
+#profile > * {
+    
+    form {
+        margin-top:20px;
+        >input {
+            background-color: $secondary-color;
+            border: none;
+            color: white;
+            padding: 15px 32px;
+            text-align: center;
+            text-decoration: none;
+            display: inline-block;
+            font-size: 16px;
+        }
+    }
+}
+
+
+
+
+
+.profile-info {
+    padding:1em;
+    background-color: $content-background-color;
+    box-shadow: 0 0 0.1rem 0 $shadow-color;
+}
+
+.profile-info > .profile-img{
+   
+}
+.profile-img img {
+    max-width:300px;
+    height:300px;
+    border-radius: 50%;
+    object-fit:cover;
+    display:block;
+    margin:auto;
     
 }
 
-.full-card-img >img {
-    object-fit: cover;
-    border-radius: 50%;
-    width: 15vmax;
-    height: 15vmax;
+.profile-userinfo {
+    >h3 {
+        font-size: 1.5em;
+        text-align: center;
+        font-stretch: expanded;
+        border-bottom: solid 1px $shadow-color-dark;
+        color: $text-color;
+        margin: 0 60px 5px 60px;
+        padding: 20px 0 5px;
+    }
+    >.sub-header{
+        text-align: center;
+        display:block;
+        color: $shadow-color;
+        font-style: italic
+    }
+    >.user-data {
+        margin-top:20px
+    }
+    i {
+        margin-right:10px
+    }
 }
 
-.full-card-contents {
-    grid-area: info;
+
+.profile-rightcontent {
+    padding:0em;
+    display: grid;
+    grid-template-columns: 1fr;
+    grid-auto-rows: minmax(auto, 150px);
+    row-gap: 1em;
 }
 
-.card-button-container {
-    display: flex;
-    position: absolute;
-    right: 0.3rem;
-    bottom: 0.3rem;
-    visibility: hidden;
+.profile-rightcontent > * {
+    
 }
 
+.new-card {
+    display: grid;
+    grid-template-columns: 3fr 1fr;
+    column-gap: 1em;
 
-.full-card:hover .card-button{
-    visibility:visible;
+    background-color: $content-background-color;
+    box-shadow: 0 0 0.1rem 0 $shadow-color;
 }
+
+.new-card > * {
+}
+

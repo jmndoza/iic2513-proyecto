@@ -66,10 +66,24 @@ router.get('users.home', '/home', pass, async (ctx) => {
   }
 });
 
-router.get('users.profile', '/:id/profile', loadUser, async (ctx) => {
+router.get('users.profile', '/:id/profile', pass, loadUser, async (ctx) => {
+  const { allowedEvaluation } = ctx.state;
   const { user } = ctx.state;
+  let evaluationList = [];
+  if (user.role === 'student') {
+    evaluationList = await user.getEvaluations({
+      include: [
+        { model: ctx.orm.Course },
+        { model: ctx.orm.ProfessorName },
+      ],
+    });
+  }
+  utils.loadEvaluationPaths(ctx);
   await ctx.render('users/profile', {
+    allowedEvaluation,
+    evaluationList,
     user,
+    isMine: (eva) => isMine(eva, ctx),
     editUserPath: (u) => ctx.router.url('users.edit', { id: u.id }),
   });
 });

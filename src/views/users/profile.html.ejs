@@ -1,19 +1,29 @@
-<div class="full-card">
-
-    <div class="full-card-img">
-        <img src="<%= user.img %>" alt="Profile Photo">
-    </div>
-    
-    <div class="full-card-contents">
-        <ul> <li><h3><%= user.name %></h3></li>
-            <li>Email: <%= user.email %></li>
-            <li>Role: <%= user.role %></li>
-        </ul>
-    </div>
-    <div class="card-button-container">
+<div id="profile" class="profile">
+    <div class="profile-info">
+        <div class="profile-img">
+            <img src="<%= user.img %>" alt="Profile Photo">
+        </div>
+        <div class="profile-userinfo">
+            <h3><%= user.name %></h3>
+            <span class="sub-header"><%= user.role %></span>
+            <div class="user-data"><i class="fas fa-envelope"></i><%= user.email %></div>
+        </div>
         <form action="<%= editUserPath(user) %>" method="get">
-            <input type="submit" value="Edit" class="card-button edit">
+            <input type="submit" value="Editar">
         </form>
     </div>
-   
+
+
+
+
+    <div class="profile-rightcontent">
+        <% evaluationList.forEach((evaluation) => { %>
+            <div class="new-card">
+                <%- include('../evaluations/_show2', {evaluation, showCourse: true}) %>
+            </div>
+            <div class="new-card">
+                <%- include('../evaluations/_show2', {evaluation, showCourse: true}) %>
+            </div>
+          <% }) %>
+    </div>
 </div>
