@@ -70,6 +70,7 @@ router.get('users.profile', '/:id/profile', pass, loadUser, async (ctx) => {
   const { allowedEvaluation } = ctx.state;
   const { user } = ctx.state;
   let evaluationList = [];
+  ctx.cookies.set('redirectUrl', ctx.request.url);
   if (user.role === 'student') {
     evaluationList = await user.getEvaluations({
       include: [

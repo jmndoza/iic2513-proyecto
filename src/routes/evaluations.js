@@ -105,6 +105,7 @@ router.get('evaluations.show', '/:id', pass, loadEvaluation, async (ctx) => {
 router.patch('evaluations.update', '/:id', loadEvaluation, loadRequirements, async (ctx) => {
   const { evaluation, currentUser } = ctx.state;
   const { courses, professors, students } = ctx.state;
+  const redirectUrl = ctx.cookies.get('redirectUrl') || '/';
   ctx.request.body.UserId = currentUser.id;
   try {
     const {
@@ -113,7 +114,7 @@ router.patch('evaluations.update', '/:id', loadEvaluation, loadRequirements, asy
     await evaluation.update({
       UserId, ProfessorNameId, CourseId, comment, year, semester, timeRating, difficultyRating,
     });
-    ctx.redirect(ctx.router.url('courses.show', { id: evaluation.CourseId }));
+    ctx.redirect(redirectUrl);
   } catch (validationError) {
     await ctx.render('evaluations/edit', {
       evaluation,
