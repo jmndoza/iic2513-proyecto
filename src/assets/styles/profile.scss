@@ -1,43 +1,193 @@
-.full-card {
+#profile {
     display: grid;
-    grid-template-columns: 1fr 1fr 1fr 1fr;
-    gap: 0.5rem;
-    margin: 0 0.5rem;
-    grid-template-areas: 
-    "img info info info";
+    
+    grid-template-columns: 1fr 2fr ;
+    gap: 1em;
+    margin-left: 0.5rem;
+    margin-right: 0.5rem;
+    grid-auto-rows: minmax(100px,auto);
+    
 }
-.full-card ul {
-    list-style-type: none;
-    margin:0;
-    padding:0;
+@media (max-width: 1000px) {
+    #profile {
+        grid-template-columns: 1fr 1fr;
+    }
 }
-.full-card-img {
-    grid-area: img;
-    width: 100%;
-    height: 100%;
+@media (max-width: 600px) {
+    #profile {
+        grid-template-columns: 1fr;
+    }
+}
+
+#profile > * {
     
 }
 
-.full-card-img >img {
-    object-fit: cover;
+
+
+
+
+.profile-info {
+    padding:1em;
+    background-color: $content-background-color;
+    box-shadow: 0 0 0.1rem 0 $shadow-color;
+}
+
+.profile-info > .profile-img{
+   
+}
+.profile-img img {
+    max-width:300px;
+    height:300px;
     border-radius: 50%;
-    width: 15vmax;
-    height: 15vmax;
+    object-fit:cover;
+    display:block;
+    margin:auto;
+    background-color: $background-color;
+    
 }
 
-.full-card-contents {
-    grid-area: info;
+.profile-userinfo {
+    >h3 {
+        font-size: 1.5em;
+        text-align: center;
+        font-stretch: expanded;
+        border-bottom: solid 1px $shadow-color-dark;
+        color: $text-color;
+        margin: 0 60px 5px 60px;
+        padding: 20px 0 5px;
+    }
+    >.sub-header{
+        text-align: center;
+        display:block;
+        color: $shadow-color;
+        font-style: italic
+    }
+    >.user-data {
+        margin-top:20px
+    }
+    i {
+        margin-right:10px
+    }
+    
 }
 
-.card-button-container {
-    display: flex;
-    position: absolute;
-    right: 0.3rem;
-    bottom: 0.3rem;
-    visibility: hidden;
+
+.profile-rightcontent {
+    padding:0em;
+    display: grid;
+    grid-template-columns: 1fr;
+    grid-auto-rows: minmax(auto, 150px);
+    row-gap: 1em;
+    >input {
+        background-color: $secondary-color;
+        border: none;
+        color: white;
+        padding: 15px 32px;
+        text-align: center;
+        text-decoration: none;
+        display: inline-block;
+        font-size: 16px;
+    }
+}
+.profile-info {
+    .new-card-form {
+        margin-top:20px;
+        >input {
+            background-color: $secondary-color;
+            border: none;
+            color: white;
+            padding: 15px 32px;
+            text-align: center;
+            text-decoration: none;
+            display: inline-block;
+            font-size: 16px;
+        }
+    }
+}
+
+.new-card {
+    display: grid;
+    grid-template-columns: 3fr 1fr;
+    gap: 1em;
+    background-color: $content-background-color;
+    box-shadow: 0 0 0.1rem 0 $shadow-color;
 }
 
 
-.full-card:hover .card-button{
-    visibility:visible;
+.rightside-card {
+    .date {
+        font-size: 0.7rem;
+        margin-left:8px;
+    }
+}
+
+.new-card-title {
+    font-size: 1.2rem;
+    font-weight: 300;
+    margin:3px 3px 0 3px;
+    padding:5px 5px 0px 5px ;
+}
+
+
+.quote {
+    font-style: italic;
+    margin: 15px 20px;
+}
+.quote::before {
+    position: relative;
+    top:-10px;
+    right:10px;
+    color:$shadow-color;
+    content: "\f10d";  /* this is your text. You can also use UTF-8 character codes as I do here */
+    font-family: FontAwesome;
+ }
+
+ .quote::after {
+    content: "\f10e";  /* this is your text. You can also use UTF-8 character codes as I do here */
+    font-family: FontAwesome;
+    position: relative;
+    bottom:-10px;
+    left:10px;
+    color:$shadow-color;
+ }
+ .leftside-card {
+    text-align: center;
+    display: grid;
+    grid-template-rows: 1fr 1fr 1fr 1fr;
+ }
+
+
+
+
+ .rating {
+     text-align: left;
+    i {
+        margin-right:5px
+    }
+ }
+.profesor-name{
+    font-size: 1.2em;
+    align-self: end;
+}
+
+
+.new-card-buttons{
+    display: grid;
+    grid-template-columns: 10fr 1fr 1fr;
+    justify-items: end;
+    align-items: end;
+    >.new-card-form {
+        >input {
+            background-color: $secondary-color;
+            border: none;
+            color: white;
+            padding:5px 8px;
+            text-align: center;
+            text-decoration: none;
+            display: inline;
+            font-size: 10px;
+        }
+    }
+
 }
