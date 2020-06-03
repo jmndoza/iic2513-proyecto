@@ -1,42 +1,37 @@
-<div>
+<div class="rightside-card">
+    <!-- <a href=<%= showEvaluationPath(evaluation) %> class="card-title"><%= evaluation.ProfessorName.name %></a> -->
+    <% if (showCourse) { %>
+        <div class="new-card-title"><%= evaluation.Course.code %>: <%= evaluation.Course.name %></div>
+    <% } else { %>
+        <div class="new-card-title"><%= evaluation.ProfessorName.name %></div>
+    <% } %>
 
+    <span class="date"><%= evaluation.createdAt %></span>
+    <p class="quote"><%= evaluation.comment %></p>
 
-    <div class="card-button-container">
+    <div class="new-card-buttons">
+        <div></div>
         <% if (allowedEvaluation.PATCH || isMine(evaluation) ) {%>  
-        <form action="<%= editEvaluationPath(evaluation) %>" method="get">
-            <input type="submit" value="Edit" class="card-button edit">
+        <form action="<%= editEvaluationPath(evaluation) %>" method="get" class="new-card-form">
+            <input type="submit" value="Edit">
         </form>
         <% } %>
         <% if (allowedEvaluation.DEL || isMine(evaluation) ) {%>  
-        <form action="<%= deleteEvaluationPath(evaluation) %>" method="post">
+        <form action="<%= deleteEvaluationPath(evaluation) %>" method="post" class="new-card-form">
             <input type="hidden" name="_method" value="delete">
-            <input type="submit" value="Delete" class="card-button delete">
+            <input type="submit" value="Delete">
         </form>
         <% } %>
-    </div>
-
-
-    <!-- <a href=<%= showEvaluationPath(evaluation) %> class="card-title"><%= evaluation.ProfessorName.name %></a> -->
-    <% if (showCourse) { %>
-        <div class="card-title"><%= evaluation.Course.code %>: <%= evaluation.Course.name %></div>
-    <% } else { %>
-        <div class="card-title"><%= evaluation.ProfessorName.name %></div>
-    <% } %>
-    <% if (showCourse) { %>
-        <li>Professor: <%= evaluation.ProfessorName.name %></li>
-    <% } %>
-    <li>Comment: <%= evaluation.comment %></li>
+    </div> 
 </div>    
 
 
-<div>
+<div class="leftside-card">
+    <% if (showCourse) { %>
+        <div class="profesor-name"><%= evaluation.ProfessorName.name %></div>
+    <% } %>
+        <div class="semester"><%= evaluation.year %>-<%= evaluation.semester %></div>
 
-    <ul>
-        
-        <li>Year: <%= evaluation.year %></li>
-        <li>Semester: <%= evaluation.semester %></li>
-
-        <li>Time Rating: <%= evaluation.timeRating %></li>
-        <li>Difficulty Rating: <%= evaluation.difficultyRating %></li>
-    </ul>
+        <div class="time-rating rating"><i class="fas fa-user-clock"></i>time: <%= evaluation.timeRating %></div>
+        <div class="difficulty-rating rating"><i class="fas fa-user-cog"></i>difficulty: <%= evaluation.difficultyRating %></div>
 </div>
