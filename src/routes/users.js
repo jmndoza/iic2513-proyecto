@@ -80,9 +80,6 @@ router.get('users.profile', '/:id/profile', pass, loadUser, async (ctx) => {
 
     });
   }
-  if (!user.img) {
-    user.img = 'https://www.aalforum.eu/wp-content/uploads/2016/04/profile-placeholder.png';
-  }
   utils.loadEvaluationPaths(ctx);
   await ctx.render('users/profile', {
     allowedEvaluation,

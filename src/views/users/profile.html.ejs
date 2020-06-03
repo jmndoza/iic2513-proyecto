@@ -1,7 +1,7 @@
 <div id="profile" class="profile">
     <div class="profile-info">
         <div class="profile-img">
-            <img src="<%= user.img %>" alt="Profile Photo">
+            <img src="<%= user.img || assetPath('profile-placeholder.png') %>" alt="Profile Photo">
         </div>
         <div class="profile-userinfo">
             <h3><%= user.name %></h3>
