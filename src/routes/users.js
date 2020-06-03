@@ -76,8 +76,11 @@ router.get('users.profile', '/:id/profile', pass, loadUser, async (ctx) => {
         { model: ctx.orm.Course },
         { model: ctx.orm.ProfessorName },
       ],
-      
+
     });
+  }
+  if (!user.img) {
+    user.img = 'https://www.aalforum.eu/wp-content/uploads/2016/04/profile-placeholder.png';
   }
   utils.loadEvaluationPaths(ctx);
   await ctx.render('users/profile', {
@@ -109,11 +112,15 @@ router.get('users.new', '/new/', async (ctx) => {
 
 router.post('users.create', '/', async (ctx) => {
   const { photo } = ctx.request.files;
-  await fileStorage.uploadStorage('netz-bucket', photo.path, ctx.request.body.email)
-    .then((file) => {
-      ctx.state.urlFile = file.mediaLink;
-    });
-  ctx.request.body.img = ctx.state.urlFile;
+  if (photo.size !== 0) {
+    await fileStorage.uploadStorage('netz-bucket', photo.path, ctx.request.body.email)
+      .then((file) => {
+        ctx.state.urlFile = file.mediaLink;
+      });
+    ctx.request.body.img = ctx.state.urlFile;
+  } else {
+    ctx.request.body.img = null;
+  }
   const user = ctx.orm.User.build(ctx.request.body);
   user.emailVerified = true;
   user.blocked = false;
@@ -143,10 +150,15 @@ router.patch('users.update', '/:id', loadUser, async (ctx) => {
   try {
     const { role, name, email, password } = ctx.request.body;
     const { photo } = ctx.request.files;
-    await fileStorage.uploadStorage('netz-bucket', photo.path, user.email)
-      .then((file) => {
-        ctx.state.urlFile = file.mediaLink;
-      });
+
+    if (photo.size !== 0) {
+      await fileStorage.uploadStorage('netz-bucket', photo.path, ctx.request.body.email)
+        .then((file) => {
+          ctx.state.urlFile = file.mediaLink;
+        });
+    } else {
+      ctx.state.urlFile = null;
+    }
     await user.update({ role, name, email, password, img: ctx.state.urlFile });
     ctx.redirect(ctx.router.url('users.home'));
   } catch (validationError) {
