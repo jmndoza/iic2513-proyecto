@@ -61,7 +61,7 @@ async function searchHandler(event) {
 function inputHandler(event) {
   console.log('Input handler called');
   window.clearTimeout(inputTimer);
-  inputTimer = window.setTimeout(searchHandler, 300);
+  inputTimer = window.setTimeout(searchHandler, 100);
 }
 
 window.onload = () => {
