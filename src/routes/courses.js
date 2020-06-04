@@ -28,6 +28,7 @@ async function loadCourse(ctx, next) {
   return next();
 }
 
+// eslint-disable-next-line consistent-return
 async function pass(ctx, next) {
   let role = 'anonimo';
   if (ctx.state.currentUser) {
