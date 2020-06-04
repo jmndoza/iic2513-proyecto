@@ -10,14 +10,14 @@ const sessions = require('./routes/sessions');
 const router = new KoaRouter();
 
 router.use(async (ctx, next) => {
-  // const routesWithoutUser = ['sessions.new', 'sessions.create', 'users.new', 'users.create'];
+  const sessionRoutes = ['users.home', 'users.profile', 'evaluations.new', 'sessions.destroy'];
   const currentUser = ctx.session.sessionId && await ctx.orm.User.findOne(
     { where: { sessionId: ctx.session.sessionId } },
   );
   // eslint-disable-next-line no-underscore-dangle
-  // if (!currentUser && !routesWithoutUser.includes(ctx._matchedRouteName)) {
-  //   return ctx.redirect(ctx.router.url('sessions.new'));
-  // }
+  if (!currentUser && sessionRoutes.includes(ctx._matchedRouteName)) {
+    return ctx.redirect('/');
+  }
   Object.assign(ctx.state, {
     currentUser,
     newSessionPath: ctx.router.url('sessions.new'),
