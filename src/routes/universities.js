@@ -11,6 +11,7 @@ async function loadUniversity(ctx, next) {
   });
   return next();
 }
+// eslint-disable-next-line consistent-return
 async function pass(ctx, next) {
   let role = 'anonimo';
   if (ctx.state.currentUser) {
@@ -78,7 +79,6 @@ router.get('universities.edit', '/:id/edit', loadUniversity, async (ctx) => {
 router.get('universities.show', '/:id', pass, loadUniversity, async (ctx) => {
   const { university } = ctx.state;
   const { allowedUniversity } = ctx.state;
-  console.log(allowedUniversity);
   const course = ctx.orm.Course.build();
   course.UniversityId = university.id;
   utils.loadCoursePaths(ctx);
