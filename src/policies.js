@@ -1,3 +1,4 @@
+/* eslint-disable no-else-return */
 const permissions = {
   admin: {
     all: {
@@ -27,7 +28,7 @@ const permissions = {
   },
   student: {
     Vote: {
-      POST: true, GET: true, PATCH: true, DEL: true,
+      POST: true, GET: true, PATCH: false, DEL: false,
     },
     Evaluation: {
       POST: true, GET: true, PATCH: false, DEL: false,
@@ -50,10 +51,10 @@ const permissions = {
   },
   professor: {
     Vote: {
-      POST: true, GET: true, PATCH: true, DEL: true,
+      POST: false, GET: true, PATCH: false, DEL: false,
     },
     Evaluation: {
-      POST: true, GET: true, PATCH: true, DEL: true,
+      POST: false, GET: true, PATCH: false, DEL: false,
     },
     ProfessorName: {
       POST: true, GET: true, PATCH: true, DEL: true,
@@ -68,7 +69,7 @@ const permissions = {
       POST: true, GET: true, PATCH: true, DEL: true,
     },
     University: {
-      POST: true, GET: true, PATCH: true, DEL: true,
+      POST: false, GET: true, PATCH: false, DEL: false,
     },
   },
 };
