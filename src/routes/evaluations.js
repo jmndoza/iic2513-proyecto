@@ -23,6 +23,7 @@ async function loadRequirements(ctx, next) {
   });
   return next();
 }
+// eslint-disable-next-line consistent-return
 async function pass(ctx, next) {
   let role = 'anonimo';
   if (ctx.state.currentUser) {
@@ -38,6 +39,32 @@ async function pass(ctx, next) {
   ctx.status = 401;
 }
 
+router.get('evaluations.search', '/search', async (ctx) => {
+  const { sequelize, sequelize: { QueryTypes } } = ctx.orm;
+  ctx.type = 'application/json';
+
+  ctx.body = await sequelize.query(
+    `SELECT "Courses".name AS "courseName",
+            "Courses".code AS "courseCode",
+            "ProfessorNames".name AS "professorName",
+            "Evaluations".comment,
+            "Evaluations"."timeRating",
+            "Evaluations"."difficultyRating",
+            "Evaluations".year,
+            "Evaluations".semester
+    FROM "Evaluations"
+    JOIN "Courses" ON "Evaluations"."CourseId" = "Courses".id
+    JOIN "ProfessorNames" ON "Evaluations"."ProfessorNameId" = "ProfessorNames".id
+    WHERE ("Courses".name ILIKE '%' || :course || '%' OR "Courses".code ILIKE '%' || :course || '%')
+      AND "ProfessorNames".name ILIKE '%' || :professor || '%'
+    LIMIT 20
+    ;`,
+    {
+      replacements: { course: ctx.query.course || '', professor: ctx.query.professor || '' },
+      type: QueryTypes.SELECT,
+    },
+  );
+});
 
 router.get('evaluations.list', '/', async (ctx) => {
   const evaluationsList = await ctx.orm.Evaluation.findAll({
@@ -133,5 +160,6 @@ router.del('evaluations.delete', '/:id', loadEvaluation, async (ctx) => {
   // ctx.redirect(ctx.router.url('courses.show', { id: evaluation.CourseId }));
   ctx.redirect('back');
 });
+
 
 module.exports = router;
