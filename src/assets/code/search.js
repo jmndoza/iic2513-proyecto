@@ -11,7 +11,7 @@ function createRow(data) {
   row.classList.add('card');
   const columns = ['courseCode', 'courseName', 'professorName', 'comment', 'timeRating', 'difficultyRating', 'year', 'semester'];
   const labels = {
-    courseCode: 'Course Coude',
+    courseCode: 'Course Code',
     courseName: 'Course Name',
     professorName: 'Professor',
     comment: 'Comment',
