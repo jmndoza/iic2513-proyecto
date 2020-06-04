@@ -1,6 +1,5 @@
 /* eslint-disable object-curly-newline */
 const KoaRouter = require('koa-router');
-const fs = require('fs');
 const utils = require('../utils');
 const policies = require('../policies');
 const fileStorage = require('../services/file-storage');
@@ -19,6 +18,7 @@ function isMine(eva, ctx) {
   return false;
 }
 
+// eslint-disable-next-line consistent-return
 async function pass(ctx, next) {
   let role = 'anonimo';
   if (ctx.state.currentUser) {
@@ -53,7 +53,6 @@ router.get('users.home', '/home', pass, async (ctx) => {
   } else if (currentUser.role === 'professor') {
     const coursesList = await currentUser.getCourses();
     utils.loadCoursePaths(ctx);
-    console.log('------------------------------');
     await ctx.render('users/home-professor', {
       coursesList,
     });
