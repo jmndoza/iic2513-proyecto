@@ -9,8 +9,17 @@ function createRow(data) {
   const row = document.createElement('div');
   row.classList.add('search-results-evaluation');
   row.classList.add('card');
-  const columns = ['courseName', 'courseCode', 'professorName', 'comment'];
-
+  const columns = ['courseCode', 'courseName', 'professorName', 'comment', 'timeRating', 'difficultyRating', 'year', 'semester'];
+  const labels = {
+    courseCode: 'Course Coude',
+    courseName: 'Course Name',
+    professorName: 'Professor',
+    comment: 'Comment',
+    timeRating: 'Time',
+    difficultyRating: 'Difficulty',
+    year: 'Year',
+    semester: 'Semester',
+  };
   let cell;
 
 
@@ -18,7 +27,7 @@ function createRow(data) {
     cell = document.createElement('div');
     cell.classList.add('search-results-evaluation-attribute');
     cell.classList.add(`search-results-evaluation-${col}`);
-    cell.innerHTML = data[col];
+    cell.innerHTML = `${labels[col]}: ${data[col]}`;
     row.appendChild(cell);
   });
 
