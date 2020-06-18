@@ -80,13 +80,23 @@ router.get('users.profile', '/:id/profile', pass, loadUser, async (ctx) => {
     });
   }
   utils.loadEvaluationPaths(ctx);
-  await ctx.render('users/profile', {
-    allowedEvaluation,
-    evaluationList,
-    user,
-    isMine: (eva) => isMine(eva, ctx),
-    editUserPath: (u) => ctx.router.url('users.edit', { id: u.id }),
-  });
+  switch (ctx.accepts(['json', 'html'])) {
+    case 'json':
+      ctx.body = user;
+      console.log('json user');
+      break;
+    case 'html':
+      await ctx.render('users/profile', {
+        allowedEvaluation,
+        evaluationList,
+        user,
+        isMine: (eva) => isMine(eva, ctx),
+        editUserPath: (u) => ctx.router.url('users.edit', { id: u.id }),
+      });
+      break;
+    default:
+      break;
+  }
 });
 
 router.get('users.list', '/', async (ctx) => {
