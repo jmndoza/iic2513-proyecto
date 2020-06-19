@@ -118,6 +118,7 @@ class Dashboard extends React.Component {
               </select>
 
             </div>
+            <h3>Average rankings by course: </h3>
             <div className="new-card-dashboard">
               <ResponsiveContainer>
                 <BarChart
@@ -136,6 +137,7 @@ class Dashboard extends React.Component {
                 </BarChart>
               </ResponsiveContainer>
             </div>
+            <h3>Average rankings by Professor: </h3>
             <div className="new-card-dashboard">
               <ResponsiveContainer>
                 <BarChart
@@ -154,7 +156,7 @@ class Dashboard extends React.Component {
                 </BarChart>
               </ResponsiveContainer>
             </div>
-
+            <h3>Daily activity: </h3>
             <div className="new-card-dashboard">
               <ResponsiveContainer>
                 <LineChart
