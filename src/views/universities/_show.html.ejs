@@ -1,22 +1,29 @@
 <div class="card">
-    <div class="card-button-container">
-        <% if (allowedUniversity.PATCH ) {%>
-        <form action="<%= editUniversityPath(university) %>" method="get">
-            <input type="submit" value="Edit" class="card-button edit">
-        </form>
-        <% } %>
-        <% if (allowedUniversity.DEL) {%>
-        <form action="<%= deleteUniversityPath(university) %>" method="post">
-            <input type="hidden" name="_method" value="delete">
-            <input type="submit" value="Delete" class="card-button delete">
-        </form>
-        <% } %>
-    </div>
-    <a href=<%= showUniversityPath(university) %> class="card-title"><%= university.name %></a>
-    <div class="card-contents">
-        <ul>
-            <li>Code: <%= university.code %></li>
-            <li>Domain: <%= university.domain %></li>
-        </ul>
+    <div class="card-center">
+        <div>
+            <div class="card-button-container">
+                <% if (allowedUniversity.PATCH ) {%>
+                <form action="<%= editUniversityPath(university) %>" method="get">
+                    <input type="submit" value="Edit" class="card-button edit">
+                </form>
+                <% } %>
+                <% if (allowedUniversity.DEL) {%>
+                <form action="<%= deleteUniversityPath(university) %>" method="post">
+                    <input type="hidden" name="_method" value="delete">
+                    <input type="submit" value="Delete" class="card-button delete">
+                </form>
+                <% } %>
+            </div>
+            <a href=<%= showUniversityPath(university) %> class="card-title"><%= university.name %></a>
+            <div class="card-contents">
+                <ul>
+                    <li>Code: <%= university.code %></li>
+                    <li>Domain: <%= university.domain %></li>
+                </ul>
+            </div>
+        </div>
+        <div class="card-img">
+            <img src="<%= university.img %>">
+        </div>
     </div>
 </div>

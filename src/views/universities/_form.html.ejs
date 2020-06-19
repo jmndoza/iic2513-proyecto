@@ -7,7 +7,7 @@
     <% } %>
   </div>
   <div class="card-contents">
-  <form action="<%= submitUniversityPath %>" method="post">
+  <form action="<%= submitUniversityPath %>" enctype="multipart/form-data" method="post">
     <% if (!university.isNewRecord) { %>
       <input type="hidden" name="_method" value="patch" />
     <% } %>
@@ -22,6 +22,10 @@
     <div  class="field">
       <label for="domain">Domain</label>
       <input type="text" name="domain" pattern="[a-z0-9]+[a-z0-9-]*[a-z0-9]+\.[a-z0-9]{2,}" value="<%= university.domain %>" required/>
+    </div>
+    <div  class="field">
+      <label for="photo">Photo for your university (Only JPEG)</label>
+      <input type="file" name="photo" accept="image/jpeg"/>
     </div>
     <div  class="field">
       <% if (university.isNewRecord) { %>
