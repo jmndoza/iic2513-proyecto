@@ -21,6 +21,10 @@ module.exports = (sequelize, DataTypes) => {
         },
       },
     },
+    img: {
+      type: DataTypes.TEXT,
+      allowNull: true,
+    },
   }, {});
 
   University.associate = function associate(models) {

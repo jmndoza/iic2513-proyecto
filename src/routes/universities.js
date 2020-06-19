@@ -1,6 +1,7 @@
 const KoaRouter = require('koa-router');
 const utils = require('../utils');
 const policies = require('../policies');
+const fileStorage = require('../services/file-storage');
 
 const router = new KoaRouter();
 
@@ -103,7 +104,16 @@ router.patch('universities.update', '/:id', loadUniversity, async (ctx) => {
   const { university } = ctx.state;
   try {
     const { code, name, domain } = ctx.request.body;
-    await university.update({ code, name, domain });
+    const { photo } = ctx.request.files;
+
+    if (photo.size !== 0) {
+      ctx.state.urlFile = (await fileStorage.uploadStorage('netz-bucket', photo.path, ctx.request.body.code)).mediaLink;
+    } else {
+      ctx.state.urlFile = null;
+    }
+    await university.update({
+      code, name, domain, img: ctx.state.urlFile,
+    });
     ctx.redirect(ctx.router.url('universities.list'));
   } catch (validationError) {
     await ctx.render('universities/edit', {

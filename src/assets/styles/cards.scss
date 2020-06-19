@@ -119,3 +119,18 @@
 .card:hover .card-button{
     visibility:visible;
 }
+
+.card-img img {
+    max-width:50px;
+    height:50px;
+    border-radius: 50%;
+    object-fit:cover;
+    display:block;
+    margin:auto;
+    background-color: $background-color;
+
+}
+
+.card-center {
+    display: inline-flex;
+}
