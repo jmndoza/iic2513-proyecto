@@ -76,7 +76,7 @@ router.get('users.profile', '/:id/profile', pass, loadUser, async (ctx) => {
         { model: ctx.orm.Course },
         { model: ctx.orm.ProfessorName },
       ],
-
+      order: [['createdAt', 'DESC']],
     });
   }
   utils.loadEvaluationPaths(ctx);
