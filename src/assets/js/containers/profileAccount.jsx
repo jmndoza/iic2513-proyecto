@@ -18,7 +18,7 @@ class ProfileAccount extends React.Component {
     super(props);
     this.state = {
       data: null,
-      baseURL: null,
+      baseURL: 'http://localhost:3000',
     };
   }
 
@@ -27,7 +27,7 @@ class ProfileAccount extends React.Component {
   }
 
   setUser() {
-    axios.get('http://localhost:3000/users/profile')
+    axios.get(`${this.state.baseURL}/users/profile`)
       .then((res) => {
         console.log(res.data);
         this.setState({ data: res.data, baseURL: res.data.baseURL });
