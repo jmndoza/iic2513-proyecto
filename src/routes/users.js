@@ -70,6 +70,7 @@ router.get('users.profile', '/profile', pass, loadUser, async (ctx) => {
   const { currentUser } = ctx.state;
   let evaluationList = [];
   ctx.cookies.set('redirectUrl', ctx.request.url);
+  const baseURL = process.env.ROOT_URL;
   if (currentUser.role === 'student') {
     evaluationList = await currentUser.getEvaluations({
       include: [
@@ -82,8 +83,7 @@ router.get('users.profile', '/profile', pass, loadUser, async (ctx) => {
   utils.loadEvaluationPaths(ctx);
   switch (ctx.accepts(['json', 'html'])) {
     case 'json':
-      ctx.body = { currentUser, evaluationList };
-
+      ctx.body = { currentUser, evaluationList, baseURL };
       break;
     case 'html':
       await ctx.render('users/profile', {

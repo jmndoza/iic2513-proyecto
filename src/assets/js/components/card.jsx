@@ -8,7 +8,9 @@ class Card extends React.Component {
   }
 
   render() {
-    const { data } = this.props;
+    const { data, baseURL } = this.props;
+    const deleteURI = `${baseURL}/evaluations/${data.id}/`;
+    const editURI = `${baseURL}/evaluations/${data.id}/edit`;
     return (
       <div className="new-card">
 
@@ -18,10 +20,10 @@ class Card extends React.Component {
           <p className="quote">{data.comment}</p>
           <div className="new-card-buttons">
             <div />
-            <form method="get" className="new-card-form">
+            <form action={editURI} method="get" className="new-card-form">
               <input type="submit" value="Edit" />
             </form>
-            <form method="post" className="new-card-form">
+            <form action={deleteURI} method="post" className="new-card-form">
               <input type="hidden" name="_method" value="delete" />
               <input type="submit" value="Delete" />
             </form>

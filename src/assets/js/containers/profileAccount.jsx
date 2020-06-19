@@ -3,8 +3,8 @@ import axios from 'axios';
 import ProfileSideCard from '../components/profileSideCard';
 import Card from '../components/card';
 
-const renderCards = (items) => {
-  const cards = items.map((info) => <Card key={info.id} data={info} />);
+const renderCards = (items, baseURL) => {
+  const cards = items.map((info) => <Card key={info.id} data={info} baseURL={baseURL} />);
   console.log(items);
   return (
     <div className="profile-rightcontent">
@@ -18,6 +18,7 @@ class ProfileAccount extends React.Component {
     super(props);
     this.state = {
       data: null,
+      baseURL: null,
     };
   }
 
@@ -29,7 +30,7 @@ class ProfileAccount extends React.Component {
     axios.get('http://localhost:3000/users/profile')
       .then((res) => {
         console.log(res.data);
-        this.setState({ data: res.data });
+        this.setState({ data: res.data, baseURL: res.data.baseURL });
       })
       .catch((err) => {
         console.log(err);
@@ -42,7 +43,7 @@ class ProfileAccount extends React.Component {
       return (
         <div id="profile" className="profile">
           <ProfileSideCard data={data.currentUser} />
-          {renderCards(data.evaluationList)}
+          {renderCards(data.evaluationList, data.baseURL)}
         </div>
       );
     }
