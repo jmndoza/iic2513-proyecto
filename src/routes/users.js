@@ -82,8 +82,8 @@ router.get('users.profile', '/:id/profile', pass, loadUser, async (ctx) => {
   utils.loadEvaluationPaths(ctx);
   switch (ctx.accepts(['json', 'html'])) {
     case 'json':
-      ctx.body = user;
-      console.log('json user');
+      ctx.body = { user, evaluationList };
+
       break;
     case 'html':
       await ctx.render('users/profile', {

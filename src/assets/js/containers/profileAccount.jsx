@@ -1,22 +1,55 @@
 import React, { useCallback, useState } from 'react';
-import { hot } from 'react-hot-loader';
-import ProfileCard from '../components/profileCard';
+import axios from 'axios';
 import ProfileSideCard from '../components/profileSideCard';
+import Card from '../components/card';
 
-function ProfileAccount() {
-  // const [currentValue, setCurrentValue] = useState(0);
-  // const incrementValue = useCallback(() => setCurrentValue(currentValue + 1));
-  // const decrementValue = useCallback(() => setCurrentValue(currentValue - 1));
-  // console.log(`inside component function, counter: ${currentValue}`);
-
+const renderCards = (items) => {
+  const cards = items.map((info) => <Card key={info.id} data={info} />);
+  console.log(items);
   return (
-
-    <div id="profile" className="profile">
-      <ProfileSideCard />
-      <ProfileCard />
+    <div className="profile-rightcontent">
+      { cards }
     </div>
-
   );
+};
+
+class ProfileAccount extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      data: null,
+    };
+  }
+
+  componentDidMount() {
+    this.setUser();
+  }
+
+  setUser() {
+    axios.get('http://localhost:3000/users/10/profile')
+      .then((res) => {
+        console.log(res.data);
+        this.setState({ data: res.data });
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  }
+
+  render() {
+    const { data } = this.state;
+    if (data) {
+      return (
+        <div id="profile" className="profile">
+          <ProfileSideCard data={data.user} />
+          {renderCards(data.evaluationList)}
+        </div>
+      );
+    }
+    return (
+      <div id="profile" className="profile" />
+    );
+  }
 }
 
-export default hot(module)(ProfileAccount);
+export default ProfileAccount;
