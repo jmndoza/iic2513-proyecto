@@ -13,12 +13,14 @@ class Dashboard extends React.Component {
       activity: null,
       universities: null,
       university: null,
-      baseURL: 'http://localhost:3000',
+      baseURL: '',
     };
     this.handleSelect = this.handleSelect.bind(this);
   }
 
   componentDidMount() {
+    var url = window.location.href
+    console.log(url);
     this.getUniversities();
     this.getDataAvgRating();
     this.getDataProfessorRating();
