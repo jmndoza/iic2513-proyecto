@@ -34,15 +34,24 @@ router.get('universities.list', '/', pass, async (ctx) => {
   const university = ctx.orm.University.build();
   const { allowedUniversity, allowedCourse } = ctx.state;
   utils.loadUniversityPaths(ctx);
-
-  await ctx.render('universities/index', {
-    errors: ctx.state.flashMessage.warning,
-    universitiesList,
-    university,
-    allowedUniversity,
-    allowedCourse,
-    coursePath: (course) => ctx.router.url('courses.show', { id: course.id }),
-  });
+  switch (ctx.accepts(['json', 'html'])) {
+    case 'json':
+      ctx.body = universitiesList;
+      console.log('json university');
+      break;
+    case 'html':
+      await ctx.render('universities/index', {
+        errors: ctx.state.flashMessage.warning,
+        universitiesList,
+        university,
+        allowedUniversity,
+        allowedCourse,
+        coursePath: (course) => ctx.router.url('courses.show', { id: course.id }),
+      });
+      break;
+    default:
+      break;
+  }
 });
 
 router.get('universities.new', '/new', async (ctx) => {

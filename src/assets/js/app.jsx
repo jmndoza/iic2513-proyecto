@@ -1,9 +1,9 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import App from './components/App';
+import ProfileAccount from './containers/profileAccount';
 
-const reactAppContainer = document.getElementById('react-app');
+const reacProfileContainer = document.getElementById('container-profile');
 
-if (reactAppContainer) {
-  ReactDOM.render(<App />, reactAppContainer);
+if (reacProfileContainer) {
+  ReactDOM.render(<ProfileAccount />, reacProfileContainer);
 }

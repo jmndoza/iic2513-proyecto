@@ -65,28 +65,38 @@ router.get('users.home', '/home', pass, async (ctx) => {
   }
 });
 
-router.get('users.profile', '/:id/profile', pass, loadUser, async (ctx) => {
+router.get('users.profile', '/profile', pass, loadUser, async (ctx) => {
   const { allowedEvaluation } = ctx.state;
-  const { user } = ctx.state;
+  const { currentUser } = ctx.state;
   let evaluationList = [];
   ctx.cookies.set('redirectUrl', ctx.request.url);
-  if (user.role === 'student') {
-    evaluationList = await user.getEvaluations({
+  const baseURL = process.env.ROOT_URL;
+  if (currentUser.role === 'student') {
+    evaluationList = await currentUser.getEvaluations({
       include: [
         { model: ctx.orm.Course },
         { model: ctx.orm.ProfessorName },
       ],
-
+      order: [['createdAt', 'DESC']],
     });
   }
   utils.loadEvaluationPaths(ctx);
-  await ctx.render('users/profile', {
-    allowedEvaluation,
-    evaluationList,
-    user,
-    isMine: (eva) => isMine(eva, ctx),
-    editUserPath: (u) => ctx.router.url('users.edit', { id: u.id }),
-  });
+  switch (ctx.accepts(['json', 'html'])) {
+    case 'json':
+      ctx.body = { currentUser, evaluationList, baseURL };
+      break;
+    case 'html':
+      await ctx.render('users/profile', {
+        allowedEvaluation,
+        evaluationList,
+        currentUser,
+        isMine: (eva) => isMine(eva, ctx),
+        editUserPath: (u) => ctx.router.url('users.edit', { id: u.id }),
+      });
+      break;
+    default:
+      break;
+  }
 });
 
 router.get('users.list', '/', async (ctx) => {

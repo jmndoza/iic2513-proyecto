@@ -39,6 +39,7 @@
   },
   "dependencies": {
     "@google-cloud/storage": "^5.0.1",
+    "axios": "^0.19.2",
     "bcrypt": "^4.0.1",
     "boom": "^7.3.0",
     "core-js": "^3.6.4",
