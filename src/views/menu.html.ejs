@@ -1,6 +1,10 @@
 <nav>
   <a href="/universities"     class="menu-item menu-link"><i class="fas fa-user-graduate"></i> EvaCursos</a>
+  
   <% if (currentUser) { %>
+    <% if (currentUser.role === "admin")  { %>
+      <a href = "/dashboard" class="menu-item menu-link"><i class="fas fa-chart-line"></i> Dashboard</a>
+    <% } %>
     <a href = "/users/home" class="menu-item menu-link"><i class="fas fa-home"></i> Home</a>
     <a href="<%= profileUserPath(currentUser) %>" class="menu-item menu-link"><i class="fas fa-cog"></i> Account</a>
     <a href="<%= destroySessionPath %>" class="menu-item menu-link"><i class="fas fa-sign-out-alt"></i> Logout</a>
