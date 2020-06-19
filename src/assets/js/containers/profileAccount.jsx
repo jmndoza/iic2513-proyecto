@@ -26,7 +26,7 @@ class ProfileAccount extends React.Component {
   }
 
   setUser() {
-    axios.get('http://localhost:3000/users/10/profile')
+    axios.get('http://localhost:3000/users/profile')
       .then((res) => {
         console.log(res.data);
         this.setState({ data: res.data });
@@ -41,7 +41,7 @@ class ProfileAccount extends React.Component {
     if (data) {
       return (
         <div id="profile" className="profile">
-          <ProfileSideCard data={data.user} />
+          <ProfileSideCard data={data.currentUser} />
           {renderCards(data.evaluationList)}
         </div>
       );
