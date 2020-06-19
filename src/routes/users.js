@@ -65,9 +65,9 @@ router.get('users.home', '/home', pass, async (ctx) => {
   }
 });
 
-router.get('users.profile', '/:id/profile', pass, loadUser, async (ctx) => {
+router.get('users.profile', '/profile', pass, loadUser, async (ctx) => {
   const { allowedEvaluation } = ctx.state;
-  const { user } = ctx.state;
+  const { currentUser } = ctx.state;
   let evaluationList = [];
   ctx.cookies.set('redirectUrl', ctx.request.url);
   const baseURL = process.env.ROOT_URL;
@@ -77,7 +77,7 @@ router.get('users.profile', '/:id/profile', pass, loadUser, async (ctx) => {
         { model: ctx.orm.Course },
         { model: ctx.orm.ProfessorName },
       ],
-
+      order: [['createdAt', 'DESC']],
     });
   }
   utils.loadEvaluationPaths(ctx);

@@ -5,6 +5,11 @@ const fileStorage = require('../services/file-storage');
 
 const router = new KoaRouter();
 
+router.get('dashboard.home', '/', async (ctx) => {
+  await ctx.render('dashboard/index', {
+  });
+});
+
 router.get('dashboard.courserating', '/courserating', async (ctx) => {
   const { sequelize, sequelize: { QueryTypes } } = ctx.orm;
   ctx.type = 'application/json';
@@ -12,7 +17,7 @@ router.get('dashboard.courserating', '/courserating', async (ctx) => {
     `SELECT "Universities".name AS "universityName",
             "Courses".name AS "courseName",
             AVG("Evaluations"."timeRating") AS "avgTimeRating",
-            AVG("Evaluations"."difficultyRating") AS "avgdDifficultyRating"
+            AVG("Evaluations"."difficultyRating") AS "avgDifficultyRating"
     FROM "Universities"
     JOIN "Courses" ON "Courses"."UniversityId" = "Universities".id
     JOIN "Evaluations" ON "Evaluations"."CourseId" = "Courses".id
@@ -32,7 +37,7 @@ router.get('dashboard.professorrating', '/professorrating', async (ctx) => {
             "Courses".name AS "coursesName",
             "Universities".name AS "universityName",
             AVG("Evaluations"."timeRating") AS "avgTimeRating",
-            AVG("Evaluations"."difficultyRating") AS "avgdDifficultyRating"
+            AVG("Evaluations"."difficultyRating") AS "avgDifficultyRating"
     FROM "ProfessorNames"
     JOIN "Evaluations" ON "Evaluations"."ProfessorNameId" = "ProfessorNames".id
     JOIN "Courses" ON "Evaluations"."CourseId" = "Courses".id
@@ -73,6 +78,20 @@ router.get('dashboard.totales', '/totals', async (ctx) => {
     JOIN "Courses" ON "Courses"."UniversityId" = "Universities".id
     LEFT JOIN "Evaluations" ON "Evaluations"."CourseId" = "Courses".id
     GROUP BY "universityName"
+    ;`,
+    {
+      type: QueryTypes.SELECT,
+    },
+  );
+});
+
+router.get('dashboard.universities', '/universities', async (ctx) => {
+  const { sequelize, sequelize: { QueryTypes } } = ctx.orm;
+  ctx.type = 'application/json';
+  ctx.body = await sequelize.query(
+    `SELECT "Universities".name AS "universityName",
+            "Universities".id AS "universityId"
+    FROM "Universities"
     ;`,
     {
       type: QueryTypes.SELECT,

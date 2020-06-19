@@ -1,4 +1,4 @@
-#profile {
+#dashboard {
     display: grid;
 
     grid-template-columns: 1fr 2fr ;
@@ -9,12 +9,12 @@
 
 }
 @media (max-width: 1000px) {
-    #profile {
+    #dashboard {
         grid-template-columns: 1fr 1fr;
     }
 }
 @media (max-width: 600px) {
-    #profile {
+    #dashboard {
         grid-template-columns: 1fr;
     }
 }
@@ -27,7 +27,7 @@
 
 
 
-.profile-info {
+.dashboard-info {
     padding:1em;
     background-color: $content-background-color;
     box-shadow: 0 0 0.1rem 0 $shadow-color;
@@ -37,7 +37,7 @@
 
 // }
 
-.profile-img img {
+.dashboard-img img {
     max-width:300px;
     height:300px;
     border-radius: 50%;
@@ -48,7 +48,7 @@
 
 }
 
-.profile-userinfo {
+.dashboard-userinfo {
     >h3 {
         font-size: 1.5em;
         text-align: center;
@@ -74,11 +74,11 @@
 }
 
 
-.profile-rightcontent {
+.dashboard-rightcontent {
     padding:0em;
     display: grid;
     grid-template-columns: 1fr;
-    grid-auto-rows: minmax(auto, 150px);
+
     row-gap: 1em;
     >input {
         background-color: $secondary-color;
@@ -91,7 +91,7 @@
         font-size: 16px;
     }
 }
-.profile-info {
+.dashboard-info {
     .new-card-form {
         margin-top:20px;
         >input {
@@ -108,8 +108,10 @@
     }
 }
 
-.new-card {
+.new-card-dashboard {
     display: grid;
+    grid-auto-rows: minmax(400px, auto);
+
     grid-template-columns: 3fr 1fr;
     gap: 1em;
     background-color: $content-background-color;
@@ -195,4 +197,3 @@
     }
 
 }
-
