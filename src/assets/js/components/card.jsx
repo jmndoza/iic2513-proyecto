@@ -8,7 +8,7 @@ class Card extends React.Component {
   }
 
   render() {
-    const { data, baseURL } = this.props;
+    const { data } = this.props;
     const deleteURI = `/evaluations/${data.id}/`;
     const editURI = `/evaluations/${data.id}/edit`;
     return (
