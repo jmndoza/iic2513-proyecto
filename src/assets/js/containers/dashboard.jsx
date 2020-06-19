@@ -13,7 +13,6 @@ class Dashboard extends React.Component {
       activity: null,
       universities: null,
       university: null,
-      baseURL: '',
     };
     this.handleSelect = this.handleSelect.bind(this);
   }
@@ -28,7 +27,7 @@ class Dashboard extends React.Component {
   }
 
   getUniversities() {
-    axios.get(`${this.state.baseURL}/dashboard/universities`)
+    axios.get(`/dashboard/universities`)
       .then((res) => {
         console.log(res.data);
         this.setState({ universities: res.data });
@@ -36,7 +35,7 @@ class Dashboard extends React.Component {
   }
 
   getDataAvgRating() {
-    axios.get(`${this.state.baseURL}/dashboard/courserating`)
+    axios.get(`/dashboard/courserating`)
       .then((res) => {
         const group = res.data.reduce((r, a) => {
           r[a.universityName] = [...r[a.universityName] || [], a];
@@ -51,7 +50,7 @@ class Dashboard extends React.Component {
   }
 
   getDataProfessorRating() {
-    axios.get(`${this.state.baseURL}/dashboard/professorrating`)
+    axios.get(`/dashboard/professorrating`)
       .then((res) => {
         const group = res.data.reduce((r, a) => {
           r[a.universityName] = [...r[a.universityName] || [], a];
@@ -66,7 +65,7 @@ class Dashboard extends React.Component {
   }
 
   getActivity() {
-    axios.get(`${this.state.baseURL}/dashboard/activity`)
+    axios.get(`/dashboard/activity`)
       .then((res) => {
         const group = res.data.reduce((r, a) => {
           r[a.universityName] = [...r[a.universityName] || [], a];
