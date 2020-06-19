@@ -22,7 +22,10 @@ module.exports = {
       unique: true,
       allowNull: false,
     },
-
+    img: {
+      type: Sequelize.TEXT,
+      allowNull: true,
+    },
     createdAt: {
       allowNull: false,
       type: Sequelize.DATE,

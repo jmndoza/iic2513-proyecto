@@ -1,6 +1,7 @@
 const KoaRouter = require('koa-router');
 const utils = require('../utils');
 const policies = require('../policies');
+const fileStorage = require('../services/file-storage');
 
 const router = new KoaRouter();
 
@@ -34,15 +35,24 @@ router.get('universities.list', '/', pass, async (ctx) => {
   const university = ctx.orm.University.build();
   const { allowedUniversity, allowedCourse } = ctx.state;
   utils.loadUniversityPaths(ctx);
-
-  await ctx.render('universities/index', {
-    errors: ctx.state.flashMessage.warning,
-    universitiesList,
-    university,
-    allowedUniversity,
-    allowedCourse,
-    coursePath: (course) => ctx.router.url('courses.show', { id: course.id }),
-  });
+  switch (ctx.accepts(['json', 'html'])) {
+    case 'json':
+      ctx.body = universitiesList;
+      console.log('json university');
+      break;
+    case 'html':
+      await ctx.render('universities/index', {
+        errors: ctx.state.flashMessage.warning,
+        universitiesList,
+        university,
+        allowedUniversity,
+        allowedCourse,
+        coursePath: (course) => ctx.router.url('courses.show', { id: course.id }),
+      });
+      break;
+    default:
+      break;
+  }
 });
 
 router.get('universities.new', '/new', async (ctx) => {
@@ -94,7 +104,16 @@ router.patch('universities.update', '/:id', loadUniversity, async (ctx) => {
   const { university } = ctx.state;
   try {
     const { code, name, domain } = ctx.request.body;
-    await university.update({ code, name, domain });
+    const { photo } = ctx.request.files;
+
+    if (photo.size !== 0) {
+      ctx.state.urlFile = (await fileStorage.uploadStorage('netz-bucket', photo.path, ctx.request.body.code)).mediaLink;
+    } else {
+      ctx.state.urlFile = null;
+    }
+    await university.update({
+      code, name, domain, img: ctx.state.urlFile,
+    });
     ctx.redirect(ctx.router.url('universities.list'));
   } catch (validationError) {
     await ctx.render('universities/edit', {
