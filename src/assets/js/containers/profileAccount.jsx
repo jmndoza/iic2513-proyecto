@@ -27,7 +27,7 @@ class ProfileAccount extends React.Component {
   }
 
   setUser() {
-    axios.get(`${this.state.baseURL}/users/profile`)
+    axios.get(`/users/profile`)
       .then((res) => {
         console.log(res.data);
         this.setState({ data: res.data });

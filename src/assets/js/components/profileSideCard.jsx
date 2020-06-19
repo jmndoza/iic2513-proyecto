@@ -10,7 +10,7 @@ class ProfileSideCard extends React.Component {
     const { data } = this.props;
 
     if (data) {
-      const editURI = `${data.id}/edit`;
+      const editURI = `/users/${data.id}/edit`;
       let { img } = data;
       if (img === null) {
         img = 'https://upload.wikimedia.org/wikipedia/commons/7/7c/Profile_avatar_placeholder_large.png';
