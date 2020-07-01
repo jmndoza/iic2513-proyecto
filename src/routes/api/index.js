@@ -3,6 +3,7 @@ const KoaRouter = require('koa-router');
 
 // const authApi = require('./auth');
 const universitiesApi = require('./universities');
+const evaluationsApi = require('./evaluations');
 
 const router = new KoaRouter();
 
@@ -20,5 +21,6 @@ router.use(async (ctx, next) => {
 
 // authenticated endpoints
 router.use('/universities', universitiesApi.routes());
+router.use('/evaluations', evaluationsApi.routes());
 
 module.exports = router;
