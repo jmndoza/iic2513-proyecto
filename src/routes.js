@@ -7,6 +7,7 @@ const evaluations = require('./routes/evaluations');
 const courses = require('./routes/courses');
 const sessions = require('./routes/sessions');
 const dashboard = require('./routes/dashboard');
+const api = require('./routes/api');
 
 const router = new KoaRouter();
 
@@ -39,4 +40,5 @@ router.use('/courses', courses.routes());
 router.use('/evaluations', evaluations.routes());
 router.use('/sessions', sessions.routes());
 router.use('/dashboard', dashboard.routes());
+router.use('/api', api.routes());
 module.exports = router;
