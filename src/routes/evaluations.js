@@ -1,6 +1,7 @@
 const KoaRouter = require('koa-router');
 const utils = require('../utils');
 const policies = require('../policies');
+const { ContextReplacementPlugin } = require('webpack');
 
 const router = new KoaRouter();
 
@@ -74,10 +75,19 @@ router.get('evaluations.list', '/', async (ctx) => {
     ],
   });
   utils.loadEvaluationPaths(ctx);
-  await ctx.render('evaluations/index', {
-    evaluationsList,
-    showCoursePath: (course) => ctx.router.url('courses.show', { id: course.id }),
-  });
+  switch (ctx.accepts(['json', 'html'])) {
+    case 'json':
+      ctx.body = evaluationsList;
+      break;
+    case 'html':
+      await ctx.render('evaluations/index', {
+        evaluationsList,
+        showCoursePath: (course) => ctx.router.url('courses.show', { id: course.id }),
+      });
+      break;
+    default:
+      break;
+  }
 });
 
 router.get('evaluations.new', '/new', loadRequirements, async (ctx) => {
@@ -160,6 +170,5 @@ router.del('evaluations.delete', '/:id', loadEvaluation, async (ctx) => {
   // ctx.redirect(ctx.router.url('courses.show', { id: evaluation.CourseId }));
   ctx.redirect('back');
 });
-
 
 module.exports = router;

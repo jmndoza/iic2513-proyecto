@@ -38,7 +38,6 @@ router.get('universities.list', '/', pass, async (ctx) => {
   switch (ctx.accepts(['json', 'html'])) {
     case 'json':
       ctx.body = universitiesList;
-      console.log('json university');
       break;
     case 'html':
       await ctx.render('universities/index', {
