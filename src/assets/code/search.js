@@ -22,7 +22,6 @@ function createRow(data) {
   };
   let cell;
 
-
   columns.forEach((col) => {
     cell = document.createElement('div');
     cell.classList.add('search-results-evaluation-attribute');
@@ -40,6 +39,7 @@ function removeChildren(element) {
   }
 }
 
+// eslint-disable-next-line no-unused-vars
 async function searchHandler(event) {
   console.log('Search handler called');
   if (!professorField.value && !courseField.value) {
@@ -58,6 +58,7 @@ async function searchHandler(event) {
   console.log('Fetch returned');
 }
 
+// eslint-disable-next-line no-unused-vars
 function inputHandler(event) {
   console.log('Input handler called');
   window.clearTimeout(inputTimer);
