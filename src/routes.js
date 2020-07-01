@@ -11,6 +11,8 @@ const api = require('./routes/api');
 
 const router = new KoaRouter();
 
+router.use('/api', api.routes());
+
 router.use(async (ctx, next) => {
   const sessionRoutes = ['users.home', 'users.profile', 'evaluations.new', 'sessions.destroy'];
   const currentUser = ctx.session.sessionId && await ctx.orm.User.findOne(
@@ -27,7 +29,6 @@ router.use(async (ctx, next) => {
     newUserPath: ctx.router.url('users.new'),
     editUserPath: (user) => ctx.router.url('users.edit', { id: user.id }),
     profileUserPath: (user) => ctx.router.url('users.profile', { id: user.id }),
-
   });
   return next();
 });
@@ -40,5 +41,4 @@ router.use('/courses', courses.routes());
 router.use('/evaluations', evaluations.routes());
 router.use('/sessions', sessions.routes());
 router.use('/dashboard', dashboard.routes());
-router.use('/api', api.routes());
 module.exports = router;

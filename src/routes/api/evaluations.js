@@ -1,31 +1,58 @@
+// eslint-disable no-unused-vars
 const KoaRouter = require('koa-router');
 
 const router = new KoaRouter();
 
 router.get('api.evaluations.list', '/', async (ctx) => {
-  const evaluationsList = await ctx.orm.Evaluation.findAll({
-    include: [
-      { model: ctx.orm.Course },
-      { model: ctx.orm.ProfessorName },
-    ],
-  });
+  let evaluationsList;
+  if (ctx.query.CourseId) {
+    let course = await ctx.orm.Course.findByPk(ctx.query.CourseId);
+    evaluationsList = await course.getEvaluations({
+      include: [
+        { model: ctx.orm.Course },
+        { model: ctx.orm.ProfessorName },
+      ],
+    });
+  } else {
+    evaluationsList = await ctx.orm.Evaluation.findAll({
+      include: [
+        { model: ctx.orm.Course },
+        { model: ctx.orm.ProfessorName },
+      ],
+    });
+  }
   ctx.body = ctx.jsonSerializer('evaluation', {
-    attributes: ['comment', 'year', 'semester', 'timeRating', 'difficultyRating', 'response', 'CourseId', 'Course'],
+    pluralizeType: false,
+    attributes: [
+      'comment',
+      'year',
+      'semester',
+      'timeRating',
+      'difficultyRating',
+      'response',
+      'ProfessorName',
+    ],
     topLevelLinks: {
-      self: `${ctx.origin}${ctx.router.url('api.evaluations.list')}`,
+      self: ctx.router.url('api.evaluations.list'),
     },
     dataLinks: {
-      self: (dataset, Evaluation) => `${ctx.origin}/api/evaluations/${Evaluation.id}`,
+      self: (dataset, evaluation) => ctx.router.url('api.evaluations.show', { id: evaluation.id }),
     },
   }).serialize(evaluationsList);
 });
 
-router.get('api.university.show', '/:id', async (ctx) => {
-  const evaluation = await ctx.orm.University.findByPk(ctx.params.id);
+router.get('api.evaluations.show', '/:id', async (ctx) => {
+  const evaluation = await ctx.orm.Evaluation.findByPk(ctx.params.id, {
+      include: [
+        { model: ctx.orm.Course },
+        { model: ctx.orm.ProfessorName },
+      ],
+    });
   ctx.body = ctx.jsonSerializer('evaluation', {
-    attributes: ['comment', 'year', 'semester', 'timeRating', 'difficultyRating', 'response', 'CourseId'],
+    pluralizeType: false,
+    attributes: ['comment', 'year', 'semester', 'timeRating', 'difficultyRating', 'response', 'ProfessorName'],
     topLevelLinks: {
-      self: `${ctx.origin}${ctx.router.url('api.university.show', { id: evaluation.id })}`,
+      self: ctx.router.url('api.evaluations.show', { id: evaluation.id }),
     },
   }).serialize(evaluation);
 });

@@ -44,6 +44,10 @@ module.exports = {
       type: Sequelize.TEXT,
       unique: true,
     },
+    accessToken: {
+      type: Sequelize.TEXT,
+      unique: true,
+    },
 
     createdAt: {
       allowNull: false,
