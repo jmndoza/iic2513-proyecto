@@ -1,7 +1,6 @@
 const KoaRouter = require('koa-router');
 const utils = require('../utils');
 const policies = require('../policies');
-const { ContextReplacementPlugin } = require('webpack');
 
 const router = new KoaRouter();
 
