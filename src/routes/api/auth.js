@@ -22,11 +22,9 @@ router.post('api.auth', '/', async (ctx) => {
     ctx.status = 200;
     ctx.body = { accessToken };
     return;
-  } else {
-    ctx.status = 401;
-    ctx.body = { error: 'Incorrect email or password' };
-    return;
   }
+  ctx.status = 401;
+  ctx.body = { error: 'Incorrect email or password' };
 });
 
 module.exports = router;

@@ -8,14 +8,15 @@ async function auth(ctx, next) {
     ctx.status = 401;
     return;
   }
-  ctx.state.currentUser = await ctx.orm.User.findOne({ where: { accessToken: ctx.header.accesstoken } });
+  ctx.state.currentUser = await ctx.orm.User.findOne(
+    { where: { accessToken: ctx.header.accesstoken } },
+  );
   if (!ctx.state.currentUser) {
     ctx.body = { error: 'Invalid accessToken' };
     ctx.status = 401;
     return;
   }
-
-  return next();
+  next();
 }
 
 async function loadCourse(ctx, next) {
@@ -29,20 +30,20 @@ async function loadCourse(ctx, next) {
 router.get('api.courses.list', '/', async (ctx) => {
   let coursesList;
   if (ctx.query.UniversityId) {
-    let university = await ctx.orm.University.findByPk(ctx.query.UniversityId);
+    const university = await ctx.orm.University.findByPk(ctx.query.UniversityId);
     coursesList = await university.getCourses();
   } else {
     coursesList = await ctx.orm.Course.findAll();
   }
   ctx.body = ctx.jsonSerializer('course', {
     pluralizeType: false,
-    attributes: [ 'code', 'name'],
+    attributes: ['code', 'name'],
     topLevelLinks: {
       self: ctx.router.url('api.courses.list'),
     },
     dataLinks: {
-      self : (dataset, course) => ctx.router.url('api.courses.show', { id: course.id }),
-    }
+      self: (dataset, course) => ctx.router.url('api.courses.show', { id: course.id }),
+    },
   }).serialize(coursesList);
 });
 
@@ -51,16 +52,16 @@ router.get('api.courses.show', '/:id', async (ctx) => {
 
   ctx.body = ctx.jsonSerializer('course', {
     pluralizeType: false,
-    attributes: [ 'code', 'name'],
+    attributes: ['code', 'name'],
     topLevelLinks: {
       self: ctx.router.url('api.courses.show', { id: course.id }),
-      evaluations: ctx.router.url('api.evaluations.list', { query: {CourseId: course.id } }),
+      evaluations: ctx.router.url('api.evaluations.list', { query: { CourseId: course.id } }),
     },
   }).serialize(course);
 });
 
 router.post('api.courses.create', '/', auth, async (ctx) => {
-  if (ctx.state.currentUser.role != 'admin') {
+  if (ctx.state.currentUser.role !== 'admin') {
     ctx.body = { error: 'No permission' };
     ctx.status = 403;
     return;
@@ -74,12 +75,11 @@ router.post('api.courses.create', '/', auth, async (ctx) => {
   } catch (validationError) {
     ctx.body = ctx.errorToStringArray(validationError);
     ctx.status = 400;
-    return;
   }
 });
 
 router.del('api.courses.delete', '/:id', auth, loadCourse, async (ctx) => {
-  if (ctx.state.currentUser.role != 'admin') {
+  if (ctx.state.currentUser.role !== 'admin') {
     ctx.body = { error: 'No permission' };
     ctx.status = 403;
     return;
@@ -94,7 +94,6 @@ router.del('api.courses.delete', '/:id', auth, loadCourse, async (ctx) => {
 
   await course.destroy();
   ctx.status = 200;
-  return;
 });
 
 module.exports = router;

@@ -1,12 +1,10 @@
 import React, { useCallback, useState } from 'react';
 import { hot } from 'react-hot-loader';
 
-
-function App() {
+function ApiApplication() {
   const [currentValue, setCurrentValue] = useState(0);
   const incrementValue = useCallback(() => setCurrentValue(currentValue + 1));
   const decrementValue = useCallback(() => setCurrentValue(currentValue - 1));
-  console.log(`inside component function, counter: ${currentValue}`);
 
   return (
     <div>
@@ -21,4 +19,4 @@ function App() {
   );
 }
 
-export default hot(module)(App);
+export default hot(module)(ApiApplication);

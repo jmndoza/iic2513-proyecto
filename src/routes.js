@@ -8,10 +8,12 @@ const courses = require('./routes/courses');
 const sessions = require('./routes/sessions');
 const dashboard = require('./routes/dashboard');
 const api = require('./routes/api');
+const apiApplication = require('./routes/ApiApplication');
 
 const router = new KoaRouter();
 
 router.use('/api', api.routes());
+router.use('/api-application', apiApplication.routes());
 
 router.use(async (ctx, next) => {
   const sessionRoutes = ['users.home', 'users.profile', 'evaluations.new', 'sessions.destroy'];
