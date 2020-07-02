@@ -8,8 +8,8 @@ async function auth(ctx, next) {
     ctx.status = 401;
     return;
   }
-  ctx.currentUser = await ctx.orm.User.findOne({ where: { accessToken: ctx.header.accesstoken } });
-  if (!ctx.currentUser) {
+  ctx.state.currentUser = await ctx.orm.User.findOne({ where: { accessToken: ctx.header.accesstoken } });
+  if (!ctx.state.currentUser) {
     ctx.body = { error: 'Invalid accessToken' };
     ctx.status = 401;
     return;
@@ -60,7 +60,7 @@ router.get('api.courses.show', '/:id', async (ctx) => {
 });
 
 router.post('api.courses.create', '/', auth, async (ctx) => {
-  if (ctx.currentUser.role != 'admin') {
+  if (ctx.state.currentUser.role != 'admin') {
     ctx.body = { error: 'No permission' };
     ctx.status = 403;
     return;
@@ -79,7 +79,7 @@ router.post('api.courses.create', '/', auth, async (ctx) => {
 });
 
 router.del('api.courses.delete', '/:id', auth, loadCourse, async (ctx) => {
-  if (ctx.currentUser.role != 'admin') {
+  if (ctx.state.currentUser.role != 'admin') {
     ctx.body = { error: 'No permission' };
     ctx.status = 403;
     return;

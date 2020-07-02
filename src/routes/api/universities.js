@@ -4,14 +4,13 @@ const KoaRouter = require('koa-router');
 const router = new KoaRouter();
 
 async function auth(ctx, next) {
-  console.log(ctx.header);
   if (!ctx.header.accesstoken) {
     ctx.body = { error: 'accessToken needed' };
     ctx.status = 401;
     return;
   }
-  ctx.currentUser = await ctx.orm.User.findOne({ where: { accessToken: ctx.header.accesstoken } });
-  if (!ctx.currentUser) {
+  ctx.state.currentUser = await ctx.orm.User.findOne({ where: { accessToken: ctx.header.accesstoken } });
+  if (!ctx.state.currentUser) {
     ctx.body = { error: 'Invalid accessToken' };
     ctx.status = 401;
     return;
@@ -21,7 +20,6 @@ async function auth(ctx, next) {
 }
 
 async function loadUniversity(ctx, next) {
-  console.log('asdf');
   ctx.state.university = await ctx.orm.University.findOne({
     include: [{ all: true }],
     where: { id: ctx.params.id },
@@ -45,7 +43,6 @@ router.get('api.universities.list', '/', async (ctx) => {
 
 router.get('api.universities.show', '/:id', async (ctx) => {
   const university = await ctx.orm.University.findByPk(ctx.params.id, { include: { all: true } });
-  console.log(university)
   ctx.body = ctx.jsonSerializer('university', {
     pluralizeType: false,
     attributes: ['code', 'name', 'domain'],
@@ -57,7 +54,7 @@ router.get('api.universities.show', '/:id', async (ctx) => {
 });
 
 router.post('api.universities.create', '/', auth, async (ctx) => {
-  if (ctx.currentUser.role != 'admin') {
+  if (ctx.state.currentUser.role != 'admin') {
     ctx.body = { error: 'No permission' };
     ctx.status = 403;
     return;
@@ -75,7 +72,7 @@ router.post('api.universities.create', '/', auth, async (ctx) => {
 });
 
 router.del('api.universities.delete', '/:id', auth, loadUniversity, async (ctx) => {
-  if (ctx.currentUser.role != 'admin') {
+  if (ctx.state.currentUser.role != 'admin') {
     ctx.body = { error: 'No permission' };
     ctx.status = 403;
     return;
