@@ -54,6 +54,10 @@ module.exports = (sequelize, DataTypes) => {
       type: DataTypes.TEXT,
       unique: true,
     },
+    accessToken: {
+      type: DataTypes.TEXT,
+      unique: true,
+    },
   }, {});
 
   User.beforeSave(buildPasswordHash);
