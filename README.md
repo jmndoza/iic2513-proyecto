@@ -1,5 +1,7 @@
 # [Heroku App](https://eva-cursos-netz.herokuapp.com/)
-# Cuentas en Heroku y Aplicación local
+# [Heroku App que consume API](https://eva-cursos-netz.herokuapp.com/api-application)
+
+# Cuentas
 * `admin@uc.cl`: `pass`
 * `student@uc.cl`: `pass`
 * `professor@uc.cl`: `pass`
@@ -55,13 +57,4 @@
 | api/evaluations/     | post   | crea una evaluación | CourseId, ProfessorNameId, year, semester, comment, timeRating, difficultyRating |  | json con link de la evaluación | si |
 | api/evaluations/id   | delete | elimina una evaluación |  |  | | si |
 
-# Documentación aplicación que consume API
-## Ruta: `/api-application`
-* Se muestra:
-  * estado de autorización
-  * campo para ingresar email
-  * campo para ingresar password
-  * una lista con todas las universidades
-  * las universidades tiene un boton delete
-  * el delete solo funciones cuando el accessToken corresponde a un admin
-  * el accessToken se obtiene al hacer click en authorize
+
