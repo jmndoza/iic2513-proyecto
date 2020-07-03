@@ -22,6 +22,7 @@ router.put('sessions.create', '/', async (ctx) => {
   }
   return ctx.render('sessions/new', {
     createSessionPath: ctx.router.url('sessions.create'),
+    universitiesPath: ctx.router.url('universities.list'),
     notice: ctx.flashMessage.notice,
     errors: ctx.errorToStringArray('Incorrect email or password'),
   });

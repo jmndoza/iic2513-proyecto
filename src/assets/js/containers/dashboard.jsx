@@ -30,6 +30,7 @@ class Dashboard extends React.Component {
     axios.get('/dashboard/universities')
       .then((res) => {
         this.setState({ universities: res.data });
+        console.log(res.data);
       });
   }
 

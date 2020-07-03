@@ -1,3 +1,6 @@
+<div id="hello">
+  <div><img src="<%= assetPath('check.jpg') %>" alt="Hello" /></div>
+
 <div class="card">
   <div class="card-title">
     <% if (evaluation.isNewRecord) { %>
@@ -49,7 +52,7 @@
         <label for="difficultyRating">Difficulty Rating</label>
         <input type="number" name="difficultyRating" value="<%= evaluation.difficultyRating || 3 %>" min="1" max="5" required/>
       </div>
-      <div  class="field">
+      <div  class="field button">
         <% if (evaluation.isNewRecord) { %>
           <input type="submit" name="create" value="Create" />
         <% } else { %>
@@ -59,3 +62,5 @@
     </form>
     </div>
   </div>
+
+</div>

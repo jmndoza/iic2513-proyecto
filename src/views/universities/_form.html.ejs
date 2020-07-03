@@ -1,3 +1,5 @@
+<div id="hello">
+  <div><img src="<%= assetPath('university.jpg') %>" alt="Hello" /></div>
 <div class="card">
   <div class="card-title">
     <% if (university.isNewRecord) { %>
@@ -27,7 +29,7 @@
       <label for="photo">Photo for your university (Only JPEG)</label>
       <input type="file" name="photo" accept="image/jpeg"/>
     </div>
-    <div  class="field">
+    <div  class="field button">
       <% if (university.isNewRecord) { %>
         <input type="submit" name="create" value="Create" />
       <% } else { %>
@@ -36,4 +38,5 @@
     </div>
   </form>
   </div>
+</div>
 </div>
