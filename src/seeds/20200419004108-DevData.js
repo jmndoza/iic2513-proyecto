@@ -1,9 +1,9 @@
 const bcrypt = require('bcrypt');
-const faker = require('faker');
 
 const PASSWORD_SALT = 10;
 
 module.exports = {
+  // eslint-disable-next-line no-unused-vars
   up: async (queryInterface, Sequelize) => {
     await queryInterface.bulkInsert('ProfessorNames', [
       {
@@ -358,8 +358,6 @@ module.exports = {
       },
     ], {});
 
-    const vote = (await queryInterface.sequelize.query('SELECT * from "Votes";'))[0];
-
     await queryInterface.bulkInsert('Teaches', [
       {
         UserId: professor[0].id,
@@ -403,6 +401,7 @@ module.exports = {
     ], {});
   },
 
+  // eslint-disable-next-line no-unused-vars
   down: async (queryInterface, Sequelize) => {
     await queryInterface.bulkDelete('Attends', null, {});
     await queryInterface.bulkDelete('Teaches', null, {});

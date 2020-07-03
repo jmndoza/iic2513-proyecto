@@ -1,7 +1,4 @@
 const KoaRouter = require('koa-router');
-const utils = require('../utils');
-const policies = require('../policies');
-const fileStorage = require('../services/file-storage');
 
 const router = new KoaRouter();
 

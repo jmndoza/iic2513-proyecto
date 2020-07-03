@@ -23,7 +23,6 @@ async function loadRequirements(ctx, next) {
   });
   return next();
 }
-// eslint-disable-next-line consistent-return
 async function pass(ctx, next) {
   let role = 'anonimo';
   if (ctx.state.currentUser) {
@@ -32,11 +31,10 @@ async function pass(ctx, next) {
   const isAllow = policies.isAllow(role, 'Evaluation', ctx.request.method);
   if (isAllow) {
     ctx.state.allowedEvaluation = policies.getPermissions(role, 'Evaluation');
-    return next();
+    await next();
+  } else {
+    ctx.status = 401;
   }
-
-  ctx.body = 'Uff 401';
-  ctx.status = 401;
 }
 
 router.get('evaluations.search', '/search', async (ctx) => {

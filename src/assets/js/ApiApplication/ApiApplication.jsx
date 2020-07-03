@@ -1,20 +1,15 @@
-import React, { useCallback, useState } from 'react';
+import React, { useState } from 'react';
 import { hot } from 'react-hot-loader';
+import Auth from './auth';
+import UniversityList from './UniversityList';
 
 function ApiApplication() {
-  const [currentValue, setCurrentValue] = useState(0);
-  const incrementValue = useCallback(() => setCurrentValue(currentValue + 1));
-  const decrementValue = useCallback(() => setCurrentValue(currentValue - 1));
+  const [accessToken, setAccessToken] = useState('invalid');
 
   return (
     <div>
-      <p>
-        Current Value:
-        {currentValue}
-      </p>
-
-      <button type="button" onClick={incrementValue}>+</button>
-      <button type="button" onClick={decrementValue}>-</button>
+      <Auth setAccessToken={setAccessToken} />
+      <UniversityList accessToken={accessToken} />
     </div>
   );
 }
