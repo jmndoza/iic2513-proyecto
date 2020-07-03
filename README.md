@@ -43,18 +43,21 @@
 | /api/universities    | get    | entrega todos las universidades | | | json con todas las universidades | no |
 | /api/universities/id | get    | entrega universidad con `id`    | | | json con una universidad | no |
 | /api/universities    | post   | crea una universidad            | code, name, domain | | json con link de la universidad | si |
+| /api/universities/id | patch  | modifica universidad con `id`   | opcionales: code, name, domain | | json con link de la universidad | si |
 | /api/universities/id | delete | elimina universidad con `id`    | | | | si |
 | - | - | - | - | - | - | - |
 | api/courses/         | get    | entrega todos los cursos |  |  | json con todos los cursos | no |
 | api/courses/         | get    | entrega todos los cursos de una universidad |  | UniversityId | json con cursos de una universidad | no |
 | api/courses/id       | get    | entrega curso con `id` |  |  | json con un curso | no |
 | api/courses/         | post   | crea un curso | code, name, description, UniversityId |  | json con link del curso | si |
+| api/courses/id       | patch  | modifica curso con `id` | opcionales: code, name, description, UniversityId |  | json con link del curso | si |
 | api/courses/id       | delete | elimina curso con `id` |  |  | | si |
 | - | - | - | - | - | - | - |
 | api/evaluations/     | get    | entrega todas las evaluaciones |  |  | json con todas las evaluaciones | no |
 | api/evaluations/     | get    | entrega todas las evaluaciones de un curso |  | CourseId | json con evaluaciones de un curso | no |
 | api/evaluations/id   | get    | entrega evaluación con `id` |  |  | json con una evaluación | no |
 | api/evaluations/     | post   | crea una evaluación | CourseId, ProfessorNameId, year, semester, comment, timeRating, difficultyRating |  | json con link de la evaluación | si |
+| api/evaluations/id   | patch   | modifica evaluación con `id` | opcionales: CourseId, ProfessorNameId, year, semester, comment, timeRating, difficultyRating |  | json con link de la evaluación | si |
 | api/evaluations/id   | delete | elimina evaluación con `id` |  |  | | si |
 
 
