@@ -4,11 +4,17 @@ import { hot } from 'react-hot-loader';
 
 function University(props) {
   const {
-    setNeedsUpdate, accessToken, data: { id, links, attributes: { code, name, domain } },
+    setStatus, setNeedsUpdate, accessToken, data: { id, links, attributes: { code, name, domain } },
   } = props;
   const deleteHandler = useCallback(async () => {
-    await fetch(links.delete, { method: 'DELETE', headers: { accessToken } });
-    setNeedsUpdate(true);
+    const response = await fetch(links.delete, { method: 'DELETE', headers: { accessToken } });
+    if (response.ok) {
+      setStatus('University Deleted');
+      setNeedsUpdate(true);
+    } else {
+      const error = await response.text();
+      setStatus(`${response.status}, ${response.statusText}, ${error}`);
+    }
   });
 
   const deleteButton = <button type="button" onClick={deleteHandler}>Delete</button>;
