@@ -34,11 +34,32 @@
   * `./node_modules/.bin/sequelize db:migrate`
   * `./node_modules/.bin/sequelize db:seed:all`
   
+## Arquitectura
+La arquitectura es MCV:
+* Las rutas de la aplicación y la lógica están en los controladores.  
+* Lo que se muestra al usuario está contenido en las vistas.
+* La interacción con la base de datos, validación de datos, etc, ocurre en los modelos.
+
+Los controladores están en `src/routes/` y el controlador principal es `src/routes.js`.  
+Las vistas están en `src/views/`.  
+Vistas notables:
+* `layout.html.ejs`: La vista principal que contiene otras vistas parciales.
+* `menu.html.ejs`: Una vista parcial que contiene la barra de navegación.
+* `erros.html.ejs`: Una vista parcial que muestra los erroes.
+
+Los models se encuentran en `src/models/` con las migraciones asociadas en `src/migrations/`.  
+
+Loc componentes react se encuentran `src/assets/js/`.  
+Los estilos están en `src/assets/styles/`.  
+
+  
 ## Modelo de datos
 ![Diagrama ER](./docs/diagramaER.png)
 
 # Documentación API
-
+La autenticación se hace con un accessToken.  
+Para los endpoints que lo requieren se tiene que pasar el token en el header del request con la llave accessToken.  
+El accessToken se puede obtener haciendo un post a `/api/auth` con el email y password en el body (form-data).  
 | path | method | descripción | form-data params in body | url-encoded query params | returns | requiere accessToken en header | 
 |---|---|---|---|---|---|---|
 | /api/auth | post | permite obtener un accessToken | email, password | | json con accessToken | no |
