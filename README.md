@@ -1,5 +1,9 @@
 # [Heroku App](https://eva-cursos-netz.herokuapp.com/)
 # [Heroku App que consume API](https://eva-cursos-netz.herokuapp.com/api-application)
+* Componentes react: `src/assets/js/ApiApplication/`
+* Vistas: `src/views/ApiApplication/`
+* Controladores: `src/routes/ApiApplication/`
+* Estilo: `src/assets/style/ApiApplication.scss`
 
 # Cuentas
 * `admin@uc.cl`: `pass`
@@ -31,7 +35,7 @@
 * Para ejecutar en modo dev usar el comando `yarn dev`
 * Abrir `http://localhost:3000` en el navegador
 
-## Arreglar problemas
+## Soluciones de problemas comunes
 * Reinstalar dependencias:
   * Borrar la carpeta `node_modules`
   * Correr `yarn install`
@@ -62,6 +66,7 @@ Los estilos están en `src/assets/styles/`.
 ![Diagrama ER](./docs/diagramaER.png)
 
 # Documentación API
+La API está en `src/routes/api`.  
 La autenticación se hace con un accessToken.  
 Para los endpoints que lo requieren se tiene que pasar el token en el header del request con la llave accessToken.  
 El accessToken se puede obtener haciendo un post a `/api/auth` con el email y password en el body (form-data).  
