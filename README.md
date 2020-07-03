@@ -49,12 +49,12 @@
 | api/courses/         | get    | entrega todos los cursos de una universidad |  | UniversityId | json con cursos de una universidad | no |
 | api/courses/id       | get    | entrega curso con `id` |  |  | json con un curso | no |
 | api/courses/         | post   | crea un curso | code, name, description, UniversityId |  | json con link del curso | si |
-| api/courses/id       | delete | elimina un curso |  |  | | si |
+| api/courses/id       | delete | elimina curso con `id` |  |  | | si |
 | - | - | - | - | - | - | - |
 | api/evaluations/     | get    | entrega todas las evaluaciones |  |  | json con todas las evaluaciones | no |
 | api/evaluations/     | get    | entrega todas las evaluaciones de un curso |  | CourseId | json con evaluaciones de un curso | no |
 | api/evaluations/id   | get    | entrega evaluación con `id` |  |  | json con una evaluación | no |
 | api/evaluations/     | post   | crea una evaluación | CourseId, ProfessorNameId, year, semester, comment, timeRating, difficultyRating |  | json con link de la evaluación | si |
-| api/evaluations/id   | delete | elimina una evaluación |  |  | | si |
+| api/evaluations/id   | delete | elimina evaluación con `id` |  |  | | si |
 
 
