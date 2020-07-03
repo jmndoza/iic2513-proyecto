@@ -1,11 +1,11 @@
-import React, { useCallback, useState } from 'react';
+/* eslint-disable no-console */
+import React from 'react';
 import axios from 'axios';
 import ProfileSideCard from '../components/profileSideCard';
 import Card from '../components/card';
 
 const renderCards = (items) => {
   const cards = items.map((info) => <Card key={info.id} data={info} />);
-  console.log(items);
   return (
     <div className="profile-rightcontent">
       { cards }
@@ -26,7 +26,7 @@ class ProfileAccount extends React.Component {
   }
 
   setUser() {
-    axios.get(`/users/profile`)
+    axios.get('/users/profile')
       .then((res) => {
         console.log(res.data);
         this.setState({ data: res.data });

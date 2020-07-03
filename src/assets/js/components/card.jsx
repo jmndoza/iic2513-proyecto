@@ -1,5 +1,5 @@
-import React, { useCallback, useState } from 'react';
-import { hot } from 'react-hot-loader';
+/* eslint-disable react/prop-types */
+import React from 'react';
 
 class Card extends React.Component {
   constructor(props) {
@@ -33,15 +33,17 @@ class Card extends React.Component {
 
         <div className="leftside-card">
           <div className="profesor-name">{data.ProfessorName.name}</div>
-          <div className="semester"> {data.year}-{data.semester}</div>
+          <div className="semester">
+            {`${data.year}-${data.semester}`}
+          </div>
 
           <div className="time-rating rating">
             <i className="fas fa-user-clock" />
-            time: {data.timeRating}
+            {`time: ${data.timeRating}`}
           </div>
           <div className="difficulty-rating rating">
             <i className="fas fa-user-cog" />
-            difficulty: {data.difficultyRating}
+            {`difficulty: ${data.difficultyRating}`}
           </div>
         </div>
       </div>

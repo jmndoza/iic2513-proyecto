@@ -1,7 +1,9 @@
-import React, { useCallback, useState } from 'react';
+/* eslint-disable no-param-reassign */
+/* eslint-disable no-console */
+import React from 'react';
 import axios from 'axios';
 import {
-  BarChart, Bar, Cell, XAxis, YAxis, CartesianGrid, Tooltip, Legend, LineChart, Line, ResponsiveContainer,
+  BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, Legend, LineChart, Line, ResponsiveContainer,
 } from 'recharts';
 
 class Dashboard extends React.Component {
@@ -18,8 +20,6 @@ class Dashboard extends React.Component {
   }
 
   componentDidMount() {
-    var url = window.location.href
-    console.log(url);
     this.getUniversities();
     this.getDataAvgRating();
     this.getDataProfessorRating();
@@ -27,21 +27,19 @@ class Dashboard extends React.Component {
   }
 
   getUniversities() {
-    axios.get(`/dashboard/universities`)
+    axios.get('/dashboard/universities')
       .then((res) => {
-        console.log(res.data);
         this.setState({ universities: res.data });
       });
   }
 
   getDataAvgRating() {
-    axios.get(`/dashboard/courserating`)
+    axios.get('/dashboard/courserating')
       .then((res) => {
         const group = res.data.reduce((r, a) => {
           r[a.universityName] = [...r[a.universityName] || [], a];
           return r;
         }, {});
-        // console.log(group);
         this.setState({ avgRating: group });
       })
       .catch((err) => {
@@ -50,13 +48,12 @@ class Dashboard extends React.Component {
   }
 
   getDataProfessorRating() {
-    axios.get(`/dashboard/professorrating`)
+    axios.get('/dashboard/professorrating')
       .then((res) => {
         const group = res.data.reduce((r, a) => {
           r[a.universityName] = [...r[a.universityName] || [], a];
           return r;
         }, {});
-        // console.log(group);
         this.setState({ professorRating: group });
       })
       .catch((err) => {
@@ -65,13 +62,12 @@ class Dashboard extends React.Component {
   }
 
   getActivity() {
-    axios.get(`/dashboard/activity`)
+    axios.get('/dashboard/activity')
       .then((res) => {
         const group = res.data.reduce((r, a) => {
           r[a.universityName] = [...r[a.universityName] || [], a];
           return r;
         }, {});
-        // console.log(group);
         this.setState({ activity: group });
       })
       .catch((err) => {
@@ -113,12 +109,13 @@ class Dashboard extends React.Component {
           </div>
           <div className="dashboard-rightcontent">
             <div>
-              <label>Choose a university:</label>
-              <select name="universities" id="universities" onChange={this.handleSelect} value={university}>
-                <option disabled selected> -- select an option -- </option>
-                {optionsUniversities()}
-              </select>
-
+              <label htmlFor="universities">
+                Choose a university:
+                <select name="universities" id="universities" onChange={this.handleSelect} value={university}>
+                  <option disabled selected> -- select an option -- </option>
+                  {optionsUniversities()}
+                </select>
+              </label>
             </div>
             <h3>Average rankings by course: </h3>
             <div className="new-card-dashboard">
@@ -183,19 +180,18 @@ class Dashboard extends React.Component {
     }
     return (
       <div id="dashboard" className="dashboard">
-        <div className="dashboard-info">
-        </div>
+        <div className="dashboard-info" />
         <div className="dashboard-rightcontent">
           <div>
-            <label htmlFor="universities">Choose a university:</label>
-
-            <select name="universities" id="universities" onChange={this.handleSelect} value={university}>
-              <option disabled selected> -- select an option -- </option>
-              {
-                optionsUniversities()
-              }
-            </select>
-
+            <label htmlFor="universities">
+              Choose a university:
+              <select name="universities" id="universities" onChange={this.handleSelect} value={university}>
+                <option disabled selected> -- select an option -- </option>
+                {
+                  optionsUniversities()
+                }
+              </select>
+            </label>
           </div>
         </div>
       </div>
