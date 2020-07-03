@@ -21,10 +21,15 @@ async function auth(ctx, next) {
 }
 
 async function loadUniversity(ctx, next) {
-  ctx.state.university = await ctx.orm.University.findOne({
-    include: [{ all: true }],
-    where: { id: ctx.params.id },
-  });
+  ctx.state.university = await ctx.orm.University.findByPk(
+    ctx.params.id,
+    { include: { all: true } },
+  );
+  if (!ctx.state.university) {
+    ctx.body = { error: 'Invalid id' };
+    ctx.status = 404;
+    return;
+  }
   await next();
 }
 
@@ -38,13 +43,13 @@ router.get('api.universities.list', '/', async (ctx) => {
     },
     dataLinks: {
       self: (dataset, university) => ctx.router.url('api.universities.show', { id: university.id }),
-      delete: (dataset, university) => ctx.router.url('api.universities.delete', { id: university.id }),
     },
   }).serialize(universitiesList);
 });
 
-router.get('api.universities.show', '/:id', async (ctx) => {
-  const university = await ctx.orm.University.findByPk(ctx.params.id, { include: { all: true } });
+router.get('api.universities.show', '/:id', loadUniversity, async (ctx) => {
+  const { university } = ctx.state;
+
   ctx.body = ctx.jsonSerializer('university', {
     pluralizeType: false,
     attributes: ['code', 'name', 'domain'],
@@ -72,17 +77,31 @@ router.post('api.universities.create', '/', auth, async (ctx) => {
   }
 });
 
-router.delete('api.universities.delete', '/:id', auth, loadUniversity, async (ctx) => {
+router.patch('api.universities.update', '/:id', auth, loadUniversity, async (ctx) => {
+  const { university } = ctx.state;
+
   if (ctx.state.currentUser.role !== 'admin') {
     ctx.body = { error: 'No permission' };
     ctx.status = 403;
     return;
   }
 
-  const { university } = ctx.state;
-  if (!university) {
-    ctx.body = { error: 'Invalid id' };
+  try {
+    await university.update(ctx.request.body, { fields: ['code', 'name', 'domain', 'img'] });
+    ctx.body = { university: ctx.router.url('api.universities.show', { id: university.id }) };
+    ctx.status = 200;
+  } catch (validationError) {
+    ctx.body = ctx.errorToStringArray(validationError);
     ctx.status = 400;
+  }
+});
+
+router.delete('api.universities.delete', '/:id', auth, loadUniversity, async (ctx) => {
+  const { university } = ctx.state;
+
+  if (ctx.state.currentUser.role !== 'admin') {
+    ctx.body = { error: 'No permission' };
+    ctx.status = 403;
     return;
   }
 
