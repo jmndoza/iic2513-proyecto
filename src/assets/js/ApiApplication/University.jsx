@@ -7,7 +7,7 @@ function University(props) {
     setStatus, setNeedsUpdate, accessToken, data: { id, links, attributes: { code, name, domain } },
   } = props;
   const deleteHandler = useCallback(async () => {
-    const response = await fetch(links.delete, { method: 'DELETE', headers: { accessToken } });
+    const response = await fetch(links.self, { method: 'DELETE', headers: { accessToken } });
     if (response.ok) {
       setStatus('University Deleted');
       setNeedsUpdate(true);
