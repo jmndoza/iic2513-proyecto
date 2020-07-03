@@ -4,7 +4,7 @@
 * `student@uc.cl`: `pass`
 * `professor@uc.cl`: `pass`
 
-# Aplicación
+# Documentación Aplicación
 ## Requisitos:
 * PostgreSQL
 * Node.js versión>=v12.16
@@ -32,7 +32,7 @@
   * `./node_modules/.bin/sequelize db:migrate`
   * `./node_modules/.bin/sequelize db:seed:all`
 
-# API
+# Documentación API
 
 | path | method | descripción | form-data params in body | url-encoded query params | returns | requiere accessToken en header | 
 |---|---|---|---|---|---|---|
@@ -54,3 +54,14 @@
 | api/evaluations/id   | get    | entrega evaluación con `id` |  |  | json con una evaluación | no |
 | api/evaluations/     | post   | crea una evaluación | CourseId, ProfessorNameId, year, semester, comment, timeRating, difficultyRating |  | json con link de la evaluación | si |
 | api/evaluations/id   | delete | elimina una evaluación |  |  | | si |
+
+# Documentación aplicación que consume API
+## Ruta: `/api-application`
+* Se muestra:
+  * estado de autorización
+  * campo para ingresar email
+  * campo para ingresar password
+  * una lista con todas las universidades
+  * las universidades tiene un boton delete
+  * el delete solo funciones cuando el accessToken corresponde a un admin
+  * el accessToken se obtiene al hacer click en authorize
