@@ -30,8 +30,8 @@ function Auth(props) {
   return (
     <div>
       <h3>Authorize</h3>
-      <input type="email" name="email" onChange={handleEmailChange} value={email} placeholder="email" />
-      <input type="password" name="password" onChange={handlePasswordChange} value={password} placeholder="password" />
+      <input className="api-input" type="email" name="email" onChange={handleEmailChange} value={email} placeholder="email" />
+      <input className="api-input" type="password" name="password" onChange={handlePasswordChange} value={password} placeholder="password" />
       <button type="button" onClick={handleSubmit}>Authorize</button>
     </div>
   );
