@@ -17,7 +17,6 @@ async function auth(ctx, next) {
     ctx.status = 401;
     return;
   }
-
   await next();
 }
 
@@ -26,7 +25,7 @@ async function loadEvaluation(ctx, next) {
     include: [{ all: true }],
     where: { id: ctx.params.id },
   });
-  return next();
+  await next();
 }
 
 router.get('api.evaluations.list', '/', async (ctx) => {
