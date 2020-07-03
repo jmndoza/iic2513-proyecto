@@ -48,15 +48,15 @@ function CreateUniversity(props) {
       <h3>Create University</h3>
       <label htmlFor="code">
         Code:
-        <input type="text" name="code" onChange={handleCodeChange} value={code} placeholder="code" />
+        <input type="text" className="api-input" name="code" onChange={handleCodeChange} value={code} placeholder="code" />
       </label>
       <label htmlFor="name">
         Name:
-        <input type="text" name="name" onChange={handleNameChange} value={name} placeholder="name" />
+        <input type="text" className="api-input" name="name" onChange={handleNameChange} value={name} placeholder="name" />
       </label>
       <label htmlFor="domain">
         Domain:
-        <input type="text" name="domain" onChange={handleDomainChange} value={domain} placeholder="domain" />
+        <input type="text" className="api-input" name="domain" onChange={handleDomainChange} value={domain} placeholder="domain" />
       </label>
       <button type="button" onClick={handleSubmit}>Create</button>
     </div>
