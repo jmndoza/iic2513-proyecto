@@ -19,6 +19,7 @@
 
 .card ul {
     margin: 0;
+    list-style: none;
 }
 
 .card {
@@ -59,7 +60,10 @@
     text-align: center;
     display: block;
     font-size: 1.2rem;
+    width: 100%;
+    
 }
+
 
 
 .card-button-container {

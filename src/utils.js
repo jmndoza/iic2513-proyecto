@@ -1,5 +1,7 @@
 /* eslint-disable no-else-return */
 /* eslint-disable func-names */
+const axios = require('axios');
+
 module.exports.errorToStringArray = function (error) {
   if (typeof error === 'string') {
     return [error];
@@ -39,4 +41,15 @@ module.exports.loadUniversityPaths = function (ctx) {
   ctx.state.showUniversityPath = (university) => ctx.router.url('universities.show', { id: university.id });
   ctx.state.editUniversityPath = (university) => ctx.router.url('universities.edit', { id: university.id });
   ctx.state.deleteUniversityPath = (university) => ctx.router.url('universities.delete', { id: university.id });
+};
+
+module.exports.loadPhoto = async function () {
+  const keys = ['study', 'course'];
+  const randomValue = keys[Math.floor(Math.random() * keys.length)];
+  const config = {
+    method: 'get',
+    url: `https://api.unsplash.com/search/photos?client_id=${process.env.UNSPLASH}&query=${randomValue}&orientation=landscape`,
+  };
+  const res = await axios(config);
+  return res;
 };

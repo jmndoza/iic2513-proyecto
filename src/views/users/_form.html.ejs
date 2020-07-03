@@ -1,3 +1,6 @@
+<div id="hello">
+  <div><img src="<%= assetPath('signup.jpg') %>" alt="Hello" /></div>
+
 <div class="card">
   <div class="card-title">
     <%_ if (user.isNewRecord) { _%>
@@ -35,7 +38,7 @@
       <label for="password">Password</label>
       <input type="password" name="password" required/>
     </div>
-    <div  class="field">
+    <div  class="field button" >
       <% if (user.isNewRecord) { %>
         <input type="submit" name="create" value="Register" />
       <% } else { %>
@@ -43,4 +46,6 @@
       <% } %>
     </div>
   </form>
+</div>
+
 </div>

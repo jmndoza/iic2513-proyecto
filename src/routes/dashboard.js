@@ -87,7 +87,8 @@ router.get('dashboard.universities', '/universities', async (ctx) => {
   ctx.type = 'application/json';
   ctx.body = await sequelize.query(
     `SELECT "Universities".name AS "universityName",
-            "Universities".id AS "universityId"
+            "Universities".id AS "universityId",
+            "Universities".img AS "universityImg"
     FROM "Universities"
     ;`,
     {

@@ -5,4 +5,13 @@
 #search-header {
     display: flex;
     margin: 0 0.5rem 0.5rem 0.5rem;
+    background-color: $platinum;
 }
+
+.search-field {
+    padding:10px;
+    margin: 10px;
+    border: solid 1px $shadow-color;
+    font-weight: bold;
+    font-size: 1em;
+  }

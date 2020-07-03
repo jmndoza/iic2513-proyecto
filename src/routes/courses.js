@@ -141,7 +141,6 @@ router.patch('courses.update', '/:id', pass, loadCourse, async (ctx) => {
 router.del('courses.delete', '/:id', pass, loadCourse, async (ctx) => {
   const { course } = ctx.state;
   await course.destroy();
-  // ctx.redirect(ctx.router.url('universities.show', { id: course.UniversityId }));
   ctx.redirect('back');
 });
 

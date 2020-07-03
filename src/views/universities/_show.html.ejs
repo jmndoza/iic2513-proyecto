@@ -1,4 +1,6 @@
+
 <div class="card">
+    <a href=<%= showUniversityPath(university) %> >
     <div class="card-center">
         <div>
             <div class="card-button-container">
@@ -14,16 +16,12 @@
                 </form>
                 <% } %>
             </div>
-            <a href=<%= showUniversityPath(university) %> class="card-title"><%= university.name %></a>
-            <div class="card-contents">
-                <ul>
-                    <li>Code: <%= university.code %></li>
-                    <li>Domain: <%= university.domain %></li>
-                </ul>
-            </div>
+            <span class="card-title"><%= university.name %></span>
+
         </div>
         <div class="card-img">
             <img src="<%= university.img %>">
         </div>
     </div>
+</a>
 </div>

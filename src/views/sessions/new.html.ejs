@@ -1,5 +1,10 @@
+<div id="hello">
+<div><img src="<%= loginPhoto %>" alt="Hello" /></div>
+
 <div class="card">
+
     <div class="card-title">Login</div>
+
     <form action="<%= createSessionPath %>" method="post">
         <input type="hidden" name="_method" value="put" />
         <div class="field" id="session-email-field">
@@ -10,11 +15,19 @@
             <label for="password">Password</label>
             <input type="password" name="password" value="<%= locals.password %>" />
         </div>
-        <div class="field">
+        <div class="field button">
             <input type="submit" name="log-in" value="Log In"/>
         </div>
     </form>
-    <form action="<%= newUserPath %>" method="get">
+
+    <form class="field button" action="<%= newUserPath %>" method="get">
         <input type="submit" value="Register" id="session-register-button"/>
     </form>
+
+    <form class="field button guest-button" action="<%= universitiesPath %>" method="get">
+        <input type="submit" value="Universities" />
+    </form>
 </div>
+</div>
+
+
