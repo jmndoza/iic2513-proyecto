@@ -1,3 +1,6 @@
+<div id="hello">
+  <div><img src="<%= assetPath('books.jpg') %>" alt="Hello" /></div>
+
 <div class="card">
   <div class="card-title">
     <% if (course.isNewRecord) { %>
@@ -24,7 +27,7 @@
         <label for="description">Description</label>
         <input type="text" name="description" value="<%= course.description %>" required/>
       </div>
-      <div  class="field">
+      <div  class="field button">
         <% if (course.isNewRecord) { %>
           <input type="submit" name="create" value="Create" />
         <% } else { %>
@@ -33,4 +36,5 @@
       </div>
     </form>
   </div>
+</div>
 </div>
