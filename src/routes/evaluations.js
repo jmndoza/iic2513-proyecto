@@ -164,7 +164,6 @@ router.patch('evaluations.update', '/:id', loadEvaluation, loadRequirements, asy
 router.del('evaluations.delete', '/:id', loadEvaluation, async (ctx) => {
   const { evaluation } = ctx.state;
   await evaluation.destroy();
-  // ctx.redirect(ctx.router.url('courses.show', { id: evaluation.CourseId }));
   ctx.redirect('back');
 });
 

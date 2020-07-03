@@ -65,7 +65,6 @@ router.post('universities.create', '/', async (ctx) => {
   const university = ctx.orm.University.build(ctx.request.body);
   try {
     await university.save({ fields: ['code', 'name', 'domain'] });
-    // ctx.redirect(ctx.router.url('universities.list'));
     ctx.redirect(ctx.router.url('universities.list'));
   } catch (validationError) {
     await ctx.render(ctx.router.url('universities.new'), {
