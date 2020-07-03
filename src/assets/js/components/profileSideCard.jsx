@@ -1,4 +1,5 @@
-import React, { useCallback, useState } from 'react';
+/* eslint-disable react/prop-types */
+import React from 'react';
 
 class ProfileSideCard extends React.Component {
   constructor(props) {
