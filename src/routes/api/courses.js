@@ -16,7 +16,7 @@ async function auth(ctx, next) {
     ctx.status = 401;
     return;
   }
-  next();
+  await next();
 }
 
 async function loadCourse(ctx, next) {
@@ -24,7 +24,7 @@ async function loadCourse(ctx, next) {
     include: [{ all: true }],
     where: { id: ctx.params.id },
   });
-  return next();
+  await next();
 }
 
 router.get('api.courses.list', '/', async (ctx) => {
@@ -70,6 +70,7 @@ router.post('api.courses.create', '/', auth, async (ctx) => {
   course.verified = true;
   try {
     await course.save({ fields: ['UniversityId', 'code', 'name', 'verified', 'description'] });
+    ctx.body = { course: ctx.router.url('api.courses.show', { id: course.id }) };
     ctx.status = 200;
     return;
   } catch (validationError) {

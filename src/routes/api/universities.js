@@ -64,6 +64,7 @@ router.post('api.universities.create', '/', auth, async (ctx) => {
   const university = ctx.orm.University.build(ctx.request.body);
   try {
     await university.save({ fields: ['code', 'name', 'domain'] });
+    ctx.body = { university: ctx.router.url('api.universities.show', { id: university.id }) };
     ctx.status = 200;
   } catch (validationError) {
     ctx.body = ctx.errorToStringArray(validationError);
