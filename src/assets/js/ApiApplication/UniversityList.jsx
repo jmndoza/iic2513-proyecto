@@ -5,9 +5,10 @@ import List from './List';
 import University from './University';
 
 function UniversityList(props) {
-  const { accessToken } = props;
+  const {
+    accessToken, needsUpdate, setNeedsUpdate, setStatus,
+  } = props;
   const [universities, setUniversities] = useState([]);
-  const [needsUpdate, setNeedsUpdate] = useState(false);
   const fetchUniveristies = useCallback(async () => {
     const response = await fetch('/api/universities').then((resp) => resp.json());
     setUniversities(response.data);
@@ -22,6 +23,7 @@ function UniversityList(props) {
       Container={University}
       setNeedsUpdate={setNeedsUpdate}
       accessToken={accessToken}
+      setStatus={setStatus}
     />
   );
 }
