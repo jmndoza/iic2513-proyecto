@@ -18,7 +18,6 @@ function isMine(eva, ctx) {
   return false;
 }
 
-// eslint-disable-next-line consistent-return
 async function pass(ctx, next) {
   let role = 'anonimo';
   if (ctx.state.currentUser) {
@@ -28,10 +27,10 @@ async function pass(ctx, next) {
   if (isAllow) {
     ctx.state.allowedCourse = policies.getPermissions(role, 'Course');
     ctx.state.allowedEvaluation = policies.getPermissions(role, 'Evaluation');
-    return next();
+    await next();
+  } else {
+    ctx.status = 401;
   }
-  ctx.body = 'Uff 401';
-  ctx.status = 401;
 }
 
 router.get('users.home', '/home', pass, async (ctx) => {
@@ -178,7 +177,6 @@ router.patch('users.update', '/:id', loadUser, async (ctx) => {
 router.del('users.delete', '/:id', loadUser, async (ctx) => {
   const { user } = ctx.state;
   await user.destroy();
-  // ctx.redirect(ctx.router.url('users.list'));
   ctx.redirect('back');
 });
 

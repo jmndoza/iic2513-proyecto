@@ -45,6 +45,7 @@ module.exports.uploadStorage = (bucketName, filename, usermMail) => {
     return file.metadata;
   }
 
+  // eslint-disable-next-line no-console
   return uploadFile().catch(console.error);
   // [END storage_upload_file]
 };

@@ -4,15 +4,13 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <script src="https://kit.fontawesome.com/39185b94b3.js" crossorigin="anonymous"></script>
-    <title>EvaCursos</title>
+    <title>EvaCursos Api Application</title>
     <% if (env !== 'development') { %>
       <link rel="stylesheet" href="<%= assetPath('app.css') %>">
     <% } %>
   </head>
   <body>
-    <%- include('menu') %>
-    <%- include('errors') %>
-    <%- body %>
+    <div id="application-div">Api Application</div>
     <script src="<%= assetPath('app.js') %>"></script>
   </body>
 </html>

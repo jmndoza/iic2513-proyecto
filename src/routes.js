@@ -7,8 +7,13 @@ const evaluations = require('./routes/evaluations');
 const courses = require('./routes/courses');
 const sessions = require('./routes/sessions');
 const dashboard = require('./routes/dashboard');
+const api = require('./routes/api');
+const apiApplication = require('./routes/ApiApplication');
 
 const router = new KoaRouter();
+
+router.use('/api', api.routes());
+router.use('/api-application', apiApplication.routes());
 
 router.use(async (ctx, next) => {
   const sessionRoutes = ['users.home', 'users.profile', 'evaluations.new', 'sessions.destroy'];
@@ -26,7 +31,6 @@ router.use(async (ctx, next) => {
     newUserPath: ctx.router.url('users.new'),
     editUserPath: (user) => ctx.router.url('users.edit', { id: user.id }),
     profileUserPath: (user) => ctx.router.url('users.profile', { id: user.id }),
-
   });
   return next();
 });

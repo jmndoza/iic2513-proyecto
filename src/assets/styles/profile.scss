@@ -19,23 +19,12 @@
     }
 }
 
-// #profile > * {
-
-// }
-
-
-
-
-
 .profile-info {
     padding:1em;
     background-color: $content-background-color;
     box-shadow: 0 0 0.1rem 0 $shadow-color;
 }
 
-// .profile-info > .profile-img{
-
-// }
 
 .profile-img img {
     max-width:300px;
@@ -72,7 +61,6 @@
     }
 
 }
-
 
 .profile-rightcontent {
     padding:0em;
@@ -160,9 +148,6 @@
     grid-template-rows: 1fr 1fr 1fr 1fr;
  }
 
-
-
-
  .rating {
      text-align: left;
     i {
@@ -173,7 +158,6 @@
     font-size: 1.2em;
     align-self: end;
 }
-
 
 .new-card-buttons{
     display: grid;
@@ -195,4 +179,3 @@
     }
 
 }
-

@@ -1,7 +1,6 @@
 /* eslint-disable no-else-return */
 /* eslint-disable func-names */
 module.exports.errorToStringArray = function (error) {
-  // eslint-disable-next-line no-console
   if (typeof error === 'string') {
     return [error];
   } else if (error.errors) {

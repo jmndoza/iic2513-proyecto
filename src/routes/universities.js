@@ -23,11 +23,10 @@ async function pass(ctx, next) {
     ctx.state.allowedCourse = policies.getPermissions(role, 'Course');
     ctx.state.allowedUniversity = policies.getPermissions(role, 'University');
 
-    return next();
+    await next();
+  } else {
+    ctx.status = 401;
   }
-
-  ctx.body = 'Uff 401';
-  ctx.status = 401;
 }
 
 router.get('universities.list', '/', pass, async (ctx) => {
@@ -38,7 +37,6 @@ router.get('universities.list', '/', pass, async (ctx) => {
   switch (ctx.accepts(['json', 'html'])) {
     case 'json':
       ctx.body = universitiesList;
-      console.log('json university');
       break;
     case 'html':
       await ctx.render('universities/index', {
@@ -127,7 +125,6 @@ router.patch('universities.update', '/:id', loadUniversity, async (ctx) => {
 router.del('universities.delete', '/:id', loadUniversity, async (ctx) => {
   const { university } = ctx.state;
   await university.destroy();
-  // ctx.redirect(ctx.router.url('universities.list'));
   ctx.redirect('back');
 });
 

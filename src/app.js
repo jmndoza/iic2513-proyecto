@@ -7,6 +7,7 @@ const koaStatic = require('koa-static');
 const render = require('koa-ejs');
 const session = require('koa-session');
 const override = require('koa-override-method');
+const jsonApiSerializer = require('jsonapi-serializer');
 const assets = require('./assets');
 const mailer = require('./mailers');
 const routes = require('./routes');
@@ -14,7 +15,6 @@ const orm = require('./models');
 const { errorToStringArray } = require('./utils');
 const { getPermissions } = require('./policies');
 const { isAllow } = require('./policies');
-
 
 // App constructor
 const app = new Koa();
@@ -33,6 +33,11 @@ app.context.orm = orm;
 app.context.errorToStringArray = errorToStringArray;
 app.context.getPermissions = getPermissions;
 app.context.isAllow = isAllow;
+
+// json serializer
+app.context.jsonSerializer = function jsonSerializer(type, options) {
+  return new jsonApiSerializer.Serializer(type, options);
+};
 
 /**
  * Middlewares

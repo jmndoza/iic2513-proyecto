@@ -23,7 +23,6 @@ async function loadRequirements(ctx, next) {
   });
   return next();
 }
-// eslint-disable-next-line consistent-return
 async function pass(ctx, next) {
   let role = 'anonimo';
   if (ctx.state.currentUser) {
@@ -32,11 +31,10 @@ async function pass(ctx, next) {
   const isAllow = policies.isAllow(role, 'Evaluation', ctx.request.method);
   if (isAllow) {
     ctx.state.allowedEvaluation = policies.getPermissions(role, 'Evaluation');
-    return next();
+    await next();
+  } else {
+    ctx.status = 401;
   }
-
-  ctx.body = 'Uff 401';
-  ctx.status = 401;
 }
 
 router.get('evaluations.search', '/search', async (ctx) => {
@@ -74,10 +72,19 @@ router.get('evaluations.list', '/', async (ctx) => {
     ],
   });
   utils.loadEvaluationPaths(ctx);
-  await ctx.render('evaluations/index', {
-    evaluationsList,
-    showCoursePath: (course) => ctx.router.url('courses.show', { id: course.id }),
-  });
+  switch (ctx.accepts(['json', 'html'])) {
+    case 'json':
+      ctx.body = evaluationsList;
+      break;
+    case 'html':
+      await ctx.render('evaluations/index', {
+        evaluationsList,
+        showCoursePath: (course) => ctx.router.url('courses.show', { id: course.id }),
+      });
+      break;
+    default:
+      break;
+  }
 });
 
 router.get('evaluations.new', '/new', loadRequirements, async (ctx) => {
@@ -160,6 +167,5 @@ router.del('evaluations.delete', '/:id', loadEvaluation, async (ctx) => {
   // ctx.redirect(ctx.router.url('courses.show', { id: evaluation.CourseId }));
   ctx.redirect('back');
 });
-
 
 module.exports = router;
