@@ -5,6 +5,7 @@ const router = new KoaRouter();
 
 router.get('sessions.new', '/new', (ctx) => ctx.render('sessions/new', {
   createSessionPath: ctx.router.url('sessions.create'),
+  universitiesPath: ctx.router.url('universities.list'),
   notice: ctx.flashMessage.notice,
 }));
 

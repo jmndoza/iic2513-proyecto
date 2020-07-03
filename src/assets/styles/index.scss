@@ -8,3 +8,52 @@
 @import './profile';
 @import './dashboard';
 @import './search';
+
+
+#hello {
+    display: grid;
+    grid-template-columns: 2fr 1fr ;
+    gap: 1em;
+    margin-left: 0.5rem;
+    margin-right: 0.5rem;
+    grid-auto-rows: minmax(100px,auto);
+
+    img {
+        object-fit: cover;
+        width: 100%;
+        max-height: 100%;
+      }
+    .card {
+        object-fit: cover;
+        width: 90%;
+        max-height: 100%;
+    }
+
+    input {
+        border: 1px solid $shadow-color;
+        padding: 4px 10px;
+        text-decoration: none;
+        display: inline-block;
+        font-size: 15px;
+    }
+
+
+    .button > input {
+        background-color: $secondary-color;
+        border: none;
+        color: $text-color;
+        font-weight: bold;
+        padding: 12px 32px;
+        text-align: center;
+        text-decoration: none;
+        display: inline-block;
+        font-size: 15px;
+        cursor: pointer;
+    }
+
+    .guest-button {
+        position: absolute;
+        bottom: 10px;
+        width: 90%;
+    }
+}
