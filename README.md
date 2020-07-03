@@ -20,6 +20,12 @@
 * Correr las migraciones con `./node_modules/.bin/sequelize db:migrate`
 * Correr las seeds con `./node_modules/.bin/sequelize db:seed:all`
 
+## Variables de entorno
+* `DB_NAME`: nombre de la base de datos
+* `DB_HOST`: host de la base de datos
+* `GOOGLE_APPLICATION_CREDENTIALS`: credentials para la API Google Cloud Storage
+* `UNSPLASH`: client ID de la API unsplash
+
 ## Ejecutar la App
 * Para ejecutar de forma normal usar el comando `yarn start`
 * Para ejecutar en modo dev usar el comando `yarn dev`
@@ -48,8 +54,7 @@ Vistas notables:
 * `erros.html.ejs`: Una vista parcial que muestra los erroes.
 
 Los models se encuentran en `src/models/` con las migraciones asociadas en `src/migrations/`.  
-
-Loc componentes react se encuentran `src/assets/js/`.  
+Los componentes react se encuentran `src/assets/js/`.  
 Los estilos están en `src/assets/styles/`.  
 
   
