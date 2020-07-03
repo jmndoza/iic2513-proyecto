@@ -33,6 +33,9 @@
   * `./node_modules/.bin/sequelize db:migrate:undo:all`
   * `./node_modules/.bin/sequelize db:migrate`
   * `./node_modules/.bin/sequelize db:seed:all`
+  
+## Modelo de datos
+![Diagrama ER](./docs/diagramaER.png)
 
 # Documentación API
 
