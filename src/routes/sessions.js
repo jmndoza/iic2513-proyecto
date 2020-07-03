@@ -19,7 +19,7 @@ router.put('sessions.create', '/', async (ctx) => {
     ctx.session.sessionId = sessionId;
     return ctx.redirect('/');
   }
-  await ctx.render('sessions/new', {
+  return ctx.render('sessions/new', {
     createSessionPath: ctx.router.url('sessions.create'),
     notice: ctx.flashMessage.notice,
     errors: ctx.errorToStringArray('Incorrect email or password'),

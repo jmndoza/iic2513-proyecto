@@ -1,5 +1,4 @@
 const KoaRouter = require('koa-router');
-const pkg = require('../../package.json');
 
 const router = new KoaRouter();
 

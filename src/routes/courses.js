@@ -145,5 +145,4 @@ router.del('courses.delete', '/:id', pass, loadCourse, async (ctx) => {
   ctx.redirect('back');
 });
 
-
 module.exports = router;

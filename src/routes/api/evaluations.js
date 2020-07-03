@@ -9,14 +9,16 @@ async function auth(ctx, next) {
     ctx.status = 401;
     return;
   }
-  ctx.state.currentUser = await ctx.orm.User.findOne({ where: { accessToken: ctx.header.accesstoken } });
+  ctx.state.currentUser = await ctx.orm.User.findOne(
+    { where: { accessToken: ctx.header.accesstoken } },
+  );
   if (!ctx.state.currentUser) {
     ctx.body = { error: 'Invalid accessToken' };
     ctx.status = 401;
     return;
   }
 
-  return next();
+  await next();
 }
 
 async function loadEvaluation(ctx, next) {
@@ -30,7 +32,7 @@ async function loadEvaluation(ctx, next) {
 router.get('api.evaluations.list', '/', async (ctx) => {
   let evaluationsList;
   if (ctx.query.CourseId) {
-    let course = await ctx.orm.Course.findByPk(ctx.query.CourseId);
+    const course = await ctx.orm.Course.findByPk(ctx.query.CourseId);
     evaluationsList = await course.getEvaluations({
       include: [
         { model: ctx.orm.Course },
@@ -67,11 +69,11 @@ router.get('api.evaluations.list', '/', async (ctx) => {
 
 router.get('api.evaluations.show', '/:id', async (ctx) => {
   const evaluation = await ctx.orm.Evaluation.findByPk(ctx.params.id, {
-      include: [
-        { model: ctx.orm.Course },
-        { model: ctx.orm.ProfessorName },
-      ],
-    });
+    include: [
+      { model: ctx.orm.Course },
+      { model: ctx.orm.ProfessorName },
+    ],
+  });
   ctx.body = ctx.jsonSerializer('evaluation', {
     pluralizeType: false,
     attributes: ['comment', 'year', 'semester', 'timeRating', 'difficultyRating', 'response', 'ProfessorName'],
@@ -92,7 +94,6 @@ router.post('api.evaluations.create', '/', auth, async (ctx) => {
   } catch (validationError) {
     ctx.body = ctx.errorToStringArray(validationError);
     ctx.status = 400;
-    return;
   }
 });
 
@@ -104,7 +105,7 @@ router.del('api.evaluations.delete', '/:id', auth, loadEvaluation, async (ctx) =
     return;
   }
 
-  if (ctx.state.currentUser.role != 'admin' && ctx.state.currentUser.id != evaluation.UserId) {
+  if (ctx.state.currentUser.role !== 'admin' && ctx.state.currentUser.id !== evaluation.UserId) {
     ctx.body = { error: 'No permission' };
     ctx.status = 403;
     return;
@@ -112,7 +113,6 @@ router.del('api.evaluations.delete', '/:id', auth, loadEvaluation, async (ctx) =
 
   await evaluation.destroy();
   ctx.status = 200;
-  return;
 });
 
 module.exports = router;

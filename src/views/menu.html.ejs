@@ -1,6 +1,5 @@
 <nav>
-  <a href="/universities"     class="menu-item menu-link"><i class="fas fa-user-graduate"></i> EvaCursos</a>
-  
+  <a href="/universities" class="menu-item menu-link"><i class="fas fa-user-graduate"></i> EvaCursos</a>
   <% if (currentUser) { %>
     <% if (currentUser.role === "admin")  { %>
       <a href = "/dashboard" class="menu-item menu-link"><i class="fas fa-chart-line"></i> Dashboard</a>

@@ -17,24 +17,9 @@
     }
 }
 
-// .card form {
-//     display: inline;
-// }
-
 .card ul {
-    // width: fit-content;
     margin: 0;
 }
-
-// .card input.submit {
-//     border: none;
-//     background-color: transparent;
-//     cursor: pointer;
-// }
-
-// .card input:active {
-//     outline: none;
-// }
 
 .card {
     width: fit-content;
@@ -76,9 +61,6 @@
     font-size: 1.2rem;
 }
 
-// .card-contents {
-    // width: fit-content;
-// }
 
 .card-button-container {
     display: flex;
@@ -101,8 +83,6 @@
     cursor: pointer;
     background-color: $secondary-color;
     font-size: 1rem;
-    // font-family: sans-serif;
-    // display: inline-block;
 }
 
 .card-button:hover {
@@ -111,9 +91,6 @@
 
 .card:not(.title):hover {
     box-shadow: 0 0 0.2rem 0 $shadow-color-dark;
-    // background-color: $primary-color;
-    // color: $bold-;
-    // border: solid thin $text-color;
 }
 
 .card:hover .card-button{

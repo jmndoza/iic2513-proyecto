@@ -9,14 +9,15 @@ async function auth(ctx, next) {
     ctx.status = 401;
     return;
   }
-  ctx.state.currentUser = await ctx.orm.User.findOne({ where: { accessToken: ctx.header.accesstoken } });
+  ctx.state.currentUser = await ctx.orm.User.findOne(
+    { where: { accessToken: ctx.header.accesstoken } },
+  );
   if (!ctx.state.currentUser) {
     ctx.body = { error: 'Invalid accessToken' };
     ctx.status = 401;
     return;
   }
-
-  return next();
+  await next();
 }
 
 async function loadUniversity(ctx, next) {
@@ -24,7 +25,7 @@ async function loadUniversity(ctx, next) {
     include: [{ all: true }],
     where: { id: ctx.params.id },
   });
-  return next();
+  await next();
 }
 
 router.get('api.universities.list', '/', async (ctx) => {
@@ -37,6 +38,7 @@ router.get('api.universities.list', '/', async (ctx) => {
     },
     dataLinks: {
       self: (dataset, university) => ctx.router.url('api.universities.show', { id: university.id }),
+      delete: (dataset, university) => ctx.router.url('api.universities.delete', { id: university.id }),
     },
   }).serialize(universitiesList);
 });
@@ -54,7 +56,7 @@ router.get('api.universities.show', '/:id', async (ctx) => {
 });
 
 router.post('api.universities.create', '/', auth, async (ctx) => {
-  if (ctx.state.currentUser.role != 'admin') {
+  if (ctx.state.currentUser.role !== 'admin') {
     ctx.body = { error: 'No permission' };
     ctx.status = 403;
     return;
@@ -63,16 +65,14 @@ router.post('api.universities.create', '/', auth, async (ctx) => {
   try {
     await university.save({ fields: ['code', 'name', 'domain'] });
     ctx.status = 200;
-    return;
   } catch (validationError) {
     ctx.body = ctx.errorToStringArray(validationError);
     ctx.status = 400;
-    return;
   }
 });
 
-router.del('api.universities.delete', '/:id', auth, loadUniversity, async (ctx) => {
-  if (ctx.state.currentUser.role != 'admin') {
+router.delete('api.universities.delete', '/:id', auth, loadUniversity, async (ctx) => {
+  if (ctx.state.currentUser.role !== 'admin') {
     ctx.body = { error: 'No permission' };
     ctx.status = 403;
     return;
@@ -87,7 +87,6 @@ router.del('api.universities.delete', '/:id', auth, loadUniversity, async (ctx) 
 
   await university.destroy();
   ctx.status = 200;
-  return;
 });
 
 module.exports = router;
