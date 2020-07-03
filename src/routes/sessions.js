@@ -1,12 +1,18 @@
 const KoaRouter = require('koa-router');
 const crypto = require('crypto');
-
+const utils = require('../utils');
 const router = new KoaRouter();
 
-router.get('sessions.new', '/new', (ctx) => ctx.render('sessions/new', {
-  createSessionPath: ctx.router.url('sessions.create'),
-  notice: ctx.flashMessage.notice,
-}));
+router.get('sessions.new', '/new', async (ctx) => {
+  const photos = await utils.loadPhoto(ctx);
+  const img = photos.data.results[Math.floor(Math.random() * photos.data.results.length)];
+  return ctx.render('sessions/new', {
+    createSessionPath: ctx.router.url('sessions.create'),
+    universitiesPath: ctx.router.url('universities.list'),
+    loginPhoto: img.urls.full,
+    notice: ctx.flashMessage.notice,
+  });
+});
 
 router.put('sessions.create', '/', async (ctx) => {
   const { email, password } = ctx.request.body;
@@ -21,6 +27,7 @@ router.put('sessions.create', '/', async (ctx) => {
   }
   return ctx.render('sessions/new', {
     createSessionPath: ctx.router.url('sessions.create'),
+    universitiesPath: ctx.router.url('universities.list'),
     notice: ctx.flashMessage.notice,
     errors: ctx.errorToStringArray('Incorrect email or password'),
   });
