@@ -1,6 +1,7 @@
 const KoaRouter = require('koa-router');
 const crypto = require('crypto');
 const utils = require('../utils');
+
 const router = new KoaRouter();
 
 router.get('sessions.new', '/new', async (ctx) => {

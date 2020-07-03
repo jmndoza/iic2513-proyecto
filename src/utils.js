@@ -43,14 +43,13 @@ module.exports.loadUniversityPaths = function (ctx) {
   ctx.state.deleteUniversityPath = (university) => ctx.router.url('universities.delete', { id: university.id });
 };
 
-module.exports.loadPhoto = async function (ctx) {
-  const keys = ['college', 'university'];
+module.exports.loadPhoto = async function () {
+  const keys = ['study', 'course'];
   const randomValue = keys[Math.floor(Math.random() * keys.length)];
   const config = {
     method: 'get',
     url: `https://api.unsplash.com/search/photos?client_id=${process.env.UNSPLASH}&query=${randomValue}&orientation=landscape`,
   };
-  console.log(config);
   const res = await axios(config);
   return res;
 };
