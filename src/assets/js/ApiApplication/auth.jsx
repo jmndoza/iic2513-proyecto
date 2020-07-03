@@ -3,9 +3,9 @@ import React, { useCallback, useState } from 'react';
 import { hot } from 'react-hot-loader';
 
 function Auth(props) {
+  const { setStatus } = props;
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
-  const [status, setStatus] = useState('Not Authorized');
 
   const handleEmailChange = useCallback((event) => setEmail(event.target.value));
   const handlePasswordChange = useCallback((event) => setPassword(event.target.value));
@@ -22,13 +22,14 @@ function Auth(props) {
       props.setAccessToken(response.accessToken);
       setStatus(`Authorized: ${response.accessToken}`);
     } else {
-      setStatus(`${response.status}, ${response.statusText}`);
+      const error = await response.text();
+      setStatus(`${response.status}, ${response.statusText}, ${error}`);
     }
   });
 
   return (
     <div>
-      <div>{status}</div>
+      <h3>Authorize</h3>
       <input type="email" name="email" onChange={handleEmailChange} value={email} placeholder="email" />
       <input type="password" name="password" onChange={handlePasswordChange} value={password} placeholder="password" />
       <button type="button" onClick={handleSubmit}>Authorize</button>
