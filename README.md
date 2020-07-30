@@ -27,7 +27,7 @@
 ## Variables de entorno
 * `DB_NAME`: nombre de la base de datos
 * `DB_HOST`: host de la base de datos
-* `GOOGLE_APPLICATION_CREDENTIALS`: credentials para la API Google Cloud Storage
+* `GOOGLE_APPLICATION_CREDENTIALS`: credentials para la API Google Cloud Storage (path)
 * `UNSPLASH`: client ID de la API unsplash
 
 ## Ejecutar la App
